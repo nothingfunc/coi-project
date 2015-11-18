@@ -52,7 +52,10 @@ module.exports = myApp =>
       //登录
       services.login = makeService({method: 'POST', url: '/util/Login.action'});
       services.getSessionInfo = makeService({method: 'POST', url: '/util/GetSessionInfo.action'});
+
+      //任务
       services.getAllUnSubMission = makeService({method: 'POST', url: '/mission/GetAllUnSubMission.action'});
+      services.createNewMission = makeService({method: 'POST', url: '/mission/CreateNewMission.action'});
 
       return services;
     }
