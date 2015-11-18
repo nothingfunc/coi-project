@@ -52,6 +52,7 @@ module.exports = myApp =>
       //登录
       services.login = makeService({method: 'POST', url: '/util/Login.action'});
       services.getSessionInfo = makeService({method: 'POST', url: '/util/GetSessionInfo.action'});
+      services.getAllUnSubMission = makeService({method: 'POST', url: '/mission/GetAllUnSubMission.action'});
 
       return services;
     }

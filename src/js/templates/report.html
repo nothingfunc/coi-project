@@ -1,15 +1,315 @@
+<html>
+<head></head>
+<body>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>
-      数据上报
-      <small>还有 <strong>4</strong> 条未上报任务</small>
-    </h1>
+    <h1> 数据上报ssss <small>还有 <strong>4</strong> 条未上报任务</small> </h1>
     <!--<ol class="breadcrumb">-->
-      <!--<li><a href="#"><i class="fa fa-files-o"></i> 数据上报</a></li>-->
-      <!--<li class="active">上报类型A</li>-->
+    <!--<li><a href="#"><i class="fa fa-files-o"></i> 数据上报</a></li>-->
+    <!--<li class="active">上报类型A</li>-->
     <!--</ol>-->
+    {{data.missions}}
   </section>
-  <div class="content">
+  <section class="content">
     <!--<home-component store="props">Loading user...</home-component>-->
-  </div>
+    <div class="row">
+      <div class="col-md-4 ">
+        <div class="box box-success">
+          <div class="box-header">
+            <h3 class="box-title">未上报任务</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool text-red" data-widget="collapse"><i class="fa fa-upload"></i><span> 提交任务</span></button>
+              <button class="btn btn-box-tool text-green" data-widget="collapse"><i class="fa fa-plus-circle"></i><span> 创建任务</span></button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <table class="table table-condensed table-hover">
+              <tbody>
+              <tr>
+                <th>选中</th>
+                <th>#</th>
+                <th>任务名称</th>
+                <th>审核状态</th>
+                <th>审核意见</th>
+              </tr>
+              <tr ng-repeat="item in data.missions">
+                <td><input type="checkbox" name=""/></td>
+                <td>{{item.MISSION_ID}}</td>
+                <td>{{item.MISSION_NAME}}</td>
+                <td><span class="label label-default">{{item.MISSION_CHECK}}</span></td>
+                <td>{{item.MISSION_CHEMSG}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="box box-success">
+          <div class="box-header">
+            <h3 class="box-title"> 数据列表</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool text-green">
+                <div class="dropdown ">
+                  <a class="dropdown-toggle text-green" data-toggle="dropdown" href="javascript:;"><i class="fa fa-plus-circle"></i><span> 添加数据 </span><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">添加非工程样地</a> </li>
+                    <li><a href="#">添加非工程样地</a> </li>
+                    <li><a href="#">添加非工程样地</a> </li>
+                    <li><a href="#">添加非工程样地</a> </li>
+                  </ul>
+                </div> </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <table class="table table-condensed table-hover">
+              <tbody>
+              <tr>
+                <th>数据编号</th>
+                <th style="width:100px;">审核状态</th>
+              </tr>
+              <tr ng-repeat="item in data.missions">
+                <td>{{item.MISSION_ID}}</td>
+                <td><span class="label label-default">未上报</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title"> 添加非工程样地</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool"><i class="fa fa-expand"></i> </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <form class="form-horizontal">
+              <div class="box-body">
+                <h4 class="with-border"><span>基本信息</span></h4>
+                <div class="form-group-sm clearfix">
+                  <div class="clearfix pull-left margin-r-20">
+                    <label class="pull-left control-label">调查时间：</label>
+                    <div class="pull-left">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left margin-r-20">
+                    <label class="pull-left control-label">样地编号：</label>
+                    <div class="pull-left">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">调查人：</label>
+                    <div class="pull-left">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left margin-r-10">
+                    <label class="pull-left control-label">样地所在行政区：</label>
+                    <div class="pull-left margin-r-5">
+                      <select class="form-control"> <option>全国</option> <option>北京</option> </select>
+                    </div>
+                    <span class="pull-left control-label margin-r-5">省（自治区）</span>
+                    <div class="pull-left margin-r-5">
+                      <select class="form-control"> <option>巴林左旗</option> </select>
+                    </div>
+                    <span class="pull-left control-label margin-r-5">市</span>
+                    <div class="pull-left margin-r-5">
+                      <select class="form-control"> <option>喀喇沁旗</option> </select>
+                    </div>
+                    <span class="pull-left control-label margin-r-5">县</span>
+                    <div class="pull-left margin-r-5">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <span class="pull-left control-label margin-r-5">乡</span>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <label class="pull-left control-label">建成时间：</label>
+                  <div class="pull-left margin-r-20">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <label class="pull-left control-label">景观照片编号：</label>
+                  <div class="pull-left">
+                    <input type="file" class="form-control" />
+                  </div>
+                </div>
+                <h4 class="with-border"><span>类型</span> </h4>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <label class="pull-left control-label">草地类：</label>
+                  <div class="pull-left margin-r-20">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <label class="pull-left control-label">草地型：</label>
+                  <div class="pull-left margin-r-20">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <label class="pull-left control-label">具有灌木和高大草木：</label>
+                  <div class="pull-left radio">
+                    <label class=" margin-r-5"><input type="radio" name="gm" /><span>有</span></label>
+                    <label><input type="radio" name="gm" /><span>无</span></label>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">地貌：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class=" margin-r-5"><input type="radio" name="dm" /><span>平原</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="dm" /><span>山地</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="dm" /><span>丘陵</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="dm" /><span>高原</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="dm" /><span>盆地</span></label>
+                    </div>
+                    <label class="pull-left control-label">土壤质地：</label>
+                    <div class="pull-left radio">
+                      <label class=" margin-r-5"><input type="radio" name="zd" /><span>砾石质</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="zd" /><span>沙土</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="zd" /><span>壤土</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="zd" /><span>粘土</span></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <label class="pull-left control-label">坡向：</label>
+                  <div class="pull-left margin-r-20 radio">
+                    <label class=" margin-r-5"><input type="radio" name="px" /><span>阴坡</span></label>
+                    <label class=" margin-r-5"><input type="radio" name="px" /><span>阳坡</span></label>
+                    <label class=" margin-r-5"><input type="radio" name="px" /><span>半阴坡</span></label>
+                    <label class=" margin-r-5"><input type="radio" name="px" /><span>半阳坡</span></label>
+                  </div>
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">坡位：</label>
+                    <div class="pull-left radio">
+                      <label class=" margin-r-5"><input type="radio" name="pw" /><span>坡顶</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="pw" /><span>坡上部</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="pw" /><span>坡中部</span></label>
+                      <label class=" margin-r-5"><input type="radio" name="dm" /><span>坡下部</span></label>
+                    </div>
+                  </div>
+                </div>
+                <h4 class="with-border"><span>地表特征</span> </h4>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">枯落物情况：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class=" margin-r-5"><input type="radio" name="klw" /><span>有</span></label>
+                      <label class=""><input type="radio" name="klw" /><span>无</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">覆沙情况：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class=" margin-r-5"><input type="radio" name="fs" /><span>有</span></label>
+                      <label class=""><input type="radio" name="fs" /><span>无</span></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">侵蚀情况：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class=" margin-r-5"><input type="radio" name="qs" /><span>有</span></label>
+                      <label class=""><input type="radio" name="qs" /><span>无</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">侵蚀原因：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class="margin-r-5"><input type="radio" name="qsyy" /><span>风蚀</span></label>
+                      <label class="margin-r-5"><input type="radio" name="qsyy" /><span>水蚀</span></label>
+                      <label class="margin-r-5"><input type="radio" name="qsyy" /><span>冻蚀</span></label>
+                      <label class="margin-r-5"><input type="radio" name="qsyy" /><span>超载</span></label>
+                      <label class="margin-r-5"><input type="radio" name="qsyy" /><span>其他</span></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">盐碱斑：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class=" margin-r-5"><input type="radio" name="yjb" /><span>有</span></label>
+                      <label class=""><input type="radio" name="yjb" /><span>无</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">裸地面积比例：</label>
+                    <div class="pull-left radio">
+                      <label class=" margin-r-5"><input type="radio" name="ldmj" /><span>0 ~ 5%</span></label>
+                      <label class=""><input type="radio" name="ldmj" /><span>5 ~ 50%</span></label>
+                    </div>
+                  </div>
+                </div>
+                <h4 class="with-border"><span>水分条件</span> </h4>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">体表有无季节性缺水：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class=" margin-r-5"><input type="radio" name="jjxqs" /><span>有</span></label>
+                      <label class=""><input type="radio" name="jjxqs" /><span>无</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">年平均降水量：</label>
+                    <div class="pull-left margin-r-5">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <span class="pull-left control-label">mm</span>
+                  </div>
+                </div>
+                <h4 class="with-border"><span>利用</span> </h4>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">利用方式：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>全年放牧</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>冷季放牧</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>暖季放牧</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>春秋放牧</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>打草</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>禁牧</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyfs" /><span>其他</span></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">利用状况：</label>
+                    <div class="pull-left margin-r-20 radio">
+                      <label class="margin-r-5"><input type="radio" name="lyzk" /><span>未利用</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyzk" /><span>轻度利用</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyzk" /><span>合理利用</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyzk" /><span>超载</span></label>
+                      <label class="margin-r-5"><input type="radio" name="lyzk" /><span>严重超载</span></label>
+                    </div>
+                  </div>
+                </div>
+                <h4 class="with-border"><span>评价</span> </h4>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <label class="pull-left control-label">综合评价：</label>
+                  <div class="pull-left margin-r-20 radio">
+                    <label class="margin-r-5"><input type="radio" name="zhpj" /><span>好</span></label>
+                    <label class="margin-r-5"><input type="radio" name="zhpj" /><span>中</span></label>
+                    <label class="margin-r-5"><input type="radio" name="zhpj" /><span>差</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-default margin-r-20 pull-left"> 添加灌木样方 </button>
+                <div class="pull-right">
+                  <button type="submit" class="btn btn-success margin-r-20 pull-left">保存 </button>
+                  <button type="submit" class="btn btn-default pull-left">取消 </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
+</body>
+</html>

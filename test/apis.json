@@ -31,18 +31,22 @@
       }
     }
   ],
-  "Admin": [
+  "Mission": [
     {
-      "url": "/admin/user",
-      "desc": "获取登录信息",
+      "url": "/mission/GetAllUnSubMission.action",
+      "desc": "获取未上报任务",
       "mock": true,
       "res": {
-        "code": 202220,
+        "success": "1",
         "msg": "Not logined",
-        "data": {
-          "email": "@email()",
-          "loginName": "@first() @last()"
-        }
+        "rows|0-20": [{
+          "MISSION_ID": "@integer(0, 99999)",
+          "MISSION_CODE": "@id()",
+          "MISSION_CHECK": "待审核",
+          "MISSION_CHEMSG": "@word(4)",
+          "MISSION_NOTE": "@word(4)",
+          "MISSION_NAME": "@word(4)"
+        }]
       }
     },
     {
