@@ -32,7 +32,7 @@
                 <th>审核意见</th>
               </tr>
               <tr ng-repeat="item in data.missions">
-                <td><input type="checkbox" name=""/></td>
+                <td style="text-align: right"><input type="checkbox" icheck ng-model="item._selected"/></td>
                 <td>{{item.MISSION_ID}}</td>
                 <td>{{item.MISSION_NAME}}</td>
                 <td><span class="label label-default">{{item.MISSION_CHECK}}</span></td>
@@ -87,7 +87,9 @@
               <div class="box-body">
                 <div class="form-group-sm clearfix">
                   <div class="clearfix pull-left margin-r-20">
-                    <label class="pull-left control-label">任务编号：</label>
+                    <label class="pull-left control-label">部门编号：
+                      {{$parent.getUserDepts()}}
+                    </label>
                     <div class="pull-left">
                       <input ng-model="taskParamData.MISSION_CODE" type="text" class="form-control" required/>
                     </div>

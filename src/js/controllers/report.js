@@ -44,7 +44,13 @@ module.exports = myApp =>
       }
 
       $scope.createTask = () => {
-        console.log($scope.taskParamData);
+        apiService.createNewMission($scope.taskParamData).then(res => {
+          var data = res.data;
+          if(data.success = CONST.API_SUCCESS) {
+            $scope.cancelCreateTask();
+            getMissions();
+          }
+        })
       }
       $scope.createTaskFull = () => {
         if ($scope.state.createTaskFull === false) {

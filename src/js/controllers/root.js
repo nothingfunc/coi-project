@@ -25,6 +25,9 @@ module.exports = myApp =>
       };
     };
 
+    $rootScope.getUserDepts = () => $rootScope.data.user.userdept;
+
+
     $rootScope.loading = toggle => $rootScope.state.isLoading = toggle!==undefined?toggle : true;
     $rootScope.getUser = noAlert => {
       var deferred = $q.defer();
