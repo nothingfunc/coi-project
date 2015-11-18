@@ -35,8 +35,10 @@ html {
   transition: all 0.5s;
   float: right;
 }
-
 /* Layout */
+.skin-green-light {
+  position: relative;
+}
 .wrapper {
   min-height: 100%;
   position: static;
@@ -447,8 +449,8 @@ a:focus {
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
   padding-top: 50px;
-  min-height: 100%;
   width: 125px;
   z-index: 810;
   -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;

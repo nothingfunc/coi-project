@@ -3,7 +3,7 @@
 <body>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1> 数据上报ssss <small>还有 <strong>4</strong> 条未上报任务</small> </h1>
+    <h1> 数据上报 <small>还有 <strong>{{data.missions.length}}</strong> 条未上报任务</small> </h1>
     <!--<ol class="breadcrumb">-->
     <!--<li><a href="#"><i class="fa fa-files-o"></i> 数据上报</a></li>-->
     <!--<li class="active">上报类型A</li>-->
@@ -42,7 +42,7 @@
             </table>
           </div>
         </div>
-        <div class="box box-success">
+        <div class="box box-success hidden">
           <div class="box-header">
             <h3 class="box-title"> 数据列表</h3>
             <div class="box-tools pull-right">
