@@ -1,0 +1,942 @@
+{
+  "Login": [
+    {
+      "url": "/login",
+      "desc": "登录",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "msg": "登录成功"
+      }
+    }
+  ],
+
+  "Metrics": [
+    {
+      "url": "/statistics/metrics",
+      "desc": "根据条件统计Chat指标(Metrics)",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Statistics Chat Metrics Success.",
+        "data": {
+          "averageMetrics": {
+            "totalChats": "@integer(0,5000)",
+            "averageAnswerTime": "@integer(0,5000)",
+            "averageDurationTime": "@integer(0,5000)"
+          },
+          "pagedPayload": {
+            "totalCount": "@integer(0, 500)",
+            "pageNo": 1,
+            "totalPage": 1,
+            "pageSize": 10,
+            "items|0-20": [
+              {
+                "language": "@pick(['nl', 'de', 'el', 'zh-rCN'])",
+                "country": "@pick(['ar', 'ca', 'cl', 'co'])",
+                "phoneModel": "@word(3)_@integer(100,999)",
+                "date": "@datetime('yyyy-MM-dd')",
+                "answerTime": "@integer(0, 500)",
+                "durationTime": "@integer(0, 500)",
+                "operatorName": "@last()"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+
+  "All": [
+    {
+      "url": "/dept/select",
+      "desc": "获取所有部门id and name, 供前台下列列表使用",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Get department select option success.",
+        "data|0-3": [
+          {
+            "id|+1": 1,
+            "name": "@word(10)"
+          }
+        ]
+      }
+    }, {
+      "url": "/operator/select",
+      "desc": "获取所有operator下拉列表",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "",
+        "data|0-500": [
+          {
+            "id|+1": 1,
+            "name": "@last()"
+          }
+        ]
+      }
+    }, {
+      "url": "/operator/create",
+      "desc": "创建operator",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success create operator!",
+        "data": 1
+      }
+    }, {
+      "url": "/operator/update",
+      "desc": "更新operator",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success update operator!",
+        "data": 1
+      }
+    }, {
+      "url": "/operator/detail/",
+      "desc": "获取operator详情",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "update success",
+        "data": {
+          "id": 2,
+          "loginName": "@last()",
+          "name": "@last()",
+          "email": "@email",
+          "deptIds|1-5": ["@integer(1, 5)"],
+          "limitMax": "@integer(1, 5)",
+          "rateFlag": "@integer(1, 2)",
+          "reqSoundOpen": 2,
+          "msgSoundOpen": 2,
+          "reqSoundId": null,
+          "msgSoundId": null,
+          "createTime": "2015-07-14"
+        }
+      }
+    }, {
+      "url": "/language/select",
+      "desc": "获取所有语言code and name, 供前台下列列表使用",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Get Language Select Option Success",
+        "data": [
+          {
+            "languageCode": "zh-rCN",
+            "languageName": "China_new"
+          }, {
+            "languageCode": "zh-rHK",
+            "languageName": "China_old"
+          }, {
+            "languageCode": "en",
+            "languageName": "English"
+          }, {
+            "languageCode": "fr",
+            "languageName": "French"
+          }, {
+            "languageCode": "nl",
+            "languageName": "Dutch"
+          }, {
+            "languageCode": "de",
+            "languageName": "German"
+          }, {
+            "languageCode": "el",
+            "languageName": "Greek"
+          }, {
+            "languageCode": "hu",
+            "languageName": "Hungarian"
+          }, {
+            "languageCode": "it",
+            "languageName": "Italian"
+          }, {
+            "languageCode": "pt",
+            "languageName": "Portuguese"
+          }, {
+            "languageCode": "es",
+            "languageName": "Spanish"
+          }, {
+            "languageCode": "tr",
+            "languageName": "Turkish"
+          }, {
+            "languageCode": "pl",
+            "languageName": "Polish"
+          }, {
+            "languageCode": "cs",
+            "languageName": "Czech"
+          }, {
+            "languageCode": "ms",
+            "languageName": "Malay"
+          }, {
+            "languageCode": "in",
+            "languageName": "Iindonesian"
+          }, {
+            "languageCode": "sk",
+            "languageName": "Slovak"
+          }, {
+            "languageCode": "ro",
+            "languageName": "Romanian"
+          }, {
+            "languageCode": "sl",
+            "languageName": "Slovenian"
+          }, {
+            "languageCode": "th",
+            "languageName": "Thai"
+          }, {
+            "languageCode": "sr",
+            "languageName": "Serbian"
+          }, {
+            "languageCode": "gl",
+            "languageName": "Galician"
+          }, {
+            "languageCode": "vi",
+            "languageName": "Vietnamese"
+          }, {
+            "languageCode": "pt-rBR",
+            "languageName": "Brazilian"
+          }, {
+            "languageCode": "ja",
+            "languageName": "Japanese"
+          }, {
+            "languageCode": "es-rLA",
+            "languageName": "Iatinesp"
+          }, {
+            "languageCode": "fa",
+            "languageName": "Farsi"
+          }, {
+            "languageCode": "hr",
+            "languageName": "Croatian"
+          }, {
+            "languageCode": "ru",
+            "languageName": "Russian"
+          }, {
+            "languageCode": "ar",
+            "languageName": "Arabic"
+          }, {
+            "languageCode": "ca",
+            "languageName": "Catalan"
+          }, {
+            "languageCode": "da",
+            "languageName": "Danish"
+          }, {
+            "languageCode": "fi",
+            "languageName": "Finnish"
+          }, {
+            "languageCode": "fr-rCA",
+            "languageName": "French_ca"
+          }, {
+            "languageCode": "no",
+            "languageName": "Norwegian"
+          }, {
+            "languageCode": "sv",
+            "languageName": "Swedish"
+          }, {
+            "languageCode": "eu",
+            "languageName": "Euskera"
+          }, {
+            "languageCode": "sq",
+            "languageName": "Albanian"
+          }, {
+            "languageCode": "bn-rBD",
+            "languageName": "Bengali"
+          }, {
+            "languageCode": "bg",
+            "languageName": "Bulgarian"
+          }, {
+            "languageCode": "km-rKH",
+            "languageName": "Cambodian"
+          }, {
+            "languageCode": "et",
+            "languageName": "Estonian"
+          }, {
+            "languageCode": "he",
+            "languageName": "Hebrew"
+          }, {
+            "languageCode": "ko",
+            "languageName": "Korean"
+          }, {
+            "languageCode": "lo-rLA",
+            "languageName": "Laotian"
+          }, {
+            "languageCode": "lv",
+            "languageName": "Latvian"
+          }, {
+            "languageCode": "lt",
+            "languageName": "Lithuanian"
+          }, {
+            "languageCode": "mk",
+            "languageName": "Macedonian"
+          }, {
+            "languageCode": "my-rMM",
+            "languageName": "Myanmar"
+          }, {
+            "languageCode": "uk",
+            "languageName": "Ukrainian"
+          }
+        ]
+      }
+    }, {
+      "url": "/country/select",
+      "desc": "Trantscripts Report",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Get Country Select Option Success",
+        "data": [
+          {
+            "countryCode": "ar",
+            "countryName": "Argentina"
+          }, {
+            "countryCode": "br",
+            "countryName": "Brazil"
+          }, {
+            "countryCode": "ca",
+            "countryName": "Canada"
+          }, {
+            "countryCode": "lac",
+            "countryName": "Central America"
+          }, {
+            "countryCode": "cl",
+            "countryName": "Chile"
+          }, {
+            "countryCode": "co",
+            "countryName": "Colombia"
+          }, {
+            "countryCode": "do",
+            "countryName": "Dominican Republic"
+          }, {
+            "countryCode": "mx",
+            "countryName": "Mexico"
+          }, {
+            "countryCode": "pe",
+            "countryName": "Peru"
+          }, {
+            "countryCode": "pr",
+            "countryName": "Puerto Rico"
+          }, {
+            "countryCode": "usa",
+            "countryName": "United States"
+          }, {
+            "countryCode": "ve",
+            "countryName": "Venezuela"
+          }, {
+            "countryCode": "ec",
+            "countryName": "Ecuador"
+          }, {
+            "countryCode": "uy",
+            "countryName": "Uruguay"
+          }, {
+            "countryCode": "cari",
+            "countryName": "Caribbean"
+          }, {
+            "countryCode": "bol",
+            "countryName": "Bolivia"
+          }, {
+            "countryCode": "pry",
+            "countryName": "Paraguay"
+          }, {
+            "countryCode": "at",
+            "countryName": "Austria"
+          }, {
+            "countryCode": "by",
+            "countryName": "Belarus"
+          }, {
+            "countryCode": "bg",
+            "countryName": "Bulgaria"
+          }, {
+            "countryCode": "fr",
+            "countryName": "France"
+          }, {
+            "countryCode": "de",
+            "countryName": "Germany"
+          }, {
+            "countryCode": "gr",
+            "countryName": "Greece"
+          }, {
+            "countryCode": "hu",
+            "countryName": "Hungary"
+          }, {
+            "countryCode": "it",
+            "countryName": "Italy"
+          }, {
+            "countryCode": "kz",
+            "countryName": "Kazakhstan"
+          }, {
+            "countryCode": "mk",
+            "countryName": "Macedonia"
+          }, {
+            "countryCode": "nl",
+            "countryName": "Netherlands"
+          }, {
+            "countryCode": "pl",
+            "countryName": "Poland"
+          }, {
+            "countryCode": "ru",
+            "countryName": "Russia"
+          }, {
+            "countryCode": "rs",
+            "countryName": "Serbia"
+          }, {
+            "countryCode": "tr",
+            "countryName": "Turkey"
+          }, {
+            "countryCode": "es",
+            "countryName": "Spain"
+          }, {
+            "countryCode": "ua",
+            "countryName": "Ukraine"
+          }, {
+            "countryCode": "uk",
+            "countryName": "United Kingdom"
+          }, {
+            "countryCode": "sw",
+            "countryName": "Sweden"
+          }, {
+            "countryCode": "nor",
+            "countryName": "Norway"
+          }, {
+            "countryCode": "cz",
+            "countryName": "Czech"
+          }, {
+            "countryCode": "al",
+            "countryName": "Albania"
+          }, {
+            "countryCode": "pt",
+            "countryName": "Portugal"
+          }, {
+            "countryCode": "hr",
+            "countryName": "Croatia"
+          }, {
+            "countryCode": "sk",
+            "countryName": "Slovakia"
+          }, {
+            "countryCode": "bef",
+            "countryName": "Belgium (Fr)"
+          }, {
+            "countryCode": "ben",
+            "countryName": "Belgium (Nl)"
+          }, {
+            "countryCode": "az",
+            "countryName": "Azerbaijan"
+          }, {
+            "countryCode": "ro",
+            "countryName": "Romania"
+          }, {
+            "countryCode": "dz",
+            "countryName": "Algeria"
+          }, {
+            "countryCode": "gh",
+            "countryName": "Ghana"
+          }, {
+            "countryCode": "ci",
+            "countryName": "Ivory Coast"
+          }, {
+            "countryCode": "ke",
+            "countryName": "Kenya"
+          }, {
+            "countryCode": "ma",
+            "countryName": "Morocco"
+          }, {
+            "countryCode": "za",
+            "countryName": "South Africa"
+          }, {
+            "countryCode": "tn",
+            "countryName": "Tunisia"
+          }, {
+            "countryCode": "tz",
+            "countryName": "Tanzania"
+          }, {
+            "countryCode": "sn",
+            "countryName": "Senegal"
+          }, {
+            "countryCode": "mali",
+            "countryName": "Mali"
+          }, {
+            "countryCode": "ga",
+            "countryName": "Gabon"
+          }, {
+            "countryCode": "mg",
+            "countryName": "Madagascar"
+          }, {
+            "countryCode": "zm",
+            "countryName": "Zambia"
+          }, {
+            "countryCode": "mz",
+            "countryName": "Mozambique"
+          }, {
+            "countryCode": "in",
+            "countryName": "India"
+          }, {
+            "countryCode": "id",
+            "countryName": "Indonesia"
+          }, {
+            "countryCode": "ml",
+            "countryName": "Malaysia"
+          }, {
+            "countryCode": "ph",
+            "countryName": "Philippines"
+          }, {
+            "countryCode": "sg",
+            "countryName": "Singapore"
+          }, {
+            "countryCode": "vn",
+            "countryName": "Vietnam"
+          }, {
+            "countryCode": "hk",
+            "countryName": "HongKong"
+          }, {
+            "countryCode": "tw",
+            "countryName": "Taiwan"
+          }, {
+            "countryCode": "mm",
+            "countryName": "Myanmar"
+          }, {
+            "countryCode": "th",
+            "countryName": "Thailand"
+          }, {
+            "countryCode": "jp",
+            "countryName": "Japan"
+          }, {
+            "countryCode": "bd",
+            "countryName": "Bangladesh"
+          }, {
+            "countryCode": "bh",
+            "countryName": "Bahrain(En)"
+          }, {
+            "countryCode": "eg",
+            "countryName": "Egypt(En)"
+          }, {
+            "countryCode": "ir",
+            "countryName": "Iran(En)"
+          }, {
+            "countryCode": "iq",
+            "countryName": "Iraq(En)"
+          }, {
+            "countryCode": "jo",
+            "countryName": "Jordan(En)"
+          }, {
+            "countryCode": "ksa",
+            "countryName": "KSA(En)"
+          }, {
+            "countryCode": "kw",
+            "countryName": "Kuwait(En)"
+          }, {
+            "countryCode": "lb",
+            "countryName": "Lebanon(En)"
+          }, {
+            "countryCode": "pse",
+            "countryName": "Palestine(En)"
+          }, {
+            "countryCode": "uae",
+            "countryName": "UAE(En)"
+          }, {
+            "countryCode": "ye",
+            "countryName": "Yemen(En)"
+          }
+        ]
+      }
+    }, {
+      "url": "/product/select",
+      "desc": "Trantscripts Report",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Get Country Select Option Success",
+        "data": ["1009", "1010", "1011", "1013", "1030", "1035", "1040", "1041", "1042", "1045", "1060", "2000", "2001", "2004", "2005", "2007", "2010", "2012", "2017B", "2040", "2045", "2050", "2052", "3000", "3000C", "3000G", "3000H", "3001G", "3003G", "3020", "3022", "3035", "3040", "3041", "3074", "3075", "361", "363", "390", "3G+ - 21Mbps", "3G+ - 7.2Mbps", "4G+ (L850)", "506", "585", "600", "602", "606", "660", "665", "706", "708", "710", "799", "800", "802", "806", "807A", "808", "870", "991", "BH50", "BH60", "CAR HOLDER", "CC40", "CC50", "CP01", "FIRE 2(3.5)", "FIRE C(2G)", "FIRE C(3G)", "FIRE E", "GECKO", "GECKO 2", "GECKO HOLDER HD10", "HERO", "HERO 2", "HERO 2 Aero MagicFlip", "HERO 2 LED MagicFlip", "Hero 2C", "HERO 2C Aero MagicFlip", "HERO 8", "HERO 8 LED MagicFlip", "HERO 8 Stand MagicFlip", "HF10", "HOME F101", "HOME F102", "Home F103", "HOME V102", "IDOL", "IDOL 2", "IDOL 2 FLIPCASE", "IDOL 2 MINI", "IDOL 2 MINI L", "IDOL 2 MINI S", "IDOL 2 MINI S FLIPCASE", "IDOL 2 S", "IDOL 2 S FLIPCASE", "IDOL 3", "IDOL 3 (4.7) AERO FLIPCASE", "IDOL 3 (4.7) TRANSLUCENT SHELL", "IDOL 3 (5.5) AERO FLIPCASE", "IDOL 3 (5.5) TRANSLUCENT SHELL", "IDOL MINI", "IDOL S", "IDOL ULTRA", "IDOL X", "IDOL X+", "IDOL α", "L100", "L800", "LINK 3G", "LINK 4G", "LINK 4G+ (LED)", "LINK W600", "LINK W800", "LINK Y600", "LINK Y850", "LINK Y855", "LINK4G+ (LCD)", "MPOP", "ONE TOUCH EVO 7", "ONE TOUCH EVO 7HD", "ONE TOUCH EVO 8HD", "ONE TOUCH TAB 7", "ONE TOUCH TAB 7 DUAL CORE", "ONE TOUCH TAB 7HD", "ONE TOUCH TAB 8HD", "PIXI", "PIXI 2", "PIXI 3 (3.5) Battery Cover", "PIXI 3 (4) Battery Cover", "PIXI 3 (4) FlipCover", "PIXI 3 (4.5) 4G FlipCover", "PIXI 3 (4.5) Battery Cover", "PIXI 3 (4.5) FlipCover", "PIXI 3 (5) 4G FlipCover", "PIXI 3 (7) 3G", "PIXI 3 (7) 3G ColorSkin", "PIXI 3 (7) 3G STAND FLIPCASE", "PIXI 3 (7) WiFi 8055", "PIXI 3 (7) WiFi 8056", "PIXI 3 (7) WiFi 8057", "PIXI 3 (7) WIFI COLORSKIN", "PIXI 3 (7) WIFI STAND FLIPCASE", "PIXI 3 (8) 3G", "PIXI 3 (8) 3G COLORSKIN", "PIXI 3 (8) 3G STAND FLIPCASE", "PIXI 3(3.5)", "PIXI 3(4)", "PIXI 3(4) FlipCover", "PIXI 3(4.5)", "PIXI 3(5)", "PIXI 7", "PIXI 7 3G", "PIXI 8", "POP (10)", "POP (2) 4.5 FipCase", "POP 2 (4) FlipCover", "POP 2(4)", "POP 2(4.5)", "POP 2(5)", "POP 2(5) Premium", "POP 7", "POP 7S", "POP 8", "POP 8S", "POP 8S ColorSkin", "POP 8S Stand MagicFlip", "POP ASTRO", "POP C1", "POP C2", "POP C3", "POP C5", "POP C7", "POP C9", "POP D1", "POP D3", "POP D5", "POP S3", "POP S7", "POP S9", "POP(10) Color Skin", "POP(10) Docking Station", "POP(10) Keyboard", "POP(10) Stand MagicFlip", "POP(2) 5 FlipCover", "RC20 SMART CONTROL", "SCRIBE", "SCRIBE HD", "SK10 Smart Key", "STAR", "TPOP", "UC11 US", "Watch", "WH35", "WH55", "X230", "X300", "X310", "X500", "X515", "X520", "X600", "X715", "Y580", "Y800"]
+      }
+    }
+  ],
+
+  "Transcripts": [
+    {
+      "url": "/chat/msg/detail",
+      "desc": "Transcripts Detail",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Get transcripts detail ok",
+        "data|0-100": [
+          {
+            "content": "@sentence(1, 10)",
+            "sendDateTime": "@datetime('yyyy-MM-dd HH:mm:ss')",
+            "sendTime": 1441798533766,
+            "sendUser": "@pick(['millet', 'qiaoba'])"
+          }
+        ]
+      }
+    },
+    {
+      "url": "/transcripts/list",
+      "desc": "Transcripts Report",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "search transcripts success.",
+        "data": {
+          "totalCount": 63,
+          "pageNo": 1,
+          "totalPage": 9,
+          "pageSize": 10,
+          "items|0-20": [
+            {
+              "sessionId": "@integer(0, 99999)",
+              "operator": "@last()",
+              "visitor": "@last()",
+              "email": "@email()",
+              "createTime": "2015-07-16",
+              "duration": "@integer(0, 999)",
+              "tQues|0-4": [
+                {
+                  "questionId": 1,
+                  "question": "你好啊vb",
+                  "star": "@integer(1,5)"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+
+  "Department": [
+    {
+      "url": "/dept/list",
+      "desc": "department 列表",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "search transcripts success.",
+        "data": {
+          "totalCount": 60,
+          "pageNo": 1,
+          "totalPage": 1,
+          "pageSize": 10,
+          "items|0-20": [
+            {
+              "id|+1": 1,
+              "name": "@word(10)",
+              "email": "@email()",
+              "routeType": "@integer(1, 3)",
+              "routeWait": "@integer(0, 999)",
+              "routeLoop": "@integer(0, 5)",
+              "messageMonth": "@integer(0, 5)",
+              "language": "zh-rCN"
+            }
+          ]
+        }
+      }
+    }, {
+      "url": "/dept/delete",
+      "desc": "删除department",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": "@integer(0, 300)"
+      }
+    }, {
+      "url": "/dept/create",
+      "desc": "创建dept",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": 1
+      }
+    }, {
+      "url": "/dept/update",
+      "desc": "更新dept",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": 1
+      }
+    }, {
+      "url": "/dept/detail",
+      "desc": "获取dept详情，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Get department detail success.",
+        "data": {
+          "id": 5,
+          "name": "@last",
+          "email": "@email()",
+          "routeType": "@integer(1,3)",
+          "routeWait": "@pick([5, 10, 15, 30, 45, 60])",
+          "routeLoop": "@integer(1,3)",
+          "messageMonth": "@pick([1,3,6,12,0])",
+          "language": "zh-rCN",
+          "createTime": 1436854612000,
+          "modifiedTime": 1436854612000
+        }
+      }
+    }, {
+      "url": "/dept/config/request",
+      "desc": "获取dept request详情，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success get department request config info.",
+        "data": {
+          "deptId": 5,
+          "emailFlag": 1,
+          "questionFlag": "@integer(1,2)",
+          "customQuestions|0-5": [
+            {
+              "id|+1": 1,
+              "content": "@sentence()"
+            }
+          ]
+        }
+      }
+    }, {
+      "url": "/dept/config/connect",
+      "desc": "获取dept connecting详情，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success get department connect config info.",
+        "data": {
+          "deptId": 5,
+          "connectTip": "@sentence()"
+        }
+      }
+    }, {
+      "url": "/dept/config/offline",
+      "desc": "获取dept offline msg，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success get department offline msg config",
+        "data": {
+          "deptId": 5,
+          "offlineTipStand": "有点事,请稍后联系",
+          "offlineTipBusy": "非常忙"
+        }
+      }
+    }, {
+      "url": "/dept/config/transcript",
+      "desc": "获取dept email msg，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success get email msg msg config",
+        "data": {
+          "deptId": 5,
+          "tsEmailHeader": "Email header ~~~~"
+        }
+      }
+    }, {
+      "url": "/dept/config/email",
+      "desc": "获取dept email，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success get department email config.",
+        "data": {
+          "deptId": 5,
+          "tsVisitorFlag": "@integer(1,2)",
+          "tsDeptFlag": "@integer(1,2)",
+          "tsToEmails": "395679791@qq.com;45487@qq.com"
+        }
+      }
+    }, {
+      "url": "/dept/config/auto_offline",
+      "desc": "获取dept auto_offline，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success get department auto_offline config.",
+        "data": {
+          "deptId": 5,
+          "offlineAutoFlag": "@integer(1,2)",
+          "offlineTime": "02:33",
+          "offlineDuration": "@integer(1,23)"
+        }
+      }
+    }
+  ],
+
+  "Canned": [
+    {
+      "url": "/canned/list",
+      "desc": "获取canned列表",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Search Canned Success.",
+        "data": {
+          "totalCount": "@integer(0, 500)",
+          "pageNo": 1,
+          "totalPage": 1,
+          "pageSize": 10,
+          "items|0-20": [
+            {
+              "id|+1": 3000,
+              "title": "@word(5)",
+              "message": "@sentence()",
+              "departmentName": "@word(5)",
+              "status": "@integer(1, 2)"
+            }
+          ]
+        }
+      }
+    }, {
+      "url": "/canned/delete",
+      "desc": "删除 canned",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Search Canned Success.",
+        "data": "@integer(0,20)"
+      }
+    }, {
+      "url": "/canned/create",
+      "desc": "创建 canned",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success create canned.",
+        "data": 1
+      }
+    }, {
+      "url": "/canned/update",
+      "desc": "更新 canned",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success update canned.",
+        "data": 1
+      }
+    }, {
+      "url": "/canned/detail",
+      "desc": "canned 详情，用于编辑",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success Get Canned Detail",
+        "data": {
+          "id": 100,
+          "title": "@sentence(1)",
+          "message": "@sentence()",
+          "deptId": "@integer(0,5)",
+          "status": 2,
+          "createTime": 1437042949000,
+          "modifiedTime": 1437043160000
+        }
+      }
+    }, {
+      "url": "/canned/publish",
+      "desc": "canned 发布",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success publish",
+        "data": 123
+      }
+    }, {
+      "url": "/canned/unPublish",
+      "desc": "canned 取消发布",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Success unPublish",
+        "data": 1234
+      }
+    }
+  ],
+
+  "Operator": [
+    {
+      "url": "/operator/list",
+      "desc": "operator 列表",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "totalCount": "@integer(0, 500)",
+          "pageNo": 1,
+          "totalPage": 1,
+          "pageSize": 10,
+          "items|0-20": [
+            {
+              "id|+1": 100,
+              "loginName": "@last()",
+              "name": "@last()",
+              "email": "@email()",
+              "deptName": "@word(5)",
+              "limitMax": "@integer(0,5)"
+            }
+          ]
+        }
+      }
+    }, {
+      "url": "/operator/delete",
+      "desc": "删除operator",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": "@integer(0, 300)"
+      }
+    }
+  ],
+
+  "OnlineActivity": [
+    {
+      "url": "/activity/report",
+      "desc": "online activity 列表",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": {
+          "operatorName": "test",
+          "dayActivities|0-50": [
+            {
+              "day": "@datetime('yyyy-MM-dd')",
+              "minutes": "@integer(0, 3000)",
+              "activitys|1-50": [
+                {
+                  "time": "@datetime('yyyy-MM-dd HH:mm:ss a')",
+                  "flag": "@pick([1,2])"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+
+  "Admin": [
+    {
+      "url": "/admin/user",
+      "desc": "获取登录信息",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "Not logined",
+        "data": {
+          "email": "@email()",
+          "loginName": "@first() @last()"
+        }
+      }
+    }, {
+      "url": "/admin/set",
+      "desc": "更新用户信息",
+      "mock": true,
+      "res": {
+        "code": 200,
+        "msg": "success",
+        "data": 123
+      }
+    }
+  ]
+}

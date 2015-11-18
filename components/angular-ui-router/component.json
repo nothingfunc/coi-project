@@ -1,0 +1,6 @@
+{
+    "repos": "https://github.com/angular-ui/ui-router.git",
+    "version": "v0.2.15",
+    "name": "angular-ui-router",
+    "main": "ui-router.js"
+}

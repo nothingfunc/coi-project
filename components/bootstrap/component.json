@@ -1,0 +1,9 @@
+{
+    "version": "v3.3.5",
+    "repos": "https://github.com/twbs/bootstrap.git",
+    "main": "bootstrap.js",
+    "dependencies": {
+        "jquery": ">=1.9.1"
+    },
+    "name": "bootstrap"
+}

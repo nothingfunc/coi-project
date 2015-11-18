@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-controller="rootController">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>GM Admin</title>
+  <link type="text/css" rel="stylesheet" href="/components/bootstrap/css/bootstrap.css"/>
+  <link type="text/css" rel="stylesheet" href="/components/font-awesome/css/font-awesome.css"/>
+  <link type="text/css" rel="stylesheet" href="/src/css/AdminLTE.css"/>
+  <link type="text/css" rel="stylesheet" href="/src/css/skins/skin-green-light.css"/>
+  <link type="text/css" rel="stylesheet" href="/src/css/app.less"/>
+</head>
+<body class="{{state.isLoginPage?'login':''}}">
+  <div class="skin-green-light sidebar-mini {{state.sidebarCollapse?'sidebar-collapse':'sidebar-open'}}">
+    <header class="main-header">
+      <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" ng-click="onSidebarCollapseClick()" class="sidebar-toggle" ng-hide="state.isLoginPage">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <a href="#" class="logo">
+          <span class="logo-lg"><img src="/src/img/logo-lg.png"/></span>
+        </a>
+        <div class="navbar-custom-menu" ng-hide="state.isLoginPage">
+          <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu {{state.userDropdown?'open':''}}">
+            <a href="javascript:;" ng-click="onUserDropdownClick()" class="dropdown-toggle">
+              <i class="fa fa-user"></i>
+              <span class="hidden-xs">{{$parent.data.user.username}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="javascript:;" ng-click="onLogoutClick()" class="btn btn-default btn-flat">退出登录</a>
+                </div>
+              </li>
+            </ul>
+            </li>
+            <!--<li>-->
+              <!--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>-->
+            <!--</li>-->
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <aside class="main-sidebar" ng-hide="state.isLoginPage">
+      <section class="sidebar">
+        <ul class="sidebar-menu">
+          <li class="header">功能导航</li>
+          <li class={{state.activeNav==='report'?'active':''}} ng-hide="!$parent.data.states.report">
+          <a ui-sref="report">
+            <i class="fa fa-files-o"></i> <span>数据上报</span>
+          </a>
+          </li>
+          <li class={{state.activeNav==='check'?'active':''}} ng-hide="!$parent.data.states.check">
+            <a ui-sref="check"><i class="fa fa-book"></i> <span>数据审核</span></a>
+          </li>
+          <li class={{state.activeNav==='search'?'active':''}} ng-hide="!$parent.data.states.search">
+            <a ui-sref="search">
+              <i class="fa fa-search"></i> <span>数据查询</span>
+            </a>
+          </li>
+          <li class={{state.activeNav==='statistics'?'active':''}}>
+            <a ui-sref="statistics"><i class="fa fa-pie-chart"></i> <span>数据统计</span></a>
+          </li>
+          <!--
+          <li class="header">常用功能</li>
+          <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>创建任务</span></a></li>
+          <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>添加非工程样地</span></a></li>
+          -->
+        </ul>
+      </section>
+    </aside>
+    <ui-view></ui-view>
+  </div>
+
+  <i class="pageLoading {{$parent.state.isPageLoaded?'blur':''}}"
+     ng-hide="$parent.state.isPageLoaded && !$parent.state.isLoading">
+    <div class="page-loading-wrapper">
+      <div class="spinner">
+        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+      </div>
+    </div>
+  </i>
+
+  <script src="/static/require.js"></script>
+  <script>
+    var CONF = {
+      baseUrl: '/CYJC'
+    };
+    requirejs.config({
+      waitSeconds: 1000
+    });
+    require(['angular'], function() {
+      require(['/src/js/app']);
+    });
+  </script>
+</body>
+</html>
