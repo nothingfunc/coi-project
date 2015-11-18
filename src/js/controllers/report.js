@@ -16,8 +16,13 @@ module.exports = myApp =>
       };
 
       $scope.data = {};
+      $scope.state = {
+        createTask: false,
+        createTaskFull: false,
+        iconState: "expand",
+        createTaskCols: 8
+      };
       $scope.taskParamData = {};
-
 
       var getMissions = () => apiService.getAllUnSubMission().then(res => {
         var data = res.data;
@@ -29,9 +34,30 @@ module.exports = myApp =>
 
       getMissions();
 
+      $scope.onCreateTaskClick = () => {
+        $scope.state.createTask = true;
+      }
+
+      $scope.cancelCreateTask = () => {
+        $scope.taskParamData = {};
+        $scope.state.createTask = false;
+      }
+
       $scope.createTask = () => {
         console.log($scope.taskParamData);
       }
+      $scope.createTaskFull = () => {
+        if ($scope.state.createTaskFull === false) {
+          $scope.state.createTaskFull = true;
+          $scope.state.iconState = "compress";
+          $scope.state.createTaskCols = 12;
+        } else {
+          $scope.state.createTaskFull = false;
+          $scope.state.iconState = "expand";
+          $scope.state.createTaskCols = 8;
+        }
+
+      };
 
 
     }

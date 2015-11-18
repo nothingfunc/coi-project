@@ -12,13 +12,13 @@
   <section class="content">
     <!--<home-component store="props">Loading user...</home-component>-->
     <div class="row">
-      <div class="col-md-4 ">
+      <div class="col-md-4" ng-hide="state.createTaskFull">
         <div class="box box-success">
           <div class="box-header">
             <h3 class="box-title">未上报任务</h3>
             <div class="box-tools pull-right">
-              <button class="btn btn-box-tool text-red" data-widget="collapse"><i class="fa fa-upload"></i><span> 提交任务</span></button>
-              <button class="btn btn-box-tool text-green" data-widget="collapse"><i class="fa fa-plus-circle"></i><span> 创建任务</span></button>
+              <button class="btn btn-box-tool text-red"><i class="fa fa-upload"></i><span> 提交任务</span></button>
+              <button class="btn btn-box-tool text-green" ng-click="onCreateTaskClick()"><i class="fa fa-plus-circle"></i><span> 创建任务</span></button>
             </div>
           </div>
           <div class="box-body no-padding">
@@ -74,12 +74,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="box box-success">
+      <div class="col-md-{{state.createTaskCols}}">
+        <div class="box box-success" ng-if="state.createTask">
           <div class="box-header with-border">
             <h3 class="box-title">创建任务</h3>
-            <div class="box-tools pull-right">
-              <button class="btn btn-box-tool"><i class="fa fa-expand"></i> </button>
+            <div class="box-tools pull-right" ng-click="createTaskFull()">
+              <button class="btn btn-box-tool"><i class="fa fa-{{state.iconState}}"></i> </button>
             </div>
           </div>
           <div class="box-body no-padding">
@@ -110,9 +110,9 @@
                 </div>
               </div>
               <div class="box-footer">
-                <div class="pull-right">
+                <div class="pull-left">
                   <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-disabled="createTaskForm.$invalid">保存 </button>
-                  <button class="btn btn-default pull-left" ng-click="cancel()">取消</button>
+                  <button class="btn btn-default pull-left" ng-click="cancelCreateTask()">取消</button>
                 </div>
               </div>
             </form>
