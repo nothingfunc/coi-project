@@ -100,7 +100,9 @@
     requirejs.config({
       waitSeconds: 1000
     });
-    require(['angular'], function() {
+    require(['angular', 'jquery'], function(ng, $) {
+      window.angular = angular;
+      window.$ = window.jQuery = $;
       require(['/src/js/app']);
     });
   </script>

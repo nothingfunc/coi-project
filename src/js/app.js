@@ -10,6 +10,8 @@ var myApp = angular.module('grassland-project', ['react', 'ui.router', 'ui.boots
 //======自身组件依赖======
 //router
 require('./routers/routers')(myApp);
+//directives
+require('./directives/utils')(myApp);
 //controllers
 require('./controllers/root')(myApp);
 require('./controllers/login')(myApp);
