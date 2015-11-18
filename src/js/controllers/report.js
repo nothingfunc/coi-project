@@ -16,17 +16,22 @@ module.exports = myApp =>
       };
 
       $scope.data = {};
-      $scope.paramData = {};
+      $scope.taskParamData = {};
 
-      apiService.getAllUnSubMission().then(res => {
+
+      var getMissions = () => apiService.getAllUnSubMission().then(res => {
         var data = res.data;
 
         if(data.success === CONST.API_SUCCESS) {
           $scope.data.missions = data.rows;
         }
-
-
       });
+
+      getMissions();
+
+      $scope.createTask = () => {
+        console.log($scope.taskParamData);
+      }
 
 
     }

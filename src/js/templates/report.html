@@ -8,7 +8,6 @@
     <!--<li><a href="#"><i class="fa fa-files-o"></i> 数据上报</a></li>-->
     <!--<li class="active">上报类型A</li>-->
     <!--</ol>-->
-    {{data.missions}}
   </section>
   <section class="content">
     <!--<home-component store="props">Loading user...</home-component>-->
@@ -26,8 +25,8 @@
             <table class="table table-condensed table-hover">
               <tbody>
               <tr>
-                <th>选中</th>
-                <th>#</th>
+                <th></th>
+                <th>任务编号</th>
                 <th>任务名称</th>
                 <th>审核状态</th>
                 <th>审核意见</th>
@@ -77,6 +76,49 @@
       </div>
       <div class="col-md-8">
         <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title">创建任务</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool"><i class="fa fa-expand"></i> </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <form class="form-horizontal" name="createTaskForm" ng-submit="createTask()">
+              <div class="box-body">
+                <div class="form-group-sm clearfix">
+                  <div class="clearfix pull-left margin-r-20">
+                    <label class="pull-left control-label">任务编号：</label>
+                    <div class="pull-left">
+                      <input ng-model="taskParamData.MISSION_CODE" type="text" class="form-control" required/>
+                    </div>
+                  </div>
+                  <div class="clearfix pull-left margin-r-20">
+                    <label class="pull-left control-label">任务名称：</label>
+                    <div class="pull-left">
+                      <input ng-model="taskParamData.MISSION_NAME" type="text" class="form-control" required/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group-sm clearfix margin-t-10">
+                  <div class="clearfix pull-left">
+                    <label class="pull-left control-label">任务备注：</label>
+                    <div class="pull-left">
+                      <textarea ng-model="taskParamData.MISSION_NOTE" type="text" class="form-control" cols="60">
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                <div class="pull-right">
+                  <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-disabled="createTaskForm.$invalid">保存 </button>
+                  <button class="btn btn-default pull-left" ng-click="cancel()">取消</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="box box-success hidden">
           <div class="box-header with-border">
             <h3 class="box-title"> 添加非工程样地</h3>
             <div class="box-tools pull-right">
