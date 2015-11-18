@@ -22,7 +22,9 @@ module.exports = myApp =>
         iconState: "expand",
         createTaskCols: 8
       };
-      $scope.taskParamData = {};
+      $scope.taskParamData = {
+        MISSION_CODE: 34292101//$rootScope.getUserDepts().length ? $rootScope.getUserDepts()[0].deptCode : ""
+      };
 
       var getMissions = () => apiService.getAllUnSubMission().then(res => {
         var data = res.data;

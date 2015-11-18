@@ -4,8 +4,9 @@
 require('ngReact');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
+require('angular-ui-select');
 
-var myApp = angular.module('grassland-project', ['react', 'ui.router', 'ui.bootstrap']);
+var myApp = angular.module('grassland-project', ['react', 'ui.router', 'ui.bootstrap', 'ui.select']);
 
 //======自身组件依赖======
 //router
