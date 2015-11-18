@@ -28,6 +28,7 @@ body {
 }
 
 html {
+  position: relative;
   background-color: #ecf0f5;
 }
 
@@ -36,9 +37,6 @@ html {
   float: right;
 }
 /* Layout */
-.skin-green-light {
-  position: relative;
-}
 .wrapper {
   min-height: 100%;
   position: static;
