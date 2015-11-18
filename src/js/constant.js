@@ -6,25 +6,35 @@ const CONSTANT = {
   API_ERROR: '0',
 
   ROLE: {
+    '0': {
+      states: {},
+      defaultState: 'login',
+      roleName: '未登录用户'
+    },
     '1': {
-      STATES: ['search', 'statistics'],
-      DEFAULT_STATE: 'search'
+      states: {'search':1, 'statistics':1},
+      defaultState: 'search',
+      roleName: '部级用户'
     },
     '2': {
-      STATES: ['search', 'statistics'],
-      DEFAULT_STATE: 'search'
+      states: {'search':1, 'statistics':1},
+      defaultState: 'search',
+      roleName: '部级用户'
     },
     '3': {
-      STATES: ['search', 'check', 'statistics'],
-      DEFAULT_STATE: 'check'
+      states: {'search':1, 'check':1, 'statistics':1},
+      defaultState: 'check',
+      roleName: '省级用户'
     },
     '4': {
-      STATES: ['search', 'check', 'statistics'],
-      DEFAULT_STATE: 'check'
+      states: {'search':1, 'check':1, 'statistics':1},
+      defaultState: 'check',
+      roleName: '市级用户'
     },
     '5': {
-      STATES: ['search', 'report', 'statistics'],
-      DEFAULT_STATE: 'report'
+      states: {'search':1, 'report':1, 'statistics':1},
+      defaultState: 'report',
+      roleName: '县级用户'
     }
   }
 };

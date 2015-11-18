@@ -8,7 +8,7 @@ module.exports = myApp =>
   myApp.controller('rootController', ['$scope', '$rootScope', '$state', '$timeout', '$q', '$uibModal', 'apiService',
   function($scope, $rootScope, $state, $timeout, $q, $uibModal, apiService) {
     $rootScope.data = {
-      states: {},
+      role: null,
       user: null
     };
     $rootScope.state = {
@@ -33,9 +33,7 @@ module.exports = myApp =>
         if(data.success === CONST.API_SUCCESS) {
           $rootScope.data.user = data;
           deferred.resolve(data);
-          CONST.ROLE[data.userRole].STATES.map(state => {
-            $rootScope.data.states[state] = 1;
-          });
+          $rootScope.data.role = CONST.ROLE[data.userRole];
         } else {
           !noAlert && $rootScope.showTips({
             type: 'error',
@@ -49,18 +47,22 @@ module.exports = myApp =>
 
     $rootScope.resetState();
     $rootScope.checkSession = noAlert => {
+      var deferred = $q.defer();
       !$rootScope.data.user && ($rootScope.state.isPageLoaded = false);
       //拉取用户
-      return $rootScope.getUser(noAlert).then(
+      $rootScope.getUser(noAlert).then(
         () => {
           $rootScope.state.isPageLoaded = true;
+          deferred.resolve();
         },
         () => {
           $rootScope.state.isPageLoaded = true;
           $rootScope.resetState();
           $state.go('login');
+          deferred.reject();
         }
       );
+      return deferred.promise;
     }
 
     var $modalInstanceErr = null;
@@ -138,28 +140,22 @@ module.exports = myApp =>
     //路由改变时修改activeNav
     $scope.$on("$stateChangeStart", function(event, toState, toStateParam, fromState) {
       $scope.state.activeNav = toState.name;
-      $scope.state.isLoginPage = toState.name === 'login'
+      $scope.state.isLoginPage = toState.name === 'login';
 
       //session检查
       if(toState.name !== 'login' && (!fromState.name || fromState.name === 'login')) {
-        if(!fromState.name) {
-          $rootScope.checkSession(true);
-        } else if(fromState.name === 'login') {
-          $rootScope.checkSession().then(() => {
-            var role = $rootScope.data.user.userRole;
-            $state.go(CONST.ROLE[role].DEFAULT_STATE);
-          })
-        }
+        $rootScope.checkSession(!fromState.name).then(() => {
+          $state.go($rootScope.data.role.defaultState);
+        });
       } else if(toState.name === 'login') {
         $rootScope.state.isPageLoaded = true;
         $rootScope.resetState();
       } else {
-        if(!$rootScope.data.states[toState.name]) {
-          console.log('xxx');
-          event.stopPropagation();
-
+        if(!$rootScope.data.role.states[toState.name]) {
+          $state.go($rootScope.data.role.defaultState);
         }
       }
+
 
     });
 

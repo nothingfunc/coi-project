@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>GM Admin</title>
+  <title>全国草原监测信息报送管理系统</title>
   <link type="text/css" rel="stylesheet" href="/components/bootstrap/css/bootstrap.css"/>
   <link type="text/css" rel="stylesheet" href="/components/font-awesome/css/font-awesome.css"/>
   <link type="text/css" rel="stylesheet" href="/src/css/AdminLTE.css"/>
@@ -24,20 +24,26 @@
         <div class="navbar-custom-menu" ng-hide="state.isLoginPage">
           <ul class="nav navbar-nav">
             <li class="dropdown user user-menu {{state.userDropdown?'open':''}}">
-            <a href="javascript:;" ng-click="onUserDropdownClick()" class="dropdown-toggle">
-              <i class="fa fa-user"></i>
-              <span class="hidden-xs">{{$parent.data.user.username}}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">修改密码</a>
-                </div>
-                <div class="pull-right">
-                  <a href="javascript:;" ng-click="onLogoutClick()" class="btn btn-default btn-flat">退出登录</a>
-                </div>
-              </li>
-            </ul>
+              <a href="javascript:;" ng-click="onUserDropdownClick()" class="dropdown-toggle">
+                <i class="fa fa-user"></i>
+                <span class="hidden-xs">{{$parent.data.user.username}}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="user-header">
+                  <p>
+                    {{$parent.data.user.userRealName}}
+                    <small>{{$parent.data.role.roleName}}</small>
+                  </p>
+                </li>
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="javascript:;" ng-click="onLogoutClick()" class="btn btn-default btn-flat">退出登录</a>
+                  </div>
+                </li>
+              </ul>
             </li>
             <!--<li>-->
               <!--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>-->
@@ -50,15 +56,15 @@
       <section class="sidebar">
         <ul class="sidebar-menu">
           <li class="header">功能导航</li>
-          <li class={{state.activeNav==='report'?'active':''}} ng-hide="!$parent.data.states.report">
+          <li class={{state.activeNav==='report'?'active':''}} ng-hide="!$parent.data.role.states.report">
           <a ui-sref="report">
             <i class="fa fa-files-o"></i> <span>数据上报</span>
           </a>
           </li>
-          <li class={{state.activeNav==='check'?'active':''}} ng-hide="!$parent.data.states.check">
+          <li class={{state.activeNav==='check'?'active':''}} ng-hide="!$parent.data.role.states.check">
             <a ui-sref="check"><i class="fa fa-book"></i> <span>数据审核</span></a>
           </li>
-          <li class={{state.activeNav==='search'?'active':''}} ng-hide="!$parent.data.states.search">
+          <li class={{state.activeNav==='search'?'active':''}} ng-hide="!$parent.data.role.states.search">
             <a ui-sref="search">
               <i class="fa fa-search"></i> <span>数据查询</span>
             </a>
