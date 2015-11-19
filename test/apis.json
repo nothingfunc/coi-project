@@ -40,11 +40,11 @@
         "success": "1",
         "msg": "Not logined",
         "rows|0-20": [{
-          "MISSION_ID": "@integer(0, 99999)",
-          "MISSION_CODE": "@id()",
+          "MISSION_ID": "@id()",
+          "MISSION_CODE": "@integer(10000,99999)",
           "MISSION_CHECK": "待审核",
-          "MISSION_CHEMSG": "@word(4)",
-          "MISSION_NOTE": "@word(4)",
+          "MISSION_CHEMSG": "@word(4,30)",
+          "MISSION_NOTE": "@word(4,40)",
           "MISSION_NAME": "@word(4)"
         }]
       }
@@ -54,6 +54,59 @@
       "desc": "创建任务",
       "mock": true,
       "res": {"success": "1"}
+    },
+    {
+      "url": "/mission/GetRefDataByMission.action",
+      "desc": "获取任务中的数据列表",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "rows|0-20": [
+          {
+          "MISSION_ID": "@id()",
+          "DATA_ID": "@id()",
+          "DATA_TYPE": "@integer(2,2)",
+          "CHECK_STU": "待审核",
+          "CHECK_MSG": "@word(5,100)",
+          "CHECK_MAN": "@first()"
+          }
+        ]
+      }
+    }
+  ],
+
+  "Data": [
+    {
+      "url": "/data/GetDataDetail.action",
+      "desc": "获取一个数据的详情",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "Data":{
+          "QUADRAT_AREA": "@integer(0, 200)",
+          "COV_VEGETATION": "@id()",
+          "AVG_GRASSHEIGHT": "@integer(2,2)",
+          "MAIN_PLANT": "前胡;艾蒿",
+          "NUM_TYPE_HARMFUL": "@integer(2,2)",
+          "MAIN_HARMFUL": "闹羊花;青岗树叶",
+          "FWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "DWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "SURVEY_PERSON": "@last()、@last()、@last()、@last()",
+          "SURVEY_TIME": "2006-07-03 00:00:00",
+          "FILENAME": "河南新县-2-1",
+          "IMGVIEW": "",
+          "SAMPLE_PLOT_ID": "@id()",
+          "DATA_ID": "@id()",
+          "QUADRAT_NAME": "河南新县-2-1",
+          "LONGITUDE": "115`06`23",
+          "LATITUED": "115`06`23",
+          "ELEVATION": "174",
+          "NUM_TYPE_PLANT": "5",
+          "FWEIGHT_EATGRASS": "4300",
+          "DWEIGHT_EATGRASS": "2200",
+          "WEIGHT_LITTER": "1050"
+        }
+      }
     }
   ]
 }

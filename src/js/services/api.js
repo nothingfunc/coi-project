@@ -56,6 +56,10 @@ module.exports = myApp =>
       //任务
       services.getAllUnSubMission = makeService({method: 'POST', url: '/mission/GetAllUnSubMission.action'});
       services.createNewMission = makeService({method: 'POST', url: '/mission/CreateNewMission.action'});
+      services.getRefDataByMission = makeService({method: 'POST', url: '/mission/GetRefDataByMission.action'});
+
+      //数据
+      services.getDataDetail = makeService({method: 'POST', url: '/data/GetDataDetail.action'});
 
       return services;
     }

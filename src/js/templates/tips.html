@@ -3,12 +3,12 @@
   <h3 class="modal-title">{{data.title || '提示'}}</h3>
 </div>
 <div class="modal-body">
-  <span ng-if="data.type!='prompt'" ng-bind="data.msg || '提示信息'"></span>
+  <span ng-if="data.type!='prompt'" ng-bind-html="data.msg || '提示信息'"></span>
   <form name="prompt" ng-show="data.type=='prompt'" novalidate>
     <input autofocus type="text" class="form-control" ng-keyup="prompt.$valid && $event.keyCode==13 && ok()" ng-model="data.promptInput" placeholder="{{msg || '请填写'}}" required/>
   </form>
 </div>
 <div class="modal-footer" style="padding:10px;">
-  <button class="btn btn-primary" ng-disabled="data.type=='prompt' && prompt.$invalid" ng-click="ok()" autofocus>{{data.btnOkTitle||'确定'}}</button>
-  <button class="btn btn-minor" ng-if="data.cancelBtn" ng-click="cancel()">{{data.btnCancelTitle||'取消'}}</button>
+  <button class="btn btn-success" ng-disabled="data.type=='prompt' && prompt.$invalid" ng-click="ok()" autofocus>{{data.btnOkTitle||'确定'}}</button>
+  <button class="btn margin-l-20" ng-if="data.cancelBtn" ng-click="cancel()">{{data.btnCancelTitle||'取消'}}</button>
 </div>

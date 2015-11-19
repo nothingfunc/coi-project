@@ -81,7 +81,7 @@ body > .select2-container.open {
   text-decoration: none;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);*/
 }
 
 .ui-select-bootstrap .ui-select-toggle {
@@ -222,4 +222,20 @@ body > .ui-select-bootstrap.open {
 
 .ui-select-match-text > span {
   padding-right: 15px;
+}
+
+
+/*reset*/
+.ui-select-bootstrap .btn-default {
+  background-color: #fff;
+}
+
+.ui-select-bootstrap .btn-default:hover, .ui-select-bootstrap .btn-default:active, .btn-default.hover {
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.ui-select-bootstrap .dropdown-menu {
+  border-color: #d2d6de;
+  word-break: break-all;
 }

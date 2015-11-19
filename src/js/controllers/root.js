@@ -5,8 +5,9 @@
 //rootController，负责公共方法，所有controller的通信和数据共享
 var CONST = require("../constant");
 module.exports = myApp =>
-  myApp.controller('rootController', ['$scope', '$rootScope', '$state', '$timeout', '$q', '$uibModal', 'apiService',
-  function($scope, $rootScope, $state, $timeout, $q, $uibModal, apiService) {
+  myApp.controller('rootController', ['$scope', '$rootScope', '$state', '$timeout', '$q', '$sce', '$uibModal', 'apiService',
+  function($scope, $rootScope, $state, $timeout, $q, $sce, $uibModal, apiService) {
+    $rootScope.CONST = CONST;
     $rootScope.data = {
       role: null,
       user: null
@@ -77,7 +78,7 @@ module.exports = myApp =>
         return false;
       }
       var modalInstance = $uibModal.open({
-        template: __inline('/src/js/templates/tips.html'),
+        templateUrl: 'tips.html',
         size: type=="prompt"?"":"sm",
         windowClass: "modal-tips",
         controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
@@ -108,6 +109,7 @@ module.exports = myApp =>
             $scope.data.cancelBtn = true;
             $scope.data.promptInput = obj.promptInput || "";
           }
+          $scope.data.msg = $sce.trustAsHtml($scope.data.msg);
           modalInstance.result.then(function (result) {
           }, function (reason) {
             if(reason == 'backdrop click' || reason == "escape key press") {

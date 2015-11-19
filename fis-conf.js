@@ -8,9 +8,7 @@ fis
   ])
   .hook('relative')
   .match('**', {
-    relative: true
-  })
-  .match('**', {
+    relative: true,
     useHash: false
   })
   .match('/components/**.js', {
@@ -54,7 +52,7 @@ fis
         "last 4 versions"
       ]
     })
-  })
+  });
 
 var prod = fisMedia = function(fisMedia) {
   return fisMedia
@@ -62,8 +60,8 @@ var prod = fisMedia = function(fisMedia) {
       // 关于打包配置，请参考：https://github.com/fex-team/fis3-packager-deps-pack
       packager: fis.plugin('deps-pack', {
         // 框架css
-        '/pkg/app.css': [
-          '/src/css/**'
+        '/pkg/boot.css': [
+          //'/src/css/**'
         ],
         // 业务CSS
         '/pkg/app.css': [
@@ -72,9 +70,9 @@ var prod = fisMedia = function(fisMedia) {
         // 框架JS
         '/pkg/boot.js': [
           '/components/angular/**.js',
-          '/components/react/react.js',
-          '/components/react-dom/react-dom.js',
-          '/components/ngReact/ngReact.js'
+          //'/components/react/react.js',
+          //'/components/react-dom/react-dom.js',
+          //'/components/ngReact/ngReact.js'
         ],
         // 插件和库js
         '/pkg/lib.js': [
@@ -110,11 +108,20 @@ var prod = fisMedia = function(fisMedia) {
 
 prod(fis.media('prod'));
 
+
+var DEPLOY_TO = '../dist';
 prod(fis.media('deploy'))
   .match('**', {
     deploy: [
       fis.plugin('local-deliver', {
-        to: '../dist'
-      })
-    ]
-  });
+        to: DEPLOY_TO
+      }),
+      function() {
+        //打包好的替换相当路径
+        var rootHtmlPath = DEPLOY_TO + "/index.html";
+        var content = new fis.file(rootHtmlPath).getContent();
+        content = content.replace(/"\/pkg/g, "\"./pkg");
+        fis.util.write(rootHtmlPath, content);
+      }
+    ]}
+  )

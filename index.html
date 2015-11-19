@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>全国草原监测信息报送管理系统</title>
+  <link rel="icon" type="image/x-icon" href="/src/img/favicon.ico">
   <link type="text/css" rel="stylesheet" href="/components/bootstrap/css/bootstrap.css"/>
   <link type="text/css" rel="stylesheet" href="/components/font-awesome/css/font-awesome.css"/>
   <link type="text/css" rel="stylesheet" href="/components/angular-ui-select/select.css"/>
@@ -32,7 +33,7 @@
               <ul class="dropdown-menu">
                 <li class="user-header">
                   <p>
-                    {{$parent.data.user.userRealName}}
+                    <span>{{$parent.data.user.userRealName}}</span>
                     <small>{{$parent.data.role.roleName}}</small>
                   </p>
                 </li>

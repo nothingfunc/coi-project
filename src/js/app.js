@@ -1,14 +1,18 @@
 //var angular = require('angular');
 
 //======三方组件依赖======
-require('ngReact');
+//require('ngReact');
+require('angular-bindonce');
+require('angular-sanitize');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-ui-select');
 
-var myApp = angular.module('grassland-project', ['react', 'ui.router', 'ui.bootstrap', 'ui.select']);
+var myApp = angular.module('grassland-project', [/*'react',*/ 'pasvaz.bindonce', 'ui.router', 'ui.bootstrap', 'ui.select']);
 
 //======自身组件依赖======
+//templates
+require('./templates/templates')(myApp);
 //router
 require('./routers/routers')(myApp);
 //directives
@@ -20,8 +24,8 @@ require('./controllers/search')(myApp);
 require('./controllers/report')(myApp);
 //services
 require('./services/api')(myApp);
-//page components
-require('./components/about')(myApp);
-require('./components/home')(myApp);
+//react components
+//require('./components/about')(myApp);
+//require('./components/home')(myApp);
 
 angular.bootstrap(document, [myApp.name]);

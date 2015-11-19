@@ -9,37 +9,27 @@ module.exports = myApp => {
     $stateProvider
       .state('login', {
         url: '/login',
-        template: __inline('/src/js/templates/login.html'),
+        templateUrl: 'login.html',
         controller: 'loginController'
       })
       .state('search', {
         url: '/search',
-        template: __inline('/src/js/templates/search.html'),
+        templateUrl: 'search.html',
         controller: 'searchController'
       })
       .state('report', {
         url: '/report',
-        template: __inline('/src/js/templates/report.html'),
+        templateUrl: 'report.html',
         controller: 'reportController'
       })
       .state('check', {
         url: '/check',
-        template: __inline('/src/js/templates/check.html'),
+        templateUrl: 'check.html'
       })
       .state('statistics', {
         url: '/statistics',
-        template: __inline('/src/js/templates/statistics.html'),
-      })
-
-      ////ui router demo
-      //.state('demo', {
-      //  url: "/demo",
-      //  templateUrl: __uri("src/js/templates/demo.html")
-      //})
-      //.state('demo.childpage', {
-      //  url: "/childpage",
-      //  template: "<br/><h2>Child page</h2><a ui-sref='demo'>Back</a>"
-      //})
+        templateUrl: 'statistics.html'
+      });
   }]);
 }
 
