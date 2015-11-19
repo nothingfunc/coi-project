@@ -6,11 +6,22 @@ var CONST = require('../constant');
 module.exports = myApp => {
   myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", 'apiService',
     function($scope, $rootScope, $timeout, $state, apiService) {
+      const STATES = {
+        'CREATE_TASK': 0,
+        'VIEW_DATA_LIST': 1,
+        'VIEW_DATA': 2,
+        'CREATE_DATA': 3,
+        'EDIT_DATA': 4
+      };
+
       $scope.data = {};
+      $scope.STATES = STATES;
+
       $scope.state = {
         createTask: false,
         createData: false,
         createTaskFull: false,
+        workState: STATES.VIEW_DATA_LIST,
         currentTask: null,
         currentDataList: null,
         currentData: null
@@ -44,25 +55,25 @@ module.exports = myApp => {
 
       $scope.onCreateTaskClick = () => {
         $scope.data.userDepts = $rootScope.getUserDepts();
-        $scope.taskParamData = {
+        $scope.data.taskParamData = {
           MISSION_CODE: $rootScope.getUserDepts().length ? $rootScope.getUserDepts()[0].deptCode : ""
         };
-        $scope.state.createTask = true;
+        $scope.state.workState = STATES.CREATE_TASK;
       };
 
       $scope.onShowDataListClick = missionId => {
-        $scope.state.createTask = false;
+        $scope.state.workState = STATES.VIEW_DATA_LIST;
         $scope.state.currentTask = missionId;
         getDataList(missionId);
       };
 
       $scope.cancelCreateTask = () => {
-        $scope.taskParamData = {};
-        $scope.state.createTask = false;
+        $scope.state.workState = STATES.VIEW_DATA_LIST;
       };
 
       $scope.createTask = () => {
-        apiService.createNewMission($scope.taskParamData).then(res => {
+        $scope.data.taskParamData = {};
+        apiService.createNewMission($scope.data.taskParamData).then(res => {
           var data = res.data;
           if(data.success = CONST.API_SUCCESS) {
             $scope.cancelCreateTask();
@@ -75,24 +86,21 @@ module.exports = myApp => {
         $scope.state.createTaskFull = !$scope.state.createTaskFull;
       };
 
-      $scope.onCreateDataClick = type => {
-        $scope.state.createData = true;
-        $scope.state.workTemplate = 'create-data-' + type + '.html';
-        //$scope.data.
-        $scope.data.createTaskData = {
-          hello: 'world'
-        };
+      $scope.onShowTaskClick = () => {
+        $scope.state.workState = STATES.VIEW_DATA_LIST;
+        $scope.state.currentData = null;
       };
 
-      $scope.onShowTaskClick = () => {
-        $scope.state.createTask = false;
-        $scope.state.createData = false;
-        $scope.state.currentData = null;
-      }
+      $scope.onCreateDataClick = type => {
+        $scope.data.dataParam = {};
+        $scope.state.workState = STATES.CREATE_DATA;
+        $scope.state.workTemplate = 'create-data-' + type + '.html';
+      };
 
       $scope.onShowDataClick = (dataId, type) => {
+        $scope.state.workState = STATES.VIEW_DATA;
         $scope.state.currentData = dataId;
-        $scope.state.workTemplate = 'show-data-' + type + '.html';
+        $scope.state.workTemplate = 'create-data-' + type + '.html';
         apiService.getDataDetail({
           DATA_ID: dataId,
           DATA_TYPE: type
@@ -103,14 +111,31 @@ module.exports = myApp => {
             $scope.data.dataDetail._img = getDataImg();
           }
         })
-      }
+      };
+
+      $scope.onCancelDataClick = () => {
+        if($scope.state.currentData) {
+          $scope.state.workState = STATES.VIEW_DATA;
+        } else {
+          $scope.state.workState = STATES.VIEW_DATA_LIST
+        }
+      };
+
+      $scope.onSaveDataClick = () => {
+        console.log('save');
+      };
+
+      $scope.onEditDataClick = () => {
+        $scope.state.workState = STATES.EDIT_DATA;
+      };
+
 
       var getDataImg = type => {
         var DATA_TAG = '00';
         if('3,6,7,8'.indexOf(type) !== -1) {
           DATA_TAG = '01';
         }
-        return CONF.baseUrl + '/util/ShowPhoto.action' +
+        return CONF.baseUrl + '/util/ShowPhoto.action?' +
         $.param({
           MISSION_ID: $scope.state.currentTask,
           DATA_ID: $scope.state.currentData,

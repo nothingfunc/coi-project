@@ -25,12 +25,13 @@
         </a>
         <div class="navbar-custom-menu" ng-hide="state.isLoginPage">
           <ul class="nav navbar-nav">
-            <li class="dropdown user user-menu {{state.userDropdown?'open':''}}">
-              <a href="javascript:;" ng-click="onUserDropdownClick()" class="dropdown-toggle">
+            <li class="dropdown user user-menu" uib-dropdown>
+              <a href="javascript:;"
+                 class="dropdown-toggle" uib-dropdown-toggle>
                 <i class="fa fa-user"></i>
                 <span class="hidden-xs">{{$parent.data.user.username}}</span>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu uib-dropdown-menu" aria-labelledby="single-button">
                 <li class="user-header">
                   <p>
                     <span>{{$parent.data.user.userRealName}}</span>

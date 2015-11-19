@@ -8,6 +8,40 @@
   font-size: 12px;
 }
 
+
+.radio label, .checkbox label {
+  padding-left: 0;
+}
+.form-horizontal .form-group-sm .radio input[type="radio"] {
+  margin-left: 0;
+}
+
+.form-group-sm .input-group-btn .btn {
+  padding: 4px 10px;
+}
+
+.form-control.datepicker-bootstrap:focus {
+  border-color: #d2d6de;
+}
+.datepicker-bootstrap ~ .dropdown-menu .btn-default {
+  background-color: #fff;
+  border-width: 0;
+  color: #000;
+  &.active {
+    border-width: 1px;
+    &,.text-info {
+      color: #fff;
+    }
+    background-color: #00a157;
+  }
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #f8f8f8;
+  border: none;
+}
+
+
 .wordk-keep-line {
   white-space: nowrap !important;
   word-break: keep-all !important;

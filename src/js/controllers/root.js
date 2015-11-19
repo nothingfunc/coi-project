@@ -20,7 +20,6 @@ module.exports = myApp =>
     $rootScope.resetState = () => {
       $scope.state = {
         sidebarCollapse: false,
-        userDropdown: false,
         activeNav: '',
         isLoginPage: true
       };
@@ -131,7 +130,6 @@ module.exports = myApp =>
 
     //页面事件
     $scope.onSidebarCollapseClick = () => $scope.state.sidebarCollapse = !$scope.state.sidebarCollapse;
-    $scope.onUserDropdownClick = () => $scope.state.userDropdown = !$scope.state.userDropdown;
     $scope.onLogoutClick = () => {
       //ajax @todo
       $rootScope.loading();
@@ -159,8 +157,14 @@ module.exports = myApp =>
           $state.go($rootScope.data.role.defaultState);
         }
       }
-
-
     });
+
+    //通用时间配置
+    $rootScope.dateOptions = {
+      "showWeeks": false,
+      "startingDay": 1,
+      "closeText": "关闭",
+      "formatDayTitle": "yyyy MMMM"
+    };
 
   }]);

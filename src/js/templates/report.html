@@ -20,14 +20,19 @@
     </ol>
   </section>
   <section class="content">
-    <!--<home-component store="props">Loading user...</home-component>-->
     <div class="row">
-      <div class="col-md-5" ng-hide="state.createTaskFull || state.createData || state.currentData">
+      <div class="col-md-5"
+           ng-hide="(state.workState === STATES.VIEW_DATA) ||
+           (state.workState === STATES.CREATE_DATA) ||
+           (state.workState === STATES.EDIT_DATA)"
+      >
         <div class="box box-success">
           <div class="box-header">
             <h3 class="box-title">未上报任务</h3>
             <div class="box-tools pull-right">
-              <button class="btn btn-box-tool text-green" ng-click="onCreateTaskClick()" ng-disabled="state.createTask">
+              <button class="btn btn-box-tool text-green" ng-click="onCreateTaskClick()"
+                      ng-disabled="state.workState === STATES.CREATE_TASK"
+              >
                 <i class="fa fa-plus-circle"></i> <span>创建任务</span>
               </button>
             </div>
@@ -47,7 +52,7 @@
               <tbody>
               <tr ng-if="!data.missions.length">
                 <td colspan="5" class="text-center text-muted">
-                  没有未上报任务
+                  <br/>没有未上报的任务<br/><br/>
                 </td>
               </tr>
               <tr
@@ -68,9 +73,6 @@
                   >
                     <i class="fa fa-paper-plane"></i>
                   </button>
-                  <!--<button class="btn btn-xs btn-link text-success" uib-tooltip="数据列表" >-->
-                    <!--<i class="fa fa-list-ul"></i>-->
-                  <!--</button>-->
                 </td>
               </tr>
               </tbody>
@@ -78,13 +80,20 @@
           </div>
         </div>
       </div>
-      <div class="col-md-{{state.createData||state.currentData?5:7}}" ng-hide="!state.currentTask || state.createTask">
+      <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
+           ng-hide="state.workState === STATES.CREATE_TASK"
+      >
         <div class="box box-success">
           <div class="box-header">
-            <h3 class="box-title">数据列表 <small>任务编号：{{state.currentTask}}</small></h3>
+            <h3 class="box-title">数据列表
+              <small ng-if="state.currentTask">任务编号：{{state.currentTask}} </small>
+              <small ng-if="!state.currentTask">请先在左侧选择一项任务 </small>
+            </h3>
             <div class="box-tools pull-right">
               <div class="btn-group" uib-dropdown>
-                <button type="button" class="btn btn-box-tool text-green" uib-dropdown-toggle>
+                <button type="button" class="btn btn-box-tool text-green"
+                        ng-disabled="!state.currentTask"
+                        uib-dropdown-toggle>
                   <i class="fa fa-plus-circle"></i> 添加数据 <span class="caret"></span>
                 </button>
                 <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
@@ -101,31 +110,41 @@
           </div>
           <div class="box-body no-padding">
             <table class="table table-condensed table-hover">
+              <thead>
+              <tr>
+                <th>数据编号</th>
+                <th style="min-width: 100px;">数据类型</th>
+                <th style="min-width: 70px;">审核状态</th>
+                <th>审核意见</th>
+                <th style="min-width: 40px;">操作</th>
+              </tr>
+              </thead>
               <tbody>
-                <tr>
-                  <th>数据编号</th>
-                  <th style="min-width: 100px;">数据类型</th>
-                  <th style="min-width: 70px;">审核状态</th>
-                  <th>审核意见</th>
-                  <th style="min-width: 40px;">操作</th>
-                </tr>
-                <tr style="cursor: pointer;"
-                    ng-repeat="item in data.dataList"
-                    class="{{state.currentData===item.DATA_ID?'active':''}}"
-                    ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
-                >
-                  <td class="wordk-keep-line">{{item.DATA_ID}}</td>
-                  <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
-                  <td><span class="label label-default">{{item.CHECK_STU}}</span></td>
-                  <td>{{item.CHECK_MSG}}</td>
-                  <td></td>
-                </tr>
+              <tr ng-if="!data.dataList.length">
+                <td colspan="5" class="text-center text-muted">
+                  <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项任务 </span>
+                  <br/><br/>
+                </td>
+              </tr>
+              <tr style="cursor: pointer;"
+                  ng-repeat="item in data.dataList"
+                  class="{{state.currentData===item.DATA_ID?'active':''}}"
+                  ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
+              >
+                <td class="wordk-keep-line">{{item.DATA_ID}}</td>
+                <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
+                <td><span class="label label-default">{{item.CHECK_STU}}</span></td>
+                <td>{{item.CHECK_MSG}}</td>
+                <td></td>
+              </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <div class="col-md-{{state.createTaskFull ? 12 : 7}}" ng-hide="!state.createTask">
+      <div class="col-md-{{state.createTaskFull ? 12 : 7}}"
+           ng-hide="state.workState !== STATES.CREATE_TASK"
+      >
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">创建任务</h3>
@@ -134,7 +153,6 @@
             </div>
           </div>
           <div class="box-body no-padding">
-            <ui-view name="createTask"></ui-view>
             <form class="form-horizontal" name="createTaskForm" ng-submit="createTask()">
               <div class="box-body">
                 <div class="form-group-sm clearfix">
@@ -142,7 +160,7 @@
                     <label class="pull-left control-label">选择部门：
                     </label>
                     <div class="pull-left">
-                      <div style="width: 200px;" ui-select ng-model="taskParamData.MISSION_CODE" theme="bootstrap">
+                      <div style="width: 200px;" ui-select ng-model="data.taskParamData.MISSION_CODE" theme="bootstrap">
                         <div ui-select-match>{{$select.selected.deptName}}</div>
                         <div ui-select-choices repeat="dept.deptCode as dept in data.userDepts">
                           <span>{{dept.deptName}}</span>
@@ -153,7 +171,7 @@
                   <div class="clearfix pull-left margin-r-20">
                     <label class="pull-left control-label">任务名称：</label>
                     <div class="pull-left">
-                      <input ng-model="taskParamData.MISSION_NAME" type="text" class="form-control" required/>
+                      <input ng-model="data.taskParamData.MISSION_NAME" type="text" class="form-control" required/>
                     </div>
                   </div>
                 </div>
@@ -161,7 +179,7 @@
                   <div class="clearfix pull-left">
                     <label class="pull-left control-label">任务备注：</label>
                     <div class="pull-left">
-                      <textarea ng-model="taskParamData.MISSION_NOTE" type="text" class="form-control" rows="3" style="width: 413px;">
+                      <textarea ng-model="data.taskParamData.MISSION_NOTE" type="text" class="form-control" rows="3" style="width: 413px;">
                       </textarea>
                     </div>
                   </div>
@@ -169,7 +187,7 @@
               </div>
               <div class="box-footer">
                 <div class="pull-left">
-                  <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-disabled="createTaskForm.$invalid">保存 </button>
+                  <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-disabled="createTaskForm.$invalid">保存</button>
                   <button class="btn btn-default pull-left" ng-click="cancelCreateTask()">取消</button>
                 </div>
               </div>
@@ -178,7 +196,11 @@
         </div>
       </div>
       <!--创建数据或查看数据时显示-->
-      <div class="col-md-7" ng-hide="!state.createData && !state.currentData">
+      <div class="col-md-7"
+           ng-hide="state.workState !== STATES.VIEW_DATA &&
+            state.workState !== STATES.EDIT_DATA &&
+            state.workState !== STATES.CREATE_DATA"
+      >
         <div ng-include="state.workTemplate"></div>
       </div>
     </div>
