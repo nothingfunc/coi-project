@@ -1,0 +1,5 @@
+{
+    "version": "1.0.2",
+    "name": "jquery-perfect-scrollbar",
+    "main": "perfect-scrollbar.jquery.js"
+}

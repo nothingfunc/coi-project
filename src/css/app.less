@@ -8,10 +8,10 @@
   font-size: 12px;
 }
 
-
 .radio label, .checkbox label {
   padding-left: 0;
 }
+
 .form-horizontal .form-group-sm .radio input[type="radio"] {
   margin-left: 0;
 }
@@ -23,6 +23,11 @@
 .form-control.datepicker-bootstrap:focus {
   border-color: #d2d6de;
 }
+
+.datepicker-bootstrap ~ .dropdown-menu {
+  border-color: #ccc;
+}
+
 .datepicker-bootstrap ~ .dropdown-menu .btn-default {
   background-color: #fff;
   border-width: 0;
@@ -36,15 +41,83 @@
   }
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+.box {
+  .box-body {
+    position: relative;
+  }
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: #00a65a;
+
+}
+.tooltip-inner {
+  background-color: #00a65a;
+}
+
+
+
+.image-wrapper {
+  height: 100px;
+  width: 190px;
+  border: 2px dashed rgba(0, 166, 90, 0.35);
+  position: relative;
+  > .image-tooltip {
+    display: block;
+    margin-top: 31px;
+    text-align: center;
+  }
+  &:hover {
+    > .image-control {
+      display: block;
+    }
+  }
+  > .image-control {
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 166, 90, 0.6);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+  }
+  > a > img{
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.content-wrapper {
+  overflow: hidden;
+}
+
+
+input.form-control[disabled],
+input.form-control[readonly] {
   background-color: #f8f8f8;
   border: none;
 }
 
 
-.wordk-keep-line {
+.word-keep-line {
   white-space: nowrap !important;
   word-break: keep-all !important;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+}
+
+.table-condensed {
+  table-layout: fixed;
 }
 
 .tooltip-inner {

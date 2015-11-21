@@ -1,5 +1,5 @@
 {
-  "Login": [
+  "Util": [
     {
       "url": "/util/Login.action",
       "desc": "xxx",
@@ -29,7 +29,52 @@
           }
         ]
       }
+    },
+    {
+      "url": "/util/RegionAutoComp.action",
+      "desc": "获取行政区",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|5": [{
+          "BCODE": "@word(5)",
+          "BNAME": "@area()",
+          "SCODE": "@word(5)",
+          "SNAME": "@area()",
+          "PCODE": "@word(5)",
+          "PNAME": "@area()",
+          "BLEV": "@integer(1,3)"
+        }]
+      }
+    },
+    {
+      "url": "/util/GetGrassBType.action",
+      "desc": "获取草地类,KEY_WORD",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "Data|0-50": [{
+          "TYPE_ID": "@word(3)",
+          "TYPE_NAME": "@word(10)"
+        }]
+      }
+    },
+    {
+      "url": "/util/GetGrassSType.action",
+      "desc": "获取草地型，需要传入B_ID,KEY_WORD",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "Data|0-50": [{
+          "TYPE_ID": "@word(3)",
+          "SUPER_ID": "@word(3)",
+          "TYPE_NAME": "@word(10)",
+          "TYPE_DESC": "@word(10)"
+        }]
+      }
     }
+
+
   ],
   "Mission": [
     {
@@ -39,11 +84,11 @@
       "res": {
         "success": "1",
         "msg": "Not logined",
-        "rows|0-10": [{
+        "rows|0-20": [{
           "MISSION_ID": "@id()",
           "MISSION_CODE": "@integer(10000,99999)",
           "MISSION_CHECK": "待审核",
-          "MISSION_CHEMSG": "@word(4,30)",
+          "MISSION_CHEMSG": "@word(4,300)",
           "MISSION_NOTE": "@word(4,40)",
           "MISSION_NAME": "@word(4)"
         }]
@@ -107,6 +152,108 @@
           "WEIGHT_LITTER": "1050"
         }
       }
+    },
+
+    {
+      "url": "/data/QueryFpjByCondition.action",
+      "desc": "查询非工程样地数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "integer(0,100)",
+        "data|0-20":[{
+          "CHECK_STATUS": "@integer(0, 5)",
+          "SUVEY_PERSON": "@last()、@last()",
+          "SUVEY_TIME": "2015-10-14 00:00:00",
+          "SAMPLE_PLOT_NAME": "@word(5)",
+          "DATA_ID": "@id()",
+          "HAS_BUSH": "@pick(['有', '无'])"
+        }]
+      }
+    },
+
+    {
+      "url": "/data/QueryFwqudByCondition.action",
+      "desc": "查询非工程草本样方数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "integer(0,100)",
+        "data|0-20":[{
+          "DATA_ID": "@id()",
+          "QUADRAT_NAME": "@word(5)",
+          "SUVEY_TIME": "2015-10-14 00:00:00",
+          "COV_VEGETATION": "@id()",
+          "FWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "DWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "FWEIGHT_EATGRASS": "4300",
+          "DWEIGHT_EATGRASS": "2200",
+          "CHECK_STU": "@integer(0, 5)"
+        }]
+      }
+    },
+
+    {
+      "url": "/data/QueryFbqudByCondition.action",
+      "desc": "查询非工程灌木样方数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "integer(0,100)",
+        "data|0-20":[{
+          "DATA_ID": "@id()",
+          "QUADRAT_NAME": "@word(5)",
+          "SUVEY_TIME": "2015-10-14 00:00:00",
+          "COV_VEGETATION": "@id()",
+          "FWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "DWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "FWEIGHT_EATGRASS": "4300",
+          "DWEIGHT_EATGRASS": "2200",
+          "CHECK_STU": "@integer(0, 5)"
+        }]
+      }
+    },
+
+    {
+      "url": "/data/QueryFqudBySmpId.action",
+      "desc": "根据样地ID获取样方列表//创建是使用咯. HAS_BUSH DATA_ID",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-10":[{
+          "DATA_ID": "@id()",
+          "QUADRAT_NAME": "@word(5)",
+          "SUVEY_TIME": "2015-10-14 00:00:00",
+          "COV_VEGETATION": "@integer(0, 100)",
+          "FWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "DWEIGHT_TOTALGRASS": "@integer(100, 9999)",
+          "FWEIGHT_EATGRASS": "4300",
+          "DWEIGHT_EATGRASS": "2200",
+          "CHECK_STU": "@integer(0, 5)"
+        }]
+      }
+    },
+
+    {
+      "url": "/data/AddData.action",
+      "desc": "所有数据添加通用接口，通用字段+各类型数据字段+图片",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "DATA_ID": "@id()"
+      }
+    },
+
+    {
+      "url": "/data/UpdateData.action",
+      "desc": "所有数据修改通用接口，通用字段+各类型数据字段+图片，需要传入DATA_ID",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "DATA_ID": "@id()"
+      }
     }
+
+
   ]
 }

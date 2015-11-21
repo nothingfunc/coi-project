@@ -7,9 +7,8 @@ var $ = require('jquery');
 module.exports = myApp =>
   myApp.factory('apiService', ['$http', '$rootScope', '$timeout',
     ($http, $rootScope, $timeout) => {
-      const makeService = request => (data, notLoading, noAlert) => {
+      const makeService = request => (data={}, notLoading, noAlert) => {
         !notLoading && $rootScope.loading(true);
-        data = data || {};
         var promise = $http({
           method: request.method,
           url: CONF.baseUrl + request.url,
@@ -49,17 +48,31 @@ module.exports = myApp =>
       var services = {};
 
       //======初始化各个服务接口======
-      //登录
+
+      //登录------
       services.login = makeService({method: 'POST', url: '/util/Login.action'});
       services.getSessionInfo = makeService({method: 'POST', url: '/util/GetSessionInfo.action'});
 
-      //任务
+      //任务------
       services.getAllUnSubMission = makeService({method: 'POST', url: '/mission/GetAllUnSubMission.action'});
       services.createNewMission = makeService({method: 'POST', url: '/mission/CreateNewMission.action'});
       services.getRefDataByMission = makeService({method: 'POST', url: '/mission/GetRefDataByMission.action'});
 
-      //数据
+      //数据------
       services.getDataDetail = makeService({method: 'POST', url: '/data/GetDataDetail.action'});
+      services.addData = makeService({method: 'POST', url: '/data/AddData.action'});
+      services.updateData = makeService({method: 'POST', url: '/data/UpdateData.action'});
+      //获取非工程样方关联
+      services.queryFqudBySmpId = makeService({method: 'POST', url: '/data/QueryFqudBySmpId.action'});
+      //获取非工程草本样方列表，w是草本
+      services.queryFwqudByCondition = makeService({method: 'POST', url: '/data/QueryFwqudByCondition.action'});
+      //获取非工程灌木样方列表，b是灌木
+      services.queryFbqudByCondition = makeService({method: 'POST', url: '/data/QueryFbqudByCondition.action'});
+
+      //获取行政区------
+      services.regionAutoComp = makeService({method: 'POST', url: '/util/RegionAutoComp.action'});
+
+
 
       return services;
     }

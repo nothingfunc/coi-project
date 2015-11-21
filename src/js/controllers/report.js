@@ -1,11 +1,10 @@
 /**
  * Created by zhengguo.chen on 2015/11/17.
  */
-
 var CONST = require('../constant');
 module.exports = myApp => {
-  myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", 'apiService',
-    function($scope, $rootScope, $timeout, $state, apiService) {
+  myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", 'Upload', 'apiService',
+    function($scope, $rootScope, $timeout, $state, Upload, apiService) {
       const STATES = {
         'CREATE_TASK': 0,
         'VIEW_DATA_LIST': 1,
@@ -14,16 +13,15 @@ module.exports = myApp => {
         'EDIT_DATA': 4
       };
 
+      $scope.tmp = {};
       $scope.data = {};
       $scope.STATES = STATES;
 
       $scope.state = {
-        createTask: false,
-        createData: false,
         createTaskFull: false,
         workState: STATES.VIEW_DATA_LIST,
         currentTask: null,
-        currentDataList: null,
+        currentTaskName: '',
         currentData: null
       };
 
@@ -44,10 +42,13 @@ module.exports = myApp => {
         }
       });
 
-      $scope.onSubmitTaskClick = missionId => {
+      $scope.onSubmitTaskClick = (missionId, missionName) => {
         $rootScope.showTips({
           type: 'confirm',
-          msg: '任务编号：' + missionId + '<br/>确认提交该任务？'
+          msg:
+          '任务名称：' + missionName +
+          '<small>（编号：' + missionId + '）</small>' +
+          '<br/>确认提交该任务？'
         }).then(() =>
           console.log(id)
         );
@@ -61,9 +62,10 @@ module.exports = myApp => {
         $scope.state.workState = STATES.CREATE_TASK;
       };
 
-      $scope.onShowDataListClick = missionId => {
+      $scope.onShowDataListClick = (missionId, missionName) => {
         $scope.state.workState = STATES.VIEW_DATA_LIST;
         $scope.state.currentTask = missionId;
+        $scope.state.currentTaskName = missionName;
         getDataList(missionId);
       };
 
@@ -107,8 +109,8 @@ module.exports = myApp => {
         }).then(res => {
           var data = res.data;
           if(data.success === CONST.API_SUCCESS) {
-            $scope.data.dataDetail = data.Data;
-            $scope.data.dataDetail._img = getDataImg();
+            $scope.data.dataParam = data.Data;
+            $scope.data.dataParam._img = getDataImg();
           }
         })
       };
@@ -145,9 +147,23 @@ module.exports = myApp => {
       }
 
       $scope.onCancelCreateDataClick = () => {
-        $scope.state.createData = false;
         $scope.state.currentData = null;
       }
+
+      // upload on file select or drop
+      $scope.upload = function (file) {
+        Upload.upload({
+          url: 'upload/url',
+          data: {file: file, 'username': $scope.username}
+        }).then(function (resp) {
+          console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        }, function (resp) {
+          console.log('Error status: ' + resp.status);
+        }, function (evt) {
+          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+          console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+      };
 
     }
   ]);

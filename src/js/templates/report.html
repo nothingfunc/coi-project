@@ -1,9 +1,6 @@
-<html>
-<head></head>
-<body>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1> 数据上报 <small>还有 <a href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报任务</small> </h1>
+    <h1> 数据上报 <small>还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报任务</small> </h1>
     <ol class="breadcrumb">
       <li>
         <a href="javascript:;" ng-click="onShowTaskClick()">
@@ -26,7 +23,7 @@
            (state.workState === STATES.CREATE_DATA) ||
            (state.workState === STATES.EDIT_DATA)"
       >
-        <div class="box box-success">
+        <div class="box box-success" box-auto-scroll>
           <div class="box-header">
             <h3 class="box-title">未上报任务</h3>
             <div class="box-tools pull-right">
@@ -41,12 +38,10 @@
             <table class="table table-condensed table-hover">
               <thead>
               <tr>
-                <!--<th></th>-->
-                <th>任务编号</th>
-                <th style="min-width: 70px;">任务名称</th>
-                <th style="min-width: 70px;">审核状态</th>
+                <th width="25%">任务名称</th>
+                <th width="25%">审核状态</th>
                 <th>审核意见</th>
-                <th style="min-width: 40px;">操作</th>
+                <th width="40">操作</th>
               </tr>
               </thead>
               <tbody>
@@ -56,20 +51,23 @@
                 </td>
               </tr>
               <tr
-                ng-click="onShowDataListClick(item.MISSION_ID)"
+                ng-click="onShowDataListClick(item.MISSION_ID, item.MISSION_NAME)"
                 style="cursor: pointer"
                 ng-repeat="item in data.missions"
                 class="{{item.MISSION_ID === state.currentTask ? 'active' : ''}}"
               >
-                <td class="wordk-keep-line">{{item.MISSION_ID}}</td>
                 <td>{{item.MISSION_NAME}}</td>
                 <td><span class="label label-default">{{item.MISSION_CHECK}}</span></td>
-                <td>{{item.MISSION_CHEMSG}}</td>
+                <td><span class="word-keep-line"
+                          title="{{item.MISSION_CHEMSG}}">
+                  {{item.MISSION_CHEMSG}}
+                </span></td>
                 <td>
                   <button
-                    ng-click="onSubmitTaskClick(item.MISSION_ID);$event.stopPropagation();"
+                    ng-click="onSubmitTaskClick(item.MISSION_ID, item.MISSION_NAME);$event.stopPropagation();"
                     class="btn btn-xs btn-link text-red"
                     uib-tooltip="提交任务"
+                    tooltip-append-to-body="true"
                   >
                     <i class="fa fa-paper-plane"></i>
                   </button>
@@ -83,13 +81,19 @@
       <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
            ng-hide="state.workState === STATES.CREATE_TASK"
       >
-        <div class="box box-success">
+        <div class="box box-success" box-auto-scroll>
           <div class="box-header">
             <h3 class="box-title">数据列表
-              <small ng-if="state.currentTask">任务编号：{{state.currentTask}} </small>
-              <small ng-if="!state.currentTask">请先在左侧选择一项任务 </small>
+              <small ng-if="state.currentTask">任务名称：{{state.currentTaskName}} </small>
+              <small ng-if="!state.currentTask">请先在左侧选择一项任务</small>
             </h3>
             <div class="box-tools pull-right">
+              <button class="btn btn-box-tool text-gray"
+                      ng-hide="state.workState === STATES.VIEW_DATA_LIST"
+                      ng-click="onShowTaskClick()">
+                <i class="fa fa-reply"></i> 任务列表
+              </button>
+
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
                         ng-disabled="!state.currentTask"
@@ -97,13 +101,14 @@
                   <i class="fa fa-plus-circle"></i> 添加数据 <span class="caret"></span>
                 </button>
                 <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('2')">非工程样地</a></li>
-                  <li role="menuitem"><a href="javascript:;">工程样地</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('2')">{{CONST.DATA_TYPE['2']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['3']}}</a></li>
                   <li class="divider"></li>
-                  <li role="menuitem"><a href="javascript:;">分县补饲调查</a></li>
-                  <li role="menuitem"><a href="javascript:;">分户补饲调查</a></li>
+                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['11']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['12']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['13']}}</a></li>
                   <li class="divider"></li>
-                  <li role="menuitem"><a href="javascript:;">自然生态调查</a></li>
+                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['9']}}</a></li>
                 </ul>
               </div>
             </div>
@@ -112,11 +117,11 @@
             <table class="table table-condensed table-hover">
               <thead>
               <tr>
-                <th>数据编号</th>
-                <th style="min-width: 100px;">数据类型</th>
-                <th style="min-width: 70px;">审核状态</th>
+                <th width="25%">数据编号</th>
+                <th width="20%">数据类型</th>
+                <th width="15%">审核状态</th>
                 <th>审核意见</th>
-                <th style="min-width: 40px;">操作</th>
+                <th width="70">操作</th>
               </tr>
               </thead>
               <tbody>
@@ -131,10 +136,10 @@
                   class="{{state.currentData===item.DATA_ID?'active':''}}"
                   ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
               >
-                <td class="wordk-keep-line">{{item.DATA_ID}}</td>
+                <td><span class="word-keep-line">{{item.DATA_ID}}</span></td>
                 <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
                 <td><span class="label label-default">{{item.CHECK_STU}}</span></td>
-                <td>{{item.CHECK_MSG}}</td>
+                <td><span class="word-keep-line" title="{{item.CHECK_MSG}}">{{item.CHECK_MSG}}</span></td>
                 <td></td>
               </tr>
               </tbody>
@@ -206,5 +211,3 @@
     </div>
   </section>
 </div>
-</body>
-</html>

@@ -4,6 +4,8 @@
 
 //rootController，负责公共方法，所有controller的通信和数据共享
 var CONST = require("../constant");
+var _ = require("underscore");
+
 module.exports = myApp =>
   myApp.controller('rootController', ['$scope', '$rootScope', '$state', '$timeout', '$q', '$sce', '$uibModal', 'apiService',
   function($scope, $rootScope, $state, $timeout, $q, $sce, $uibModal, apiService) {
@@ -161,10 +163,35 @@ module.exports = myApp =>
 
     //通用时间配置
     $rootScope.dateOptions = {
-      "showWeeks": false,
-      "startingDay": 1,
-      "closeText": "关闭",
-      "formatDayTitle": "yyyy MMMM"
+      'showWeeks': false,
+      'startingDay': 1,
+      'formatDayTitle': 'yyyy MMMM',
+      'appendToBody': true
     };
+
+    //行政区搜索
+    $rootScope.getLocation = value => apiService.regionAutoComp({
+      KEY_WORD: value
+    }, true).then(res => {
+      var data = res.data;
+      if(data.success === CONST.API_SUCCESS) {
+        for(var i = data.data.length - 1; i>=0; i--) {
+          var item = data.data[i];
+          if(item.BLEV == "3") {
+            data.data[i] = {
+              name: item.PNAME + ' ' + item.SNAME + ' ' + item.BNAME,
+              code: item.BCODE
+            }
+          } else {
+            data.data.splice(i, 1);
+          }
+        }
+        return data.data;
+      }
+    });
+
+    $rootScope.showImg = (src) => {
+      window.open(src);
+    }
 
   }]);

@@ -1349,6 +1349,7 @@ a:focus {
 
 .form-horizontal .form-group-sm .control-label {
   font-weight: normal;
+  color: #888;
 }
 
 .form-horizontal .form-group-sm .radio input[type="radio"] {

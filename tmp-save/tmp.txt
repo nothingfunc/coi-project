@@ -1,0 +1,18 @@
+
+            <!---->
+            <!--<div class="pull-left margin-r-5">-->
+              <!--<select ng-disabled="state.workState === STATES.VIEW_DATA"  class="form-control"> <option>全国</option> <option>北京</option> </select>-->
+            <!--</div>-->
+            <!--<span class="pull-left control-label margin-r-5">省（自治区）</span>-->
+            <!--<div class="pull-left margin-r-5">-->
+              <!--<select ng-disabled="state.workState === STATES.VIEW_DATA" class="form-control"> <option>巴林左旗</option> </select>-->
+            <!--</div>-->
+            <!--<span class="pull-left control-label margin-r-5">市</span>-->
+            <!--<div class="pull-left margin-r-5">-->
+              <!--<select ng-disabled="state.workState === STATES.VIEW_DATA" class="form-control"> <option>喀喇沁旗</option> </select>-->
+            <!--</div>-->
+            <!--<span class="pull-left control-label margin-r-5">县</span>-->
+            <!--<div class="pull-left margin-r-5">-->
+              <!--<input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" style="width: 100px;"/>-->
+            <!--</div>-->
+            <!--<span class="pull-left control-label margin-r-5">乡</span>-->

@@ -11,6 +11,8 @@ var API_ROOT = "/CYJC";
 
 //express router with mockjs
 module.exports = function(req, res, next) {
+  console.log(req.query, req.params, req.files);
+
   var originalUrl = req.originalUrl;
   var data = "";
   for(var group in apis) {

@@ -1,5 +1,3 @@
-//var angular = require('angular');
-
 //======三方组件依赖======
 //require('ngReact');
 require('angular-bindonce');
@@ -7,8 +5,13 @@ require('angular-sanitize');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-ui-select');
+require('angular-file-upload');
 
-var myApp = angular.module('grassland-project', [/*'react',*/ 'pasvaz.bindonce', 'ui.router', 'ui.bootstrap', 'ui.select']);
+var myApp = angular.module('grassland-project', [/*'react',*/
+                                                  'pasvaz.bindonce', 'ui.router',
+                                                  'ui.bootstrap', 'ui.select',
+                                                  'ngFileUpload'
+                                                ]);
 
 //======自身组件依赖======
 //templates

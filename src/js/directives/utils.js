@@ -1,5 +1,7 @@
 var $ = require('jquery');
 require('jquery-icheck');
+require('jquery-mousewheel');
+require('jquery-perfect-scrollbar');
 
 //存放一些公用的模块
 module.exports = myApp => {
@@ -13,6 +15,7 @@ module.exports = myApp => {
     var $element = null;
     while($element = icheckCache.shift()) {
       $element.iCheck();
+      $element.parent().removeClass('disabled');
     }
   }
   myApp.directive('icheck', ['$timeout', '$parse', function($timeout, $parse) {
@@ -44,6 +47,29 @@ module.exports = myApp => {
               return model.$setViewValue(value);
             });
           }
+        });
+      }
+    };
+  }]);
+
+  //box-body高度撑满屏幕，并且内部滚动
+  myApp.directive('boxAutoScroll', ['$timeout', function($timeout) {
+    return {
+      link: function($scope, element, attrs) {
+        var $ele = $(element);
+        var offset = attrs['boxAutoOffset'] ? parseInt(attrs['boxAutoOffset']) : 0;
+        var $scrollContent = $ele.find(attrs['boxAutoChild'] || '> .box-body');
+        var height = $(window).height() - 132 - 52 + offset;
+        var minHeight = 400 + offset;
+
+        $timeout(function() {
+          $scrollContent.css({
+            height: height,
+            overflowY: 'auto',
+            minHeight: minHeight
+          }).perfectScrollbar({
+            suppressScrollX: true
+          });
         });
       }
     };
@@ -85,6 +111,16 @@ module.exports = myApp => {
       }
     };
   }]);
+
+  ////生成radio组
+  //myApp.directive('radioGroup', ['$timeout', ($timeout) => {
+  //  return {
+  //    restrict: 'EA',
+  //    link: function($scope, element, attrs) {
+  //      console.log($scope);
+  //    }
+  //  };
+  //}])
 
   $(document).on("click", "button, a", function() {
     $(this).blur();

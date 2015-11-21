@@ -117,7 +117,7 @@ prod(fis.media('deploy'))
         to: DEPLOY_TO
       }),
       function() {
-        //打包好的替换相当路径
+        //打包好的替换相对路径
         var rootHtmlPath = DEPLOY_TO + "/index.html";
         var content = new fis.file(rootHtmlPath).getContent();
         content = content.replace(/"\/pkg/g, "\"./pkg");
