@@ -174,6 +174,10 @@ module.exports = myApp => {
         $scope.state.workState = STATES.EDIT_DATA;
       };
 
+      $scope.getSubDataList = () => {
+        apiService.queryFwqudByCondition
+      };
+
       var getDataImg = type => {
         var DATA_TAG = '00';
         if('3,6,7,8'.indexOf(type) !== -1) {

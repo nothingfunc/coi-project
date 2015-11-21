@@ -398,7 +398,14 @@
         </div>
 
         <button type="submit" class="pull-right btn btn-default"
-                ng-hide="state.workState === STATES.EDIT_DATA || state.workState === STATES.CREATE_DATA">添加灌木样方</button>
+                ng-hide="state.workState === STATES.EDIT_DATA ||
+                         state.workState === STATES.CREATE_DATA ||
+                         data.dataParam.HAS_BUSH === CONST.OPT_HAS">添加灌木样方</button>
+
+        <button type="submit" class="pull-right btn btn-default"
+                ng-hide="state.workState === STATES.EDIT_DATA ||
+                         state.workState === STATES.CREATE_DATA ||
+                         data.dataParam.HAS_BUSH === CONST.OPT_HAS">添加草本样方</button>
 
       </div>
     </form>
