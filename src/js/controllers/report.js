@@ -3,8 +3,8 @@
  */
 var CONST = require('../constant');
 module.exports = myApp => {
-  myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", 'Upload', 'apiService',
-    function($scope, $rootScope, $timeout, $state, Upload, apiService) {
+  myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", '$filter', 'Upload', 'apiService',
+    function($scope, $rootScope, $timeout, $state, $filter, Upload, apiService) {
       const STATES = {
         'CREATE_TASK': 0,
         'VIEW_DATA_LIST': 1,
@@ -74,7 +74,6 @@ module.exports = myApp => {
       };
 
       $scope.createTask = () => {
-        $scope.data.taskParamData = {};
         apiService.createNewMission($scope.data.taskParamData).then(res => {
           var data = res.data;
           if(data.success = CONST.API_SUCCESS) {
@@ -111,7 +110,19 @@ module.exports = myApp => {
           var data = res.data;
           if(data.success === CONST.API_SUCCESS) {
             $scope.data.dataParam = data.Data;
-            $scope.data.dataParam._img = getDataImg();
+            $scope.tmp._img = getDataImg();
+            $scope.tmp.region = {
+              name: data.Data.COUNTRY_NAME,
+              code: data.Data.COUNTRY_CODE
+            };
+            $scope.tmp.grassBType = {
+              TYPE_NAME: data.Data.GRASS_BG_TYPE,
+              TYPE_ID: data.Data.GRASS_BG_TYPE_ID
+            };
+            $scope.tmp.grassSType = {
+              TYPE_NAME: data.Data.GRASS_SM_TYPE,
+              TYPE_ID: data.Data.GRASS_SM_TYPE_ID
+            };
           }
         })
       };
@@ -126,33 +137,42 @@ module.exports = myApp => {
       };
 
       $scope.onSaveDataClick = () => {
-        console.log($scope.data.dataParam);
-        console.log($scope.tmp.file);
+        //格式化时间
+        $scope.data.dataParam.SURVEY_TIME = $rootScope.formatTime($scope.data.dataParam.SURVEY_TIME);
+        $scope.data.dataParam.COMPLETE_TIME = $rootScope.formatTime($scope.data.dataParam.COMPLETE_TIME);
 
-        //编辑状态
-        if($scope.state.workState === STATES.EDIT_DATA) {
-          $rootScope.loading();
-          Upload.upload({
-            url: CONF.baseUrl + '/app/icon/upload',
-            method: 'POST',
-            data: {
-              file: $scope.file,
-              username: "TEST"
+        var isEditing = $scope.state.workState === STATES.EDIT_DATA;
+        $rootScope.loading();
+        //提交表单通过这里提交
+        //三种通用数据
+        $scope.data.dataParam.MISSION_ID = $scope.currentTask;
+        $scope.data.dataParam.DATA_ID = isEditing ? $scope.currentData : undefined;
+        $scope.data.dataParam.DATA_TYPE = $scope.currentData;
+
+        var postData = $.extend({FILENAME: $scope.tmp.file}, $scope.data.dataParam);
+        Upload.upload({
+          url: isEditing ? apiService.updateData.url : apiService.addData.url,
+          method: 'POST',
+          data: postData
+        }).success(function(res, status, headers, config) {
+          $rootScope.loading(false);
+          $scope.state.workState = STATES.VIEW_DATA;
+          if(res.success === CONST.API_SUCCESS) {
+            if(isEditing) {
+              $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
+            } else {
+              getDataList($scope.state.currentTask);
+              $scope.state.workTemplate = 'none.html';
             }
-          }).success(function(res, status, headers, config) {
-            $rootScope.loading(false);
-            console.log(res);
-          }).error(function() {
-            $rootScope.loading(false);
-          })
-        }
-
+          }
+        }).error(function() {
+          $rootScope.loading(false);
+        });
       };
 
       $scope.onEditDataClick = () => {
         $scope.state.workState = STATES.EDIT_DATA;
       };
-
 
       var getDataImg = type => {
         var DATA_TAG = '00';
@@ -166,26 +186,66 @@ module.exports = myApp => {
           DATA_TAG: DATA_TAG,
           TIMES: (new Date().getTime())
         })
-      }
+      };
 
       $scope.onCancelCreateDataClick = () => {
         $scope.state.currentData = null;
+      };
+
+      //行政区部分事件
+      $scope.$watch('tmp.region', region => {
+        if(typeof region === 'object') {
+          $scope.data.dataParam.COUNTRY_CODE = region.code;
+          $scope.data.dataParam.COUNTRY_NAME = region.name;
+          $timeout.cancel(regionTimer);
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.COUNTRY_CODE = '';
+          $scope.data.dataParam.COUNTRY_NAME = '';
+        }
+      });
+      var regionTimer ;
+      $scope.onRegionBlur = () => {
+        if(!$scope.data.dataParam.COUNTRY_CODE) {
+          //regionTimer = $timeout(() => $scope.tmp.region = "", 100);
+        }
       }
 
-      // upload on file select or drop
-      $scope.upload = function (file) {
-        Upload.upload({
-          url: 'upload/url',
-          data: {file: file, 'username': $scope.username}
-        }).then(function (resp) {
-          console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        }, function (resp) {
-          console.log('Error status: ' + resp.status);
-        }, function (evt) {
-          var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-          console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-        });
+      //草地类事件
+      $scope.$watch('tmp.grassBType', type => {
+        if(typeof type === 'object') {
+          $scope.data.dataParam.GRASS_BG_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.GRASS_BG_TYPE_ID = type.TYPE_ID;
+          $timeout.cancel(onTypeBBlur);
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.GRASS_BG_TYPE = '';
+          $scope.data.dataParam.GRASS_BG_TYPE_ID = '';
+        }
+      });
+      var onTypeBBlur ;
+      $scope.onTypeBBlur = () => {
+        if(!$scope.data.dataParam.GRASS_BG_TYPE_ID) {
+          //regionTimer = $timeout(() => $scope.tmp.grassBType = "");
+        }
       };
+
+      //草地型事件
+      $scope.$watch('tmp.grassSType', type => {
+        if(typeof type === 'object') {
+          $scope.data.dataParam.GRASS_SM_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.GRASS_SM_TYPE_ID = type.TYPE_ID;
+          $timeout.cancel(grassSType);
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.GRASS_SM_TYPE = '';
+          $scope.data.dataParam.GRASS_SM_TYPE_ID = '';
+        }
+      });
+      var grassSType ;
+      $scope.onTypeSBlur = () => {
+        if(!$scope.data.dataParam.GRASS_SM_TYPE_ID) {
+          //regionTimer = $timeout(() => $scope.tmp.grassSType = "");
+        }
+      };
+
 
     }
   ]);
