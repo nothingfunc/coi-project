@@ -1,0 +1,192 @@
+<style>
+  .form-group-sm {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .form-group-sm + .form-group-sm {
+    border-top: 1px dashed #d2d6de;
+  }
+</style>
+<div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
+  <div class="box box-success">
+    <div class="box-header with-border">
+      <h3 class="box-title">样地数据查询</h3>
+    </div>
+    <div class="box-body no-padding">
+      <form class="form-horizontal" name="searchData" novalidate>
+        <div class="box-body">
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.yeahChecked">年份
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.SURVEY_TIME" ng-disabled="!state.yeahChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected}}</div>
+                  <div ui-select-choices repeat="year in CONST.YEARS">
+                    <span>{{year}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.slopeChecked">坡位
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.SLOPE" ng-disabled="!state.slopeChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="slope.value as slope in CONST.OPT_PW">
+                    <span>{{slope.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.aveAnnChecked">年均降水量
+              </label>
+              <div class="pull-left">
+                <input ng-model="data.searchParamData.AVE_ANNUALRAINFALL" type="text" class="form-control" style="width:80px" ng-disabled="!state.aveAnnChecked">
+              </div>
+              <span class="control-label pull-left">（毫米）</span>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.soilTextureChecked">土壤地质
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.SOIL_TEXTURE" ng-disabled="!state.soilTextureChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="soilTexture.value as soilTexture in CONST.OPT_TRZD">
+                    <span>{{soilTexture.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.yeahChecked">省
+              </label>
+              <div class="pull-left">
+                x
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.yeahChecked">县
+              </label>
+              <div class="pull-left">
+                x
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" ng-model="eee" icheck>草地类型
+              </label>
+              <div class="pull-left">
+                x
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.usePatternChecked">利用方式
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.USE_PATTERN" ng-disabled="!state.usePatternChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="usePattern.value as usePattern in CONST.OPT_LYFS">
+                    <span>{{usePattern.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.geomorphologyChecked">地形地貌
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.GEOMORPHOLOGY" ng-disabled="!state.geomorphologyChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="geomorphology.value as geomorphology in CONST.OPT_DXDM">
+                    <span>{{geomorphology.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.useSituationChecked">利用状况
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.USE_SITUATION" ng-disabled="!state.useSituationChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="useSituation.value as useSituation in CONST.OPT_LYZK">
+                    <span>{{useSituation.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.exposureChecked">坡向
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.EXPOSURE" ng-disabled="!state.exposureChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="exposure.value as exposure in CONST.OPT_PX">
+                    <span>{{exposure.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checkStateChecked">审核结果
+              </label>
+              <div class="pull-left">
+                <div ui-select ng-model="data.searchParamData.CHECK_TAG" ng-disabled="!state.checkStateChecked" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="checkState.value as checkState in CONST.CHECK_STU">
+                    <span>{{checkState.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-12">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.hasPushChecked">灌木和高大草本
+              </label>
+                <div class="pull-left margin-r-20 radio">
+                  <label class="margin-r-5">
+                    <input
+                        icheck type="radio" name="haspush"
+                        ng-disabled="!state.hasPushChecked"
+                        ng-model="data.searchDataParam.HAS_BUSH"
+                        value="1"
+                        />
+                    <span>有</span>
+                  </label>
+                </div>
+                <div class="pull-left margin-r-20 radio">
+                  <label class="margin-r-5">
+                    <input
+                        icheck type="radio" name="haspush"
+                        ng-disabled="!state.hasPushChecked"
+                        ng-model="data.searchDataParam.HAS_BUSH"
+                        value="0"
+                        />
+                    <span>无</span>
+                  </label>
+                </div>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+        </div>
+        <div class="box-footer">
+          <div class="text-center">
+            <button type="submit" class="btn btn-success margin-r-20">查询</button>
+            <button class="btn btn-default">重置</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
