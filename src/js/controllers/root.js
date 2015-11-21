@@ -7,8 +7,8 @@ var CONST = require("../constant");
 var _ = require("underscore");
 
 module.exports = myApp =>
-  myApp.controller('rootController', ['$scope', '$rootScope', '$state', '$timeout', '$q', '$sce', '$uibModal', 'apiService',
-  function($scope, $rootScope, $state, $timeout, $q, $sce, $uibModal, apiService) {
+  myApp.controller('rootController', ['$scope', '$rootScope', '$filter', '$state', '$timeout', '$q', '$sce', '$uibModal', 'apiService',
+  function($scope, $rootScope, $filter, $state, $timeout, $q, $sce, $uibModal, apiService) {
     $rootScope.CONST = CONST;
     $rootScope.data = {
       role: null,
@@ -169,6 +169,8 @@ module.exports = myApp =>
       'appendToBody': true
     };
 
+    $rootScope.formatTime = datetime => $filter("date")(datetime, 'yyyy-MM-dd');
+
     //行政区搜索
     $rootScope.getLocation = value => apiService.regionAutoComp({
       KEY_WORD: value
@@ -187,11 +189,35 @@ module.exports = myApp =>
           }
         }
         return data.data;
+      } else {
+        return [];
       }
     });
 
-    $rootScope.showImg = (src) => {
-      window.open(src);
-    }
+    //草地类搜索
+    $rootScope.getGrassBType = value => apiService.getGrassBType({
+      KEY_WORD: value
+    }, true).then(res => {
+      var data = res.data;
+      if(data.success === CONST.API_SUCCESS) {
+        return data.Data;
+      } else {
+        return [];
+      }
+    });
+
+    //草地型搜索
+    $rootScope.getGrassSType = (value, bId) => apiService.getGrassSType({
+      KEY_WORD: value,
+      B_ID: bId
+    }, true).then(res => {
+      var data = res.data;
+      if(data.success === CONST.API_SUCCESS) {
+        return data.Data;
+      } else {
+        return [];
+      }
+    });
+
 
   }]);
