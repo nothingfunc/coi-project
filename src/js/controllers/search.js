@@ -4,12 +4,12 @@
 module.exports = myApp =>
   myApp.controller('searchController', ['$scope', '$rootScope', "$timeout", 'apiService',
   function($scope, $rootScope, $timeout, apiService) {
-    $scope.states = {fname: 'Clark', lname: 'Kent'};
-    $scope.actions = {
-      onClick: () => {
-        $scope.person.fname = 'ssss';
-        $timeout();
-      }
+    var CONST = require('../constant');
+    console.log(CONST.DATA_TYPE);
+    $scope.CONST = CONST;
+    $scope.datatype = '数据类型';
+    $scope.setDataType = function(id) {
+      $scope.datatype = CONST[id];
     }
   }]);
 
