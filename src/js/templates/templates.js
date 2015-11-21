@@ -11,6 +11,6 @@ module.exports = myApp => {
     $templateCache.put("tips.html", __inline('./tips.html'));
 
     $templateCache.put("create-data-2.html", __inline('./create-data-2.html'));
-    $templateCache.put("show-data-2.html", __inline('./show-data-2.html'));
+    $templateCache.put("search-data-2.html", __inline('./search-data-2.html'));
   }]);
 };

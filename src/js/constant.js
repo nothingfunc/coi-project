@@ -9,6 +9,17 @@ var keyMap = arr => arr.map(v => {
   }
 });
 
+var arrMap = arr => arr.map((v, i) => {
+  return {
+    value: i,
+    name: v
+  }
+})
+
+let years = [];
+for (let y=1977; y<=2050; y++) {
+  years.push(y);
+}
 const CONSTANT = {
   API_SUCCESS: '1',
   API_ERROR: '0',
@@ -45,7 +56,7 @@ const CONSTANT = {
       roleName: '县级用户'
     }
   },
-
+  YEARS: years,
   CHECK_STU: {
     '0': '未上报',
     '1': '待市级审核',
@@ -69,6 +80,7 @@ const CONSTANT = {
     '12': '分户牧户调查',
     '13': '自然生态调查'
   },
+  CHECK_STU: arrMap(['未上报', '待市级审核', '市级审核驳回', '待省级审核', '省级审核驳回', '审核完成']),
 
   OPT_PW: keyMap(['坡脚', '坡顶', '坡下部', '坡中部', '坡上部']),
 
@@ -80,7 +92,7 @@ const CONSTANT = {
 
   OPT_LYFS: keyMap(['打草场', '冷季放牧', '暖季放牧', '春季放牧', '全年放牧', '禁放', '其他']),
 
-  OPT_LYZC: keyMap(['未利用', '轻度利用', '合理利用', '超载', '严重超载']),
+  OPT_LYZK: keyMap(['未利用', '轻度利用', '合理利用', '超载', '严重超载']),
 
   OPT_QSYY: keyMap(['风蚀', '水蚀', '冻蚀', '超载', '其他']),
 
