@@ -114,15 +114,17 @@
                 <i class="fa fa-file-image-o"></i><br/>
                 <small>请选择景观照片文件</small>
               </span>
-              <a href="{{file.$ngfBlobUrl || file.$ngfDataUrl}}" target="_blank">
+              <a href="{{tmp.file.$ngfBlobUrl || tmp.file.$ngfDataUrl}}" target="_blank">
                 <img uib-tooltip="点击查看原图"
                      style="width:100%; height: 100%;"
-                     ngf-src="file"
+                     ngf-src="tmp.file"
                 >
               </a>
               <span class="image-control"
-                        ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                        accept="image/*" ngf-max-size="20MB">
+                    ngf-select ng-model="tmp.file" name="file" ngf-pattern="'image/*'"
+                    accept="image/*" ngf-max-size="20MB"
+                    ng-hide="state.workState === STATES.VIEW_DATA"
+              >
                 选择文件
               </span>
               </i>
