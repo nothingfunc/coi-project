@@ -127,7 +127,10 @@
       "mock": true,
       "res": {
         "success": "1",
-        "Data":{
+        "Data": {
+
+        },
+        "Data2":{
           "QUADRAT_AREA": "@integer(0, 200)",
           "COV_VEGETATION": "@id()",
           "AVG_GRASSHEIGHT": "@integer(2,2)",

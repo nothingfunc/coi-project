@@ -102,6 +102,7 @@ module.exports = myApp => {
       $scope.onShowDataClick = (dataId, type) => {
         $scope.state.workState = STATES.VIEW_DATA;
         $scope.state.currentData = dataId;
+        $scope.state.currentDataType = type;
         $scope.state.workTemplate = 'create-data-' + type + '.html';
         apiService.getDataDetail({
           DATA_ID: dataId,
@@ -118,13 +119,34 @@ module.exports = myApp => {
       $scope.onCancelDataClick = () => {
         if($scope.state.currentData) {
           $scope.state.workState = STATES.VIEW_DATA;
+          $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
         } else {
-          $scope.state.workState = STATES.VIEW_DATA_LIST
+          $scope.state.workState = STATES.VIEW_DATA_LIST;
         }
       };
 
       $scope.onSaveDataClick = () => {
-        console.log('save');
+        console.log($scope.data.dataParam);
+        console.log($scope.tmp.file);
+
+        //编辑状态
+        if($scope.state.workState === STATES.EDIT_DATA) {
+          $rootScope.loading();
+          Upload.upload({
+            url: CONF.baseUrl + '/app/icon/upload',
+            method: 'POST',
+            data: {
+              file: $scope.file,
+              username: "TEST"
+            }
+          }).success(function(res, status, headers, config) {
+            $rootScope.loading(false);
+            console.log(res);
+          }).error(function() {
+            $rootScope.loading(false);
+          })
+        }
+
       };
 
       $scope.onEditDataClick = () => {
