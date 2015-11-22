@@ -2,22 +2,22 @@
   <section class="content-header">
     <h1 class="pull-left">
       数据查询
+      <small uib-dropdown>
+        数据类型：<a href="javascript:;" class="text-green" uib-dropdown-toggle>{{data.datatype}} <span class="caret"></span>
+        </a>
+        <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+          <li role="menuitem"><a href="javascript:;" ng-click="setDataType('2')">{{CONST.DATA_TYPE['2']}}</a></li>
+          <li role="menuitem"><a href="javascript:;" ng-click="setDataType('3')">{{CONST.DATA_TYPE['3']}}</a></li>
+          <li class="divider"></li>
+          <li role="menuitem"><a href="javascript:;" ng-click="setDataType('11')">{{CONST.DATA_TYPE['11']}}</a></li>
+          <li role="menuitem"><a href="javascript:;" ng-click="setDataType('12')">{{CONST.DATA_TYPE['12']}}</a></li>
+          <li role="menuitem"><a href="javascript:;" ng-click="setDataType('13')">{{CONST.DATA_TYPE['13']}}</a></li>
+          <li class="divider"></li>
+          <li role="menuitem"><a href="javascript:;" ng-click="setDataType('9')">{{CONST.DATA_TYPE['9']}}</a></li>
+        </ul>
+      </small>
     </h1>
-    <div class="btn-group pull-left" style="margin-left:10px;" uib-dropdown>
-      <button type="button" class="btn btn-box-tool text-green" uib-dropdown-toggle>
-        {{data.datatype}} <span class="caret"></span>
-      </button>
-      <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-        <li role="menuitem"><a href="javascript:;" ng-click="setDataType('2')">{{CONST.DATA_TYPE['2']}}</a></li>
-        <li role="menuitem"><a href="javascript:;" ng-click="setDataType('3')">{{CONST.DATA_TYPE['3']}}</a></li>
-        <li class="divider"></li>
-        <li role="menuitem"><a href="javascript:;" ng-click="setDataType('11')">{{CONST.DATA_TYPE['11']}}</a></li>
-        <li role="menuitem"><a href="javascript:;" ng-click="setDataType('12')">{{CONST.DATA_TYPE['12']}}</a></li>
-        <li role="menuitem"><a href="javascript:;" ng-click="setDataType('13')">{{CONST.DATA_TYPE['13']}}</a></li>
-        <li class="divider"></li>
-        <li role="menuitem"><a href="javascript:;" ng-click="setDataType('9')">{{CONST.DATA_TYPE['9']}}</a></li>
-      </ul>
-    </div>
+
     <!--<ol class="breadcrumb">-->
     <!--<li><a href="#"><i class="fa fa-files-o"></i> 数据上报</a></li>-->
     <!--<li class="active">上报类型A</li>-->
