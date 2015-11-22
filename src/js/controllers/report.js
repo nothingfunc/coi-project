@@ -123,6 +123,10 @@ module.exports = myApp => {
               TYPE_NAME: data.Data.GRASS_SM_TYPE,
               TYPE_ID: data.Data.GRASS_SM_TYPE_ID
             };
+
+            //获取子列表
+            //$scope.getSubDataList();
+
           }
         })
       };
@@ -175,8 +179,15 @@ module.exports = myApp => {
       };
 
       $scope.getSubDataList = () => {
-        apiService.queryFwqudByCondition
+        apiService.queryFqudBySmpId(res => {
+          console.log(res)
+          var data = res.data;
+          if(data.success === CONST.API_SUCCESS) {
+            //$rootScope.
+          }
+        })
       };
+
 
       var getDataImg = type => {
         var DATA_TAG = '00';

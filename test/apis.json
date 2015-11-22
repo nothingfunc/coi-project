@@ -110,7 +110,7 @@
           {
           "MISSION_ID": "@id()",
           "DATA_ID": "@id()",
-          "DATA_TYPE": "@integer(2,2)",
+          "DATA_TYPE": "@integer(2,5)",
           "CHECK_STU": "待审核",
           "CHECK_MSG": "@word(5,100)",
           "CHECK_MAN": "@first()"
