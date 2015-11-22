@@ -87,7 +87,6 @@
                   />
                 </div>
               </div>
-
             </div>
             <div class="form-group-sm clearfix margin-t-10">
               <label class="pull-left control-label">景观照片编号：</label>
@@ -120,105 +119,30 @@
           </div>
         </div>
 
-        <h4 class="with-border"><span>类型</span> </h4>
+        <h4 class="with-border"><span>概况</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
           <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">草地类：</label>
-            <div class="pull-left w-145">
-              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="tmp.grassBType"
-                     uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
-                     class="form-control"
-                     ng-blur="onTypeBBlur()"
-              >
+            <label class="pull-left control-label">样地面积：</label>
+            <div class="pull-left w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.QUADRAT_AREA"/>
             </div>
           </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">草地型：</label>
-            <div class="pull-left w-145">
-              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.GRASS_BG_TYPE_ID"
-                     ng-model="tmp.grassSType"
-                     uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
-                     class="form-control"
-                     ng-blur="onTypeSBlur()"
-              >
-            </div>
-          </div>
-        </div>
-        <div class="form-group-sm clearfix margin-t-10">
-          <label class="pull-left control-label">具有灌木和高大草木：</label>
-          <div class="pull-left radio">
-            <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
-              <input
-                icheck type="radio" name="jygmhgdcm"
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                ng-model="data.dataParam.HAS_BUSH"
-                value="{{opt.value}}"
-              />
-              <span>{{opt.name}}</span>
-            </label>
-          </div>
-        </div>
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">地貌：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_DXDM" class="margin-r-5">
-                <input
-                  icheck type="radio" name="dxdm"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.GEOMORPHOLOGY"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
-            </div>
-            <label class="pull-left control-label">土壤质地：</label>
-            <div class="pull-left radio">
-              <label ng-repeat="opt in CONST.OPT_TRZD" class="margin-r-5">
-                <input
-                  icheck type="radio" name="trzd"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.SOIL_TEXTURE"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group-sm clearfix margin-t-10">
-          <label class="pull-left control-label">坡向：</label>
-          <div class="pull-left margin-r-20 radio">
-            <label ng-repeat="opt in CONST.OPT_PX" class="margin-r-5">
-              <input
-                icheck type="radio" name="px"
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                ng-model="data.dataParam.EXPOSURE"
-                value="{{opt.value}}"
-              />
-              <span>{{opt.name}}</span>
-            </label>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">坡位：</label>
-            <div class="pull-left radio">
-              <label ng-repeat="opt in CONST.OPT_PW" class="margin-r-5">
-                <input
-                  icheck type="radio" name="pw"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.SLOPE"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
-            </div>
-          </div>
-        </div>
 
-        <h4 class="with-border"><span>地表特征</span> </h4>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">植物盖度：</label>
+            <div class="pull-left w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.COV_VEGETATION"/>
+            </div>
+          </div>
+        </div>
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">草群平均高度：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.AVG_GRASSHEIGHT"/>
+            </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">枯落物情况：</label>
             <div class="pull-left margin-r-20 radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
@@ -233,77 +157,61 @@
             </div>
           </div>
         </div>
-        
-        <h4 class="with-border"><span>水分条件</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">体表有无季节性缺水：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
-                <input
-                  icheck type="radio" name="dbywjjxqs"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_SEASONALWATER"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">植物种数：</label>
+            <div class="pull-left w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.NUM_TYPE_PLANT"/>
             </div>
           </div>
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">年平均降水量：</label>
-            <div class="pull-left margin-r-5 w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.AVE_ANNUALRAINFALL"/>
-            </div>
-            <span class="pull-left control-label">毫米</span>
-          </div>
-        </div>
-        <h4 class="with-border"><span>利用</span> </h4>
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">利用方式：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_LYFS" class="margin-r-5">
-                <input
-                  icheck type="radio" name="lyfs"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.USE_PATTERN"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
+            <label class="pull-left control-label">主要植物种：</label>
+            <div class="pull-left" style="width: 210px;">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.MAIN_PLANT"/>
             </div>
           </div>
         </div>
         <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">主要不可食草种数：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.NUM_TYPE_HARMFUL"/>
+            </div>
+          </div>
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">利用状况：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_LYZK" class="margin-r-5">
-              <input
-                icheck type="radio" name="lyzc"
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                ng-model="data.dataParam.USE_SITUATION"
-                value="{{opt.value}}"
-              />
-              <span>{{opt.name}}</span>
-            </label>
+            <label class="pull-left control-label">主要不可食草名称：</label>
+            <div class="pull-left" style="width: 210px;">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.MAIN_HARMFUL"/>
             </div>
           </div>
         </div>
-        <h4 class="with-border"><span>评价</span> </h4>
+
         <div class="form-group-sm clearfix margin-t-10">
-          <label class="pull-left control-label">综合评价：</label>
-          <div class="pull-left margin-r-20 radio">
-            <label ng-repeat="opt in CONST.OPT_ZHPJ" class="margin-r-5">
-              <input
-                icheck type="radio" name="zhpj"
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                ng-model="data.dataParam.ASSESSMENT"
-                value="{{opt.value}}"
-              />
-              <span>{{opt.name}}</span>
-            </label>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">总产草量鲜重：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.FWEIGHT_TOTALGRASS"/>
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">总产草量风干重：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.DWEIGHT_TOTALGRASS"/>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">可食产草量鲜重：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.FWEIGHT_EATGRASS"/>
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">可食产草量风干重：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.DWEIGHT_EATGRASS"/>
+            </div>
           </div>
         </div>
       </div>
@@ -315,28 +223,6 @@
 
         <div class="pull-left" ng-hide="state.workState === STATES.EDIT_DATA || state.workState === STATES.CREATE_DATA">
           <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-click="onEditDataClick()">编辑</button>
-        </div>
-
-        <div class="btn-group pull-right dropup" uib-dropdown
-                ng-hide="state.workState === STATES.EDIT_DATA ||
-                         state.workState === STATES.CREATE_DATA
-                         ">
-          <button type="button" class="btn btn-default">
-            {{data.dataParam.HAS_BUSH === CONST.OPT_HAS[0].value ? '添加灌木样方' : '添加草本样方'}}
-          </button>
-          <button type="button" class="btn btn-default" uib-dropdown-toggle>
-            <span class="label label-danger">10</span> <span class="caret"></span>
-          </button>
-          <div class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">
-            <!--<li role="menuitem"><a href="#">asasas-->
-              <div ng-include="'sub-data-2-1.html'"></div>
-
-            <!--</a></li>-->
-            <!--<li role="menuitem"><a href="#">Another action</a></li>-->
-            <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
-          </div>
         </div>
 
       </div>

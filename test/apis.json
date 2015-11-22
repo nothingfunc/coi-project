@@ -128,6 +128,7 @@
       "res": {
         "success": "1",
         "Data": {
+          "SAMPLE_PLOT_ID": "888168",
           "COUNTRY_CODE":123,
           "COUNTRY_NAME":"Hello",
           "GRASS_BG_TYPE":"@word(5)",

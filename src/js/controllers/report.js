@@ -29,6 +29,8 @@ module.exports = myApp => {
         var data = res.data;
         if(data.success === CONST.API_SUCCESS) {
           $scope.data.missions = data.rows;
+        } else {
+          $scope.data.missions = [];
         }
       });
       getMissions();
@@ -39,6 +41,8 @@ module.exports = myApp => {
         var data = res.data;
         if(data.success === CONST.API_SUCCESS) {
           $scope.data.dataList = data.rows;
+        } else {
+          $scope.data.dataList = [];
         }
       });
 
@@ -49,9 +53,11 @@ module.exports = myApp => {
           '任务名称：' + missionName +
           '<small>（编号：' + missionId + '）</small>' +
           '<br/>确认提交该任务？'
-        }).then(() =>
-          console.log(id)
-        );
+        }).then(() => {
+          //apiService.onSubmitTaskClick();
+          getMissions();
+
+        });
       };
 
       $scope.onCreateTaskClick = () => {
@@ -93,12 +99,14 @@ module.exports = myApp => {
       };
 
       $scope.onCreateDataClick = type => {
-        $scope.data.dataParam = {};
+        //子类非工程样方需要设置SAMPLE_PLOT_ID，标识父级
+        $scope.data.dataParam = {SAMPLE_PLOT_ID: $scope.data.dataParam ? $scope.data.dataParam.SAMPLE_PLOT_ID : undefined};
         $scope.state.workState = STATES.CREATE_DATA;
         $scope.state.workTemplate = 'create-data-' + type + '.html';
       };
 
       $scope.onShowDataClick = (dataId, type) => {
+        $scope.data.dataParam = {};
         $scope.state.workState = STATES.VIEW_DATA;
         $scope.state.currentData = dataId;
         $scope.state.currentDataType = type;
@@ -126,53 +134,55 @@ module.exports = myApp => {
 
             //获取子列表
             //$scope.getSubDataList();
-
           }
         })
       };
 
       $scope.onCancelDataClick = () => {
-        if($scope.state.currentData) {
-          $scope.state.workState = STATES.VIEW_DATA;
-          $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
-        } else {
-          $scope.state.workState = STATES.VIEW_DATA_LIST;
-        }
+        $scope.showCurrentData();
       };
 
       $scope.onSaveDataClick = () => {
         //格式化时间
         $scope.data.dataParam.SURVEY_TIME = $rootScope.formatTime($scope.data.dataParam.SURVEY_TIME);
         $scope.data.dataParam.COMPLETE_TIME = $rootScope.formatTime($scope.data.dataParam.COMPLETE_TIME);
-
         var isEditing = $scope.state.workState === STATES.EDIT_DATA;
         $rootScope.loading();
+
         //提交表单通过这里提交
         //三种通用数据
-        $scope.data.dataParam.MISSION_ID = $scope.currentTask;
-        $scope.data.dataParam.DATA_ID = isEditing ? $scope.currentData : undefined;
-        $scope.data.dataParam.DATA_TYPE = $scope.currentData;
+        $scope.data.dataParam.MISSION_ID = $scope.state.currentTask;
+        $scope.data.dataParam.DATA_ID = isEditing ? $scope.state.currentData : undefined;
+        $scope.data.dataParam.DATA_TYPE = $scope.state.currentDataType;
 
         var postData = $.extend({FILENAME: $scope.tmp.file}, $scope.data.dataParam);
+
         Upload.upload({
           url: isEditing ? apiService.updateData.url : apiService.addData.url,
           method: 'POST',
           data: postData
         }).success(function(res, status, headers, config) {
-          $rootScope.loading(false);
           $scope.state.workState = STATES.VIEW_DATA;
           if(res.success === CONST.API_SUCCESS) {
-            if(isEditing) {
-              $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
-            } else {
-              getDataList($scope.state.currentTask);
-              $scope.state.workTemplate = 'none.html';
-            }
+            $scope.showCurrentData();
           }
-        }).error(function() {
-          $rootScope.loading(false);
         });
       };
+
+      $scope.showCurrentData = () => {
+        console.log(
+          $scope.state.workState === STATES.EDIT_DATA,
+          $scope.state.currentData,
+          $scope.state.currentDataType
+        );
+
+        if($scope.state.currentData && $scope.state.currentDataType) {
+          $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
+        } else {
+          getDataList($scope.state.currentTask);
+          $scope.state.workTemplate = 'none.html';
+        }
+      }
 
       $scope.onEditDataClick = () => {
         $scope.state.workState = STATES.EDIT_DATA;
@@ -180,7 +190,6 @@ module.exports = myApp => {
 
       $scope.getSubDataList = () => {
         apiService.queryFqudBySmpId(res => {
-          console.log(res)
           var data = res.data;
           if(data.success === CONST.API_SUCCESS) {
             //$rootScope.
