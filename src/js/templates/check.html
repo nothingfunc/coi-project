@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-md-5"
            ng-hide="state.workState === STATES.VIEW_DATA">
-        <div class="box box-success" box-auto-scroll>
+        <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-55">
           <div class="box-header">
             <h3 class="box-title">未提交的审核任务</h3>
             <div class="box-tools pull-right">
@@ -26,7 +26,7 @@
               </button>
             </div>
           </div>
-          <div class="box-body no-padding">
+          <div class="box-body scroll-content no-padding">
             <table class="table table-condensed table-hover">
               <thead>
                 <tr>
@@ -41,8 +41,8 @@
               </thead>
               <tbody>
                 <tr ng-if="!data.missions.length">
-                  <td colspan="4" class="text-center text-muted">
-                    <br/>没有未提交的审核任务<br/><br/>
+                  <td colspan="5" class="text-center text-muted">
+                    <br/>该页没有数据了<br/><br/>
                   </td>
                 </tr>
                 <tr
@@ -70,6 +70,13 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="box-footer">
+            <div class="clearfix pull-right btn-group">
+              <button class="btn btn-default" ng-disabled="!state.pageIndex" ng-click="getPageMissions(-1)">上一页</button>
+              <button class="btn btn-default disabled">第 {{state.pageIndex+1}} 页</button>
+              <button class="btn btn-default" ng-disabled="state.isLastPage" ng-click="getPageMissions(1)">下一页</button>
+            </div>
           </div>
         </div>
       </div>

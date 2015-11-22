@@ -22,18 +22,36 @@ module.exports = myApp => {
         workState: STATES.VIEW_DATA_LIST,
         currentTask: null,
         currentTaskName: '',
-        currentData: null
+        currentData: null,
+        pageIndex: 0,
+        isLastPage: 0
       };
 
-      var getMissions = () => apiService.getAllUnSubMission().success(data => {
-        if(data.success === CONST.API_SUCCESS) {
-          $scope.data.missions = data.rows;
-        } else {
-          $scope.data.missions = [];
+      var getMissions = pageIndex => {
+        $scope.state.isLastPage = false;
+        var postData = {
+          PAGEINDEX: $scope.state.pageIndex
         }
-        $scope.tmp.selectAll = false;
-      });
+        apiService.getAllUnCheMission(postData).success(data => {
+          if(data.success === CONST.API_SUCCESS) {
+            $scope.data.missions = data.rows;
+            if(data.rows.length === 0) {
+              $scope.state.isLastPage = true;
+            }
+          } else {
+            $scope.data.missions = [];
+            $scope.state.isLastPage = true;
+          }
+          $scope.tmp.selectAll = false;
+        });
+      }
       getMissions();
+
+      //翻页
+      $scope.getPageMissions = offset => {
+        $scope.state.pageIndex += offset;
+        getMissions();
+      }
 
       var getDataList = missionId => apiService.getRefDataByMission({
         MISSION_ID: missionId

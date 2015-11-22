@@ -388,20 +388,9 @@
         </div>
       </div>
       <div class="box-footer">
-        <div class="pull-left" ng-hide="state.workState === STATES.VIEW_DATA">
-          <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-click="onSaveDataClick()">保存</button>
-          <button class="btn btn-default pull-left" ng-click="onCancelDataClick()">取消</button>
-        </div>
+        <span ng-include="'save-edit-buttons.html'"></span>
 
-
-
-        <div class="pull-left" ng-hide="state.workState === STATES.EDIT_DATA ||
-                                        state.workState === STATES.CREATE_DATA ||
-                                        state.workStateSuper === STATES.CHECK_DATA">
-          <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-click="onEditDataClick()">编辑</button>
-        </div>
-
-        <div ng-include="'check-form.html'"></div>
+        <span ng-include="'check-form.html'"></span>
 
         <div class="pull-right dropup" uib-dropdown
              ng-hide="state.workState === STATES.EDIT_DATA ||

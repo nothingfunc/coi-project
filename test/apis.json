@@ -95,6 +95,23 @@
       }
     },
     {
+      "url": "/mission/GetAllUnCheMission.action",
+      "desc": "获取未审核的任务",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "msg": "Not logined",
+        "rows|0-5": [{
+          "MISSION_ID": "@id()",
+          "MISSION_CODE": "@integer(10000,99999)",
+          "MISSION_CHECK": "待审核",
+          "MISSION_CHEMSG": "@word(4,300)",
+          "MISSION_NOTE": "@word(4,40)",
+          "MISSION_NAME": "@word(4)"
+        }]
+      }
+    },
+    {
       "url": "/mission/CreateNewMission.action",
       "desc": "创建任务",
       "mock": true,
@@ -142,6 +159,8 @@
         "success": "1"
       }
     }
+
+
   ],
 
   "Data": [
