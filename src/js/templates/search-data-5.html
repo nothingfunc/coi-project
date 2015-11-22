@@ -1,7 +1,7 @@
 <style>
   .form-group-sm {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .form-group-sm + .form-group-sm {
     border-top: 1px dashed #d2d6de;
@@ -62,7 +62,7 @@
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_BUSH">灌木和高大草本名称
               </label>
               <div class="pull-left">
-                <input ng-model="data.searchParamData.MAIN_BUSH" type="text" class="form-control" style="width:90px" ng-disabled="!state.checked.MAIN_BUSH">
+                <input ng-model="data.searchParamData.MAIN_BUSH" type="text" class="form-control" style="width:170px" ng-disabled="!state.checked.MAIN_BUSH">
               </div>
             </div>
             <div class="col-sm-4">
@@ -109,7 +109,7 @@
         <div class="box-footer">
           <div class="text-center">
             <button type="submit" class="btn btn-success margin-r-20">查询</button>
-            <button class="btn btn-default">重置</button>
+            <button class="btn btn-default" ng-click="onResetClick();$event.preventDefault();">重置</button>
           </div>
         </div>
       </form>
@@ -117,16 +117,16 @@
   </div>
 <!--end box-success-->
 
-<div class="box box-success" box-auto-scroll>
+<div class="box box-success">
   <div class="box-header">
     <h3 class="box-title">查询结果列表</h3>
-    <div class="pull-right">
-      <a class="margin-r-10" style="color: #333;" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
-      <a class="margin-r-20" style="color: #333;" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
+    <div class="box-tools">
+      <a class="btn btn-box-tool text-green" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
+      <a class="btn btn-box-tool text-green" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
     </div>
   </div>
   <div class="box-body no-padding">
-    <table class="table table-condensed table-hover">
+    <table class="table table-hover">
       <thead>
       <tr>
         <th>样方名称</th>
@@ -146,13 +146,12 @@
         </td>
       </tr>
       <tr ng-repeat="dataList in data.dataList">
+        <td>{{dataList.QUADRAT_NAME}}</td>
         <td>{{dataList.SURVER_TIME}}</td>
-        <td>{{dataList.COV_VEGETATION}}</td>
+        <td>{{dataList.TOTAL_VEGETATION}}</td>
         <td>{{dataList.FWEIGHT_TOTALGRASS}}</td>
         <td>{{dataList.DWEIGHT_TOTALGRASS}}</td>
-        <td>{{dataList.FWEIGHT_EATGRASS}}</td>
         <td><span class="label label-default ng-binding">{{CONST.CHECK_STU[dataList.CHECK_STU].name}}</span></td>
-        <td>{{dataList.DWEIGHT_EATGRASS}}</td>
         <td><a href="">详细</a></td>
       </tr>
       </tbody>

@@ -238,8 +238,8 @@
         "data|0-20":[{
           "DATA_ID": "@id()",
           "QUADRAT_NAME": "@word(5)",
-          "SUVEY_TIME": "2015-10-14 00:00:00",
-          "COV_VEGETATION": "@id()",
+          "SURVER_TIME": "2015-10-14 00:00:00",
+          "TOTAL_VEGETATION": "@id()",
           "FWEIGHT_TOTALGRASS": "@integer(100, 9999)",
           "DWEIGHT_TOTALGRASS": "@integer(100, 9999)",
           "FWEIGHT_EATGRASS": "4300",

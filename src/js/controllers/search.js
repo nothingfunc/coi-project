@@ -11,21 +11,23 @@ module.exports = myApp =>
     $scope.state = {};
     $scope.tmp = {};
 
+    $scope.onResetClick = () => {
+      $scope.state.checked = {};
+      $scope.state.checked.regioncode = true;
+      $scope.data.searchParamData = {};
+    };
     $scope.setDataType = function(id) {
       selectedDataTypeId = id;
       $scope.data.datatype = CONST.DATA_TYPE[id];
       $scope.state.workTemplate = "search-data-" + id + ".html";
+      $scope.data.dataList = [];
+      $scope.data.totalRecords = 0;
+      $scope.onResetClick();
     }
     $scope.state = {
       checked: {
         regioncode: true
       }
-    };
-
-    $scope.onResetClick = () => {
-      $scope.state.checked = {};
-      $scope.state.checked.regioncode = true;
-      $scope.data.searchParamData = {};
     };
 
     $scope.onResetClick();
@@ -47,6 +49,7 @@ module.exports = myApp =>
     var services = {};
     services['2'] = 'queryFpjByCondition';
     services['4'] = 'queryFwqudByCondition';
+    services['5'] = 'queryFbqudByCondition';
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
         $scope.data.pageNo = 1;
@@ -62,7 +65,6 @@ module.exports = myApp =>
           postData[o] = $scope.data.searchParamData[o];
         }
       }
-      console.log(apiService[services[selectedDataTypeId]]);
       apiService[services[selectedDataTypeId]] && apiService[services[selectedDataTypeId]](postData).then(res=>{
         var data = res.data;
         if (data.success === CONST.API_SUCCESS) {

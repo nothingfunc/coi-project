@@ -1,7 +1,7 @@
 <style>
   .form-group-sm {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .form-group-sm + .form-group-sm {
     border-top: 1px dashed #d2d6de;
@@ -140,7 +140,7 @@
         <div class="box-footer">
           <div class="text-center">
             <button type="submit" class="btn btn-success margin-r-20">查询</button>
-            <button class="btn btn-default">重置</button>
+            <button class="btn btn-default" ng-click="onResetClick();$event.preventDefault();">重置</button>
           </div>
         </div>
       </form>
@@ -148,16 +148,16 @@
   </div>
 <!--end box-success-->
 
-<div class="box box-success" box-auto-scroll>
+<div class="box box-success">
   <div class="box-header">
     <h3 class="box-title">查询结果列表</h3>
-    <div class="pull-right">
-      <a class="margin-r-10" style="color: #333;" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
-      <a class="margin-r-20" style="color: #333;" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
+    <div class="box-tools">
+      <a class="btn btn-box-tool text-green" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
+      <a class="btn btn-box-tool text-green" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
     </div>
   </div>
   <div class="box-body no-padding">
-    <table class="table table-condensed table-hover">
+    <table class="table table-hover">
       <thead>
       <tr>
         <th>年份</th>
@@ -172,7 +172,7 @@
       </thead>
       <tbody>
       <tr ng-if="!data.dataList.length" class="ng-scope">
-        <td colspan="7" class="text-center text-muted">
+        <td colspan="8" class="text-center text-muted">
           <br>没有数据</span>
           <br><br>
         </td>
