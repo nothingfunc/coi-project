@@ -1,15 +1,134 @@
-<div class="content-wrapper">
+<div class="content-wrapper" style="overflow: hidden;">
   <section class="content-header">
-    <h1>
-      数据审核
-      <small>Todo</small>
-    </h1>
-    <!--<ol class="breadcrumb">-->
-      <!--<li><a href="#"><i class="fa fa-files-o"></i> 数据审核</a></li>-->
-      <!--<li class="active"></li>-->
-    <!--</ol>-->
+    <h1> 数据审核 <small>还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未提交的审核任务</small> </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a href="javascript:;" ng-click="onShowTaskClick()">
+          <i class="fa fa-files-o"></i> 数据审核
+        </a>
+      </li>
+      <li>
+        {{state.currentData ? "数据列表" : "未提交的审核任务"}}
+      </li>
+    </ol>
   </section>
-  <div class="content">
-    <!--<home-component store="props">Loading user...</home-component>-->
-  </div>
+  <section class="content">
+    <div class="row">
+      <div class="col-md-5"
+           ng-hide="state.workState === STATES.VIEW_DATA">
+        <div class="box box-success" box-auto-scroll>
+          <div class="box-header">
+            <h3 class="box-title">未提交的审核任务</h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool text-red" ng-click="onSubmitOnceClick()"
+              >
+                <i class="fa fa-send"></i> <span>批量提交任务</span>
+              </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th width="40" class="text-center">
+                    <input type="checkbox" icheck ng-model="tmp.selectAll" ng-change="onSelectAllChanged(tmp.selectAll)" />
+                  </th>
+                  <th width="25%">任务名称</th>
+                  <th width="25%">审核状态</th>
+                  <th width="35%">任务备注</th>
+                  <th width="50">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-if="!data.missions.length">
+                  <td colspan="4" class="text-center text-muted">
+                    <br/>没有未提交的审核任务<br/><br/>
+                  </td>
+                </tr>
+                <tr
+                  ng-click="onShowDataListClick(item.MISSION_ID, item.MISSION_NAME)"
+                  style="cursor: pointer"
+                  ng-repeat="item in data.missions"
+                  class="{{item.MISSION_ID === state.currentTask ? 'active' : ''}}"
+                >
+                  <td class="text-center"><input type="checkbox" icheck ng-init="item._select=false" ng-model="item._select" ng-change="onSelectChanged(item._select)"></td>
+                  <td>{{item.MISSION_NAME}}</td>
+                  <td><span class="label label-default">{{item.MISSION_CHECK}}</span></td>
+                  <td><span class="word-keep-line"
+                            title="{{item.MISSION_NOTE}}">
+                  {{item.MISSION_NOTE}}
+                  </span></td>
+                  <td>
+                    <button
+                      ng-click="onSubmitTaskClick(item.MISSION_ID, item.MISSION_NAME);$event.stopPropagation();"
+                      class="btn btn-xs btn-link text-red"
+                      uib-tooltip="提交任务"
+                      tooltip-append-to-body="true">
+                      <i class="fa fa-paper-plane"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
+           ng-hide="state.workState === STATES.CREATE_TASK"
+      >
+        <div class="box box-success" box-auto-scroll>
+          <div class="box-header">
+            <h3 class="box-title">数据列表
+              <small ng-if="state.currentTask">任务名称：{{state.currentTaskName}} </small>
+              <small ng-if="!state.currentTask">请先在左侧选择一项任务</small>
+            </h3>
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool text-gray"
+                      ng-hide="state.workState === STATES.VIEW_DATA_LIST"
+                      ng-click="onShowTaskClick()">
+                <i class="fa fa-reply"></i> 任务列表
+              </button>
+            </div>
+          </div>
+          <div class="box-body no-padding">
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th width="25%">数据编号</th>
+                  <th width="25%">数据类型</th>
+                  <th width="20%">审核状态</th>
+                  <th>审核意见</th>
+                  <!--<th width="40">操作</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-if="!data.dataList.length">
+                  <td colspan="4" class="text-center text-muted">
+                    <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项任务 </span>
+                    <br/><br/>
+                  </td>
+                </tr>
+                <tr style="cursor: pointer;"
+                    ng-repeat="item in data.dataList"
+                    class="{{state.currentData===item.DATA_ID?'active':''}}"
+                    ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
+                >
+                  <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID}}</span></td>
+                  <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
+                  <td><span class="label label-default">{{item.CHECK_STU}}</span></td>
+                  <td><span class="word-keep-line" title="{{item.CHECK_MSG}}">{{item.CHECK_MSG}}</span></td>
+                  <!--<td></td>-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--创建数据或查看数据时显示-->
+      <div class="col-md-7"
+           ng-hide="state.workState !== STATES.VIEW_DATA">
+        <div ng-include="state.workTemplate"></div>
+      </div>
+    </div>
+  </section>
 </div>

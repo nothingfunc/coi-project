@@ -24,7 +24,8 @@ module.exports = myApp => {
       })
       .state('check', {
         url: '/check',
-        templateUrl: 'check.html'
+        templateUrl: 'check.html',
+        controller: 'checkController'
       })
       .state('statistics', {
         url: '/statistics',
