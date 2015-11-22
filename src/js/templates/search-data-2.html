@@ -18,7 +18,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.year" ng-disabled="!state.checked.year" theme="bootstrap">
                   <div ui-select-match>{{$select.selected}}</div>
                   <div ui-select-choices repeat="year in CONST.YEARS">
@@ -30,7 +30,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.SLOPE">坡位
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.SLOPE" ng-disabled="!state.checked.SLOPE" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="slope.value as slope in CONST.OPT_PW">
@@ -50,7 +50,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.SOIL_TEXTURE">土壤地质
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.SOIL_TEXTURE" ng-disabled="!state.checked.SOIL_TEXTURE" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="soilTexture.value as soilTexture in CONST.OPT_TRZD">
@@ -80,10 +80,10 @@
               </div>
             </div>
             <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.usePatternChecked">利用方式
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.USE_PATTERN">利用方式
               </label>
-              <div class="pull-left">
-                <div ui-select ng-model="data.searchParamData.USE_PATTERN" ng-disabled="!state.usePatternChecked" theme="bootstrap">
+              <div class="pull-left w-130">
+                <div ui-select ng-model="data.searchParamData.USE_PATTERN" ng-disabled="!state.checked.USE_PATTERN" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="usePattern.value as usePattern in CONST.OPT_LYFS">
                     <span>{{usePattern.name}}</span>
@@ -94,7 +94,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.geomorphologyChecked">地形地貌
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.GEOMORPHOLOGY" ng-disabled="!state.geomorphologyChecked" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="geomorphology.value as geomorphology in CONST.OPT_DXDM">
@@ -109,7 +109,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.USE_SITUATION">利用状况
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.USE_SITUATION" ng-disabled="!state.checked.USE_SITUATION" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="useSituation.value as useSituation in CONST.OPT_LYZK">
@@ -121,7 +121,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.EXPOSURE">坡向
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.EXPOSURE" ng-disabled="!state.checked.EXPOSURE" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="exposure.value as exposure in CONST.OPT_PX">
@@ -133,7 +133,7 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.checkStu">审核结果
               </label>
-              <div class="pull-left">
+              <div class="pull-left w-130">
                 <div ui-select ng-model="data.searchParamData.checkStu" ng-disabled="!state.checked.checkStu" theme="bootstrap">
                   <div ui-select-match>{{$select.selected.name}}</div>
                   <div ui-select-choices repeat="checkState.value as checkState in CONST.CHECK_STU">
@@ -150,7 +150,7 @@
                   <input
                       icheck type="radio" name="haspush"
                       ng-disabled="!state.checked.HAS_PUSH"
-                      ng-model="data.searchDataParam.HAS_BUSH"
+                      ng-model="data.searchParamData.HAS_BUSH"
                       value="有"
                       />
                   <span>有</span>
@@ -161,7 +161,7 @@
                   <input
                       icheck type="radio" name="haspush"
                       ng-disabled="!state.checked.HAS_PUSH"
-                      ng-model="data.searchDataParam.HAS_BUSH"
+                      ng-model="data.searchParamData.HAS_BUSH"
                       value="无"
                       />
                   <span>无</span>
@@ -175,7 +175,7 @@
         <div class="box-footer">
           <div class="text-center">
             <button type="submit" class="btn btn-success margin-r-20">查询</button>
-            <button class="btn btn-default">重置</button>
+            <button class="btn btn-default" ng-click="onResetClick();$event.preventDefault();">重置</button>
           </div>
         </div>
       </form>
@@ -187,8 +187,8 @@
   <div class="box-header">
     <h3 class="box-title">查询结果列表</h3>
     <div class="pull-right">
-      <a class="margin-r-10" style="color: #333;" href="" title="下载"><i class="fa fa-download"></i>下载</a>
-      <a class="margin-r-20" style="color: #333;" href="" title="全部下载"><i class="fa fa-download"></i>全部下载</a>
+      <a class="margin-r-10" style="color: #333;" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
+      <a class="margin-r-20" style="color: #333;" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
     </div>
   </div>
   <div class="box-body no-padding">
@@ -223,11 +223,11 @@
       </tbody>
     </table>
     <div class="pagination-wrapper text-center" ng-hide="!data.totalRecords">
-      <div pagination class="pagination-sm"
-           ng-change="pageChanged()" ng-model="data.pageNo"
-           total-items="data.totalRecords" items-per-page="CONST.PAGE_SIZE"
-           boundary-links="false" rotate="false" max-size="15"
-           previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
+      <uib-pagination boundary-links="true" total-items="data.totalRecords" ng-model="data.pageNo" class="pagination-sm"
+                      ng-change="pageChanged()"
+                      items-per-page="CONST.PAGE_SIZE"
+                      max-size="15"
+                      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
     </div>
   </div>
 </div>

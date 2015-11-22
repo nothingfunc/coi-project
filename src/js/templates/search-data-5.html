@@ -15,7 +15,7 @@
       <form class="form-horizontal" name="searchData" ng-submit="onSearchDataClick()" novalidate>
         <div class="box-body">
           <div class="form-group-sm clearfix">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
               </label>
               <div class="pull-left w-130">
@@ -27,8 +27,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.GRASS_BG_TYPE">草地类
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.GRASS_BG_TYPE">草地类型
               </label>
               <div class="pull-left">
                 <input type="text" ng-disabled="!state.checked.GRASS_BG_TYPE"
@@ -38,15 +38,17 @@
                     >
               </div>
             </div>
-            <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.COV_VEGETATION">植物盖度
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_PLANT">主要植物种
               </label>
               <div class="pull-left">
-                <input ng-model="data.searchParamData.COV_VEGETATION" type="text" class="form-control" style="width:80px" ng-disabled="!state.checked.COV_VEGETATION">
+                <input ng-model="data.searchParamData.MAIN_PLANT" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.MAIN_PLANT">
               </div>
-              <span class="control-label pull-left">（%）</span>
             </div>
-            <div class="col-sm-3">
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-4">
               <label class="pull-left control-label">所在地区：</label>
               <div class="pull-left" style="width: 180px;">
                 <input type="text"
@@ -56,32 +58,40 @@
                     >
               </div>
             </div>
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_BUSH">灌木和高大草本名称
+              </label>
+              <div class="pull-left">
+                <input ng-model="data.searchParamData.MAIN_BUSH" type="text" class="form-control" style="width:90px" ng-disabled="!state.checked.MAIN_BUSH">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.TOTAL_VEGETATION">总盖度
+              </label>
+              <div class="pull-left">
+                <input ng-model="data.searchParamData.TOTAL_VEGETATION" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.TOTAL_VEGETATION">
+              </div>
+              <span class="control-label pull-left">（%）</span>
+            </div>
           </div>
           <!--end form-group-sm-->
           <div class="form-group-sm clearfix">
-            <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.AVG_GRASSHEIGHT">草群平均高度
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.FWEIGHT_TOTALGRASS">总产草量鲜重
               </label>
               <div class="pull-left">
-                <input ng-model="data.searchParamData.AVG_GRASSHEIGHT" type="text" class="form-control" style="width:90px" ng-disabled="!state.checked.AVG_GRASSHEIGHT">
+                <input ng-model="data.searchParamData.FWEIGHT_TOTALGRASS" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.FWEIGHT_TOTALGRASS">
               </div>
-              <span class="control-label pull-left">（厘米）</span>
+              <span class="control-label pull-left">（千克/公顷）</span>
             </div>
-            <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_PLANT">主要植物种
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.DWEIGHT_TOTALGRASS">总产草量风干重
               </label>
               <div class="pull-left">
-                <input ng-model="data.searchParamData.MAIN_PLANT" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.MAIN_PLANT">
+                <input ng-model="data.searchParamData.DWEIGHT_TOTALGRASS" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.DWEIGHT_TOTALGRASS">
               </div>
             </div>
-            <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_HARMFUL">主要毒害草名称
-              </label>
-              <div class="pull-left">
-                <input ng-model="data.searchParamData.MAIN_HARMFUL" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.MAIN_HARMFUL">
-              </div>
-            </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.checkStu">审核结果
               </label>
               <div class="pull-left w-130">
@@ -92,47 +102,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <!--end form-group-sm-->
-          <div class="form-group-sm clearfix">
-            <div class="col-sm-6">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.FWEIGHT_TOTALGRASS">总产草量鲜重
-              </label>
-              <div class="pull-left">
-                <input ng-model="data.searchParamData.FWEIGHT_TOTALGRASS" type="text" class="form-control" style="width:180px" ng-disabled="!state.checked.FWEIGHT_TOTALGRASS">
-              </div>
-              <span class="control-label pull-left">（千克/公顷）</span>
-            </div>
-
-            <div class="col-sm-6">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.DWEIGHT_TOTALGRASS">总产草量风干重
-              </label>
-              <div class="pull-left">
-                <input ng-model="data.searchParamData.DWEIGHT_TOTALGRASS" type="text" class="form-control" style="width:180px" ng-disabled="!state.checked.DWEIGHT_TOTALGRASS">
-              </div>
-              <span class="control-label pull-left">（千克/公顷）</span>
-            </div>
-
-
-          </div>
-          <!--end form-group-sm-->
-          <div class="form-group-sm clearfix">
-            <div class="col-sm-6">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.FWEIGHT_EATGRASS">可食产草量鲜重
-              </label>
-              <div class="pull-left">
-                <input ng-model="data.searchParamData.FWEIGHT_EATGRASS" type="text" class="form-control" style="width:180px" ng-disabled="!state.checked.FWEIGHT_EATGRASS">
-              </div>
-              <span class="control-label pull-left">（千克/公顷）</span>
-            </div>
-            <div class="col-sm-6">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.DWEIGHT_EATGRASS">可食产草量风干重
-              </label>
-              <div class="pull-left">
-                <input ng-model="data.searchParamData.DWEIGHT_EATGRASS" type="text" class="form-control" style="width:180px" ng-disabled="!state.checked.DWEIGHT_EATGRASS">
-              </div>
-              <span class="control-label pull-left">（千克/公顷）</span>
             </div>
           </div>
           <!--end form-group-sm-->
@@ -160,13 +129,12 @@
     <table class="table table-condensed table-hover">
       <thead>
       <tr>
+        <th>样方名称</th>
         <th>年份</th>
-        <th>植物盖度</th>
+        <th>总盖度</th>
         <th>总产草量鲜重</th>
         <th>总产草量风干重</th>
-        <th>可食产草量鲜重</th>
-        <th>审查结果</th>
-        <th>可食产草量风干重</th>
+        <th>审核情况</th>
         <th>详细</th>
       </tr>
       </thead>

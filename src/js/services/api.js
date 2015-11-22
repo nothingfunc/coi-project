@@ -61,13 +61,15 @@ module.exports = myApp =>
       services.updateData = makeService({method: 'POST', url: '/data/UpdateData.action'});
       services.updateData.url = CONF.baseUrl + '/data/UpdateData.action';
 
-      //查询------
-      services.searchData = makeService({method: 'POST', url: '/data/QueryFpjByCondition.action'});
+      //查询非工程样地
+      services.queryFpjByCondition = makeService({method: 'POST', url: '/data/QueryFpjByCondition.action'});
+
+      //获取非工程草本样方列表，w是草本
+      services.queryFwqudByCondition = makeService({method: 'POST', url: '/data/QueryFwqudByCondition.action'});
 
       //获取非工程样方关联
       services.queryFqudBySmpId = makeService({method: 'POST', url: '/data/QueryFqudBySmpId.action'});
-      //获取非工程草本样方列表，w是草本
-      services.queryFwqudByCondition = makeService({method: 'POST', url: '/data/QueryFwqudByCondition.action'});
+
       //获取非工程灌木样方列表，b是灌木
       services.queryFbqudByCondition = makeService({method: 'POST', url: '/data/QueryFbqudByCondition.action'});
       //获取行政区------
