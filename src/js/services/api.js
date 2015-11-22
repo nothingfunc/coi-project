@@ -18,28 +18,24 @@ module.exports = myApp =>
           params: request.method == 'GET' ? (data ? $.extend({'_':new Date().getTime()}, data): null): null,
           data:  request.method == 'POST' ? (data ? $.param(data): null) : null
         }).success(res => {
-          !notLoading && $rootScope.loading(false);
-          //if(res.success == CONST.API_ERROR) {
-          //  if(!noAlert) {
-          //    $rootScope.showTips({
-          //      type: 'error',
-          //      msg: res.msg
-          //    });
-          //  }
-          //  res.data = null;
-          //} else if(res.data === null) {
-          //  res.data = {};
-          //}
-        }).error(res => {
-          //passport session out
-          if(res === 'InvalidSession') {
-            top.location.reload();
-          } else {
-            !notLoading && $rootScope.loading(false);
-            $rootScope.showTips({
-              type: 'error'
+          $rootScope.loading(false);
+          if(res.success == CONST.API_ERROR) {
+            res.ErrMsg && $rootScope.showTips({
+              type: 'error',
+              msg: res.ErrMsg
             });
           }
+        }).error(res => {
+          $rootScope.loading(false);
+          //passport session out
+          //if(res === 'InvalidSession') {
+          //  top.location.reload();
+          //} else {
+          //  !notLoading && $rootScope.loading(false);
+          //  $rootScope.showTips({
+          //    type: 'error'
+          //  });
+          //}
         });
 
         return promise;
@@ -61,7 +57,7 @@ module.exports = myApp =>
       //数据------
       services.getDataDetail = makeService({method: 'POST', url: '/data/GetDataDetail.action'});
       services.addData = makeService({method: 'POST', url: '/data/AddData.action'});
-      services.addData.url = CONF.baseUrl + '/data/UpdateData.action';
+      services.addData.url = CONF.baseUrl + '/data/AddData.action';
       services.updateData = makeService({method: 'POST', url: '/data/UpdateData.action'});
       services.updateData.url = CONF.baseUrl + '/data/UpdateData.action';
 
