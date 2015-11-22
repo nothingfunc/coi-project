@@ -172,7 +172,7 @@ module.exports = myApp =>
     $rootScope.formatTime = datetime => $filter("date")(datetime, 'yyyy-MM-dd');
 
     //行政区搜索
-    $rootScope.getLocation = value => apiService.regionAutoComp({
+    $rootScope.getLocation = (value, notFilter) => apiService.regionAutoComp({
       KEY_WORD: value
     }, true).then(res => {
       var data = res.data;
@@ -184,8 +184,22 @@ module.exports = myApp =>
               name: item.PNAME + ' ' + item.SNAME + ' ' + item.BNAME,
               code: item.BCODE
             }
-          } else {
+          }
+          if(!notFilter) {
             data.data.splice(i, 1);
+            continue;
+          }
+          if(item.BLEV == "2") {
+            data.data[i] = {
+              name: item.PNAME + ' ' + item.SNAME,
+              code: item.SCODE
+            }
+          }
+          if(item.BLEV == "1") {
+            data.data[i] = {
+              name: item.PNAME,
+              code: item.PCODE
+            }
           }
         }
         return data.data;

@@ -64,6 +64,10 @@ module.exports = myApp =>
       services.addData.url = CONF.baseUrl + '/data/UpdateData.action';
       services.updateData = makeService({method: 'POST', url: '/data/UpdateData.action'});
       services.updateData.url = CONF.baseUrl + '/data/UpdateData.action';
+
+      //查询------
+      services.searchData = makeService({method: 'POST', url: '/data/QueryFpjByCondition.action'});
+
       //获取非工程样方关联
       services.queryFqudBySmpId = makeService({method: 'POST', url: '/data/QueryFqudBySmpId.action'});
       //获取非工程草本样方列表，w是草本

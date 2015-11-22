@@ -169,9 +169,9 @@
       "mock": true,
       "res": {
         "success": "1",
-        "count": "integer(0,100)",
-        "data|0-20":[{
-          "CHECK_STATUS": "@integer(0, 5)",
+        "count": "2000",
+        "data|0-10":[{
+          "CHECK_STU": "1",
           "SUVEY_PERSON": "@last()、@last()",
           "SUVEY_TIME": "2015-10-14 00:00:00",
           "SAMPLE_PLOT_NAME": "@word(5)",
