@@ -31,6 +31,7 @@ require('./controllers/root')(myApp);
 require('./controllers/login')(myApp);
 require('./controllers/search')(myApp);
 require('./controllers/report')(myApp);
+require('./controllers/check')(myApp);
 //services
 require('./services/api')(myApp);
 //react components

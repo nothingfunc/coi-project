@@ -20,8 +20,10 @@ module.exports = myApp => {
     $templateCache.put("search-data-4.html", __inline('./search-data-4.html'));
 
 
+    $templateCache.put("check-form.html", __inline('./check-form.html'));
+
+
     $templateCache.put("none.html", __inline('./none.html'));
-    $templateCache.put("sub-data-2-1.html", __inline('./sub-data-2-1.html'));
 
   }]);
 };

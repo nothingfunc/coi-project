@@ -9,9 +9,9 @@
       </li>
       <li>
         {{
-        state.createData ? "添加数据":
-        (state.createTask ? "创建任务":
-        (state.currentData ? "数据列表":"未上报任务"))
+        state.workState === STATES.CREATE_DATA ? "添加数据":
+        (state.workState === STATES.CREATE_TASK ? "创建任务":
+        (state.workState === STATES.VIEW_DATA_LIST  ? "数据列表":"未上报任务"))
         }}
       </li>
     </ol>
@@ -40,13 +40,13 @@
               <tr>
                 <th width="25%">任务名称</th>
                 <th width="25%">审核状态</th>
-                <th>审核意见</th>
-                <th width="40">操作</th>
+                <th width="35%">任务备注</th>
+                <th width="50">操作</th>
               </tr>
               </thead>
               <tbody>
               <tr ng-if="!data.missions.length">
-                <td colspan="5" class="text-center text-muted">
+                <td colspan="4" class="text-center text-muted">
                   <br/>没有未上报的任务<br/><br/>
                 </td>
               </tr>
@@ -59,8 +59,8 @@
                 <td>{{item.MISSION_NAME}}</td>
                 <td><span class="label label-default">{{item.MISSION_CHECK}}</span></td>
                 <td><span class="word-keep-line"
-                          title="{{item.MISSION_CHEMSG}}">
-                  {{item.MISSION_CHEMSG}}
+                          title="{{item.MISSION_NOTE}}">
+                  {{item.MISSION_NOTE}}
                 </span></td>
                 <td>
                   <button

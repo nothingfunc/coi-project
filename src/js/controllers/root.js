@@ -234,4 +234,27 @@ module.exports = myApp =>
     });
 
 
+    //消息提示控制
+    var _hideMesTimeout = null;
+    $rootScope.showMes = function(message) {
+      var $message = $(".page-message");
+      if(!$message.length) {
+        $message = $('<p class="page-message" style="display: none;">'+message+'</p>');
+        $(document.body).append($message);
+      } else {
+        $message.html(message);
+      }
+      $timeout.cancel(_hideMesTimeout);
+      $message.hide().css("margin-left", -1 * $message.width() / 2 )
+        .css("top", -28).show().animate({
+        "top": 0
+      }, 200);
+      _hideMesTimeout = $timeout(function() {
+        $message.animate({
+          "top": -28
+        }, 200);
+      }, 2000);
+    };
+
+
   }]);

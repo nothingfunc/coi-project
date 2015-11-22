@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "5",
+        "userRole": "3",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -116,6 +116,30 @@
           "CHECK_MAN": "@first()"
           }
         ]
+      }
+    },
+    {
+      "url": "/mission/CheckMission.action",
+      "desc": "提交审核任务",
+      "mock": true,
+      "res": {
+        "success": "1"
+      }
+    },
+    {
+      "url": "/mission/CheckMissionOnce.action",
+      "desc": "批量提交审核任务",
+      "mock": true,
+      "res": {
+        "success": "1"
+      }
+    },
+    {
+      "url": "/mission/CheckDataOption.action",
+      "desc": "单个数据审核操作",
+      "mock": true,
+      "res": {
+        "success": "1"
       }
     }
   ],

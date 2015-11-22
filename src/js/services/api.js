@@ -53,6 +53,9 @@ module.exports = myApp =>
       services.getAllUnSubMission = makeService({method: 'POST', url: '/mission/GetAllUnSubMission.action'});
       services.createNewMission = makeService({method: 'POST', url: '/mission/CreateNewMission.action'});
       services.getRefDataByMission = makeService({method: 'POST', url: '/mission/GetRefDataByMission.action'});
+      services.checkMission = makeService({method: 'POST', url: '/mission/CheckMission.action'});
+      services.checkMissionOnce = makeService({method: 'POST', url: '/mission/CheckMissionOnce.action'});
+      services.checkDataOption = makeService({method: 'POST', url: '/mission/CheckDataOption.action'});
 
       //数据------
       services.getDataDetail = makeService({method: 'POST', url: '/data/GetDataDetail.action'});
