@@ -1,0 +1,43 @@
+<div class="box box-success" ng-hide="state.firstLoad">
+  <div class="box-header with-border">
+    <h3 class="box-title">查询结果列表</h3>
+    <div class="box-tools">
+      <a class="btn btn-box-tool text-green" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
+      <a class="btn btn-box-tool text-green" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
+    </div>
+  </div>
+  <div class="box-body">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th ng-repeat="title in data.titles">{{title.title}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-if="!data.dataList.length">
+        <td colspan="{{data.titles.length}}" class="text-center text-muted">
+          <br>没有数据</span>
+          <br><br>
+        </td>
+      </tr>
+      <tr ng-repeat="dataList in data.dataList">
+        <td ng-repeat="title in data.titles">
+          <span class="{{title.relatedField!=='CHECK_STU' ? '' : 'label label-default'}}">
+          {{title.relatedField!=='CHECK_STU'?dataList[title.relatedField]:CONST.CHECK_STU[dataList[title.relatedField]].name}}
+          </span>
+          <a href="" ng-if="title.relatedField === 'xx_true'">详细</a>
+          <a href="" ng-if="title.relatedField === 'ck_true'">查看</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="pagination-wrapper text-center" ng-hide="!data.totalRecords">
+      <uib-pagination boundary-links="true" total-items="data.totalRecords" ng-model="data.pageNo" class="pagination-sm"
+                      ng-change="pageChanged()"
+                      items-per-page="CONST.PAGE_SIZE"
+                      max-size="15"
+                      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+    </div>
+  </div>
+</div>
+<!--end box-success-->

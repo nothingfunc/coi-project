@@ -1,7 +1,7 @@
 <style>
   .form-group-sm {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .form-group-sm + .form-group-sm {
     border-top: 1px dashed #d2d6de;
@@ -182,53 +182,4 @@
     </div>
   </div>
 <!--end box-success-->
-
-<div class="box box-success">
-  <div class="box-header">
-    <h3 class="box-title">查询结果列表</h3>
-    <div class="box-tools">
-      <a class="btn btn-box-tool text-green" href="" title="下载"><i class="fa fa-download"></i> 下载</a>
-      <a class="btn btn-box-tool text-green" href="" title="全部下载"><i class="fa fa-download"></i> 全部下载</a>
-    </div>
-  </div>
-  <div class="box-body no-padding">
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th>年份</th>
-        <th>样地名称</th>
-        <th>调查人</th>
-        <th>灌木和高大草本</th>
-        <th>审核结果</th>
-        <th>详细</th>
-        <th>关联样方</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-if="!data.dataList.length" class="ng-scope">
-        <td colspan="7" class="text-center text-muted">
-          <br>没有数据</span>
-          <br><br>
-        </td>
-      </tr>
-      <tr ng-repeat="dataList in data.dataList">
-        <td>{{dataList.SUVEY_TIME}}</td>
-        <td>{{dataList.SAMPLE_PLOT_NAME}}</td>
-        <td>{{dataList.SUVEY_PERSON}}</td>
-        <td>{{dataList.HAS_BUSH}}</td>
-        <td><span class="label label-default ng-binding">{{CONST.CHECK_STU[dataList.CHECK_STU].name}}</span></td>
-        <td><a href="">详细</a></td>
-        <td><a href="">查看</a></td>
-      </tr>
-      </tbody>
-    </table>
-    <div class="pagination-wrapper text-center" ng-hide="!data.totalRecords">
-      <uib-pagination boundary-links="true" total-items="data.totalRecords" ng-model="data.pageNo" class="pagination-sm"
-                      ng-change="pageChanged()"
-                      items-per-page="CONST.PAGE_SIZE"
-                      max-size="15"
-                      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
-    </div>
-  </div>
-</div>
-<!--end box-success-->
+<div ng-include="'search-data-list.html'"></div>

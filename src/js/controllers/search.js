@@ -4,11 +4,113 @@
 module.exports = myApp =>
   myApp.controller('searchController', ['$scope', '$rootScope', "$timeout", 'apiService',
   function($scope, $rootScope, $timeout, apiService) {
-    var CONST = require('../constant'),
+    let CONST = require('../constant'),
         selectedDataTypeId = 2;
     $scope.CONST = CONST;
     $scope.data = {};
-    $scope.state = {};
+    const titlesArr = {
+      "2":[
+        {
+          "title": "年份",
+          "relatedField": "SUVEY_TIME"
+        },
+        {
+          "title": "样地名称",
+          "relatedField": "SAMPLE_PLOT_NAME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "SUVEY_PERSON"
+        },
+        {
+          "title": "灌木和高大草本",
+          "relatedField": "HAS_BUSH"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        },
+        {
+          "title": "关联样方",
+          "relatedField": "ck_true"
+        }
+      ],
+      "4":[
+        {
+          "title": "年份",
+          "relatedField": "SURVER_TIME"
+        },
+        {
+          "title": "植物盖度",
+          "relatedField": "COV_VEGETATION"
+        },
+        {
+          "title": "总产草量鲜重",
+          "relatedField": "FWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "总产草量风干重",
+          "relatedField": "DWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "可食产草量鲜重",
+          "relatedField": "FWEIGHT_EATGRASS"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "可食产草量风干重",
+          "relatedField": "DWEIGHT_EATGRASS"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
+      ],
+      "5":[
+        {
+          "title": "样方名称",
+          "relatedField": "QUADRAT_NAME"
+        },
+        {
+          "title": "年份",
+          "relatedField": "SURVER_TIME"
+        },
+        {
+          "title": "总盖度",
+          "relatedField": "TOTAL_VEGETATION"
+        },
+        {
+          "title": "总产草量鲜重",
+          "relatedField": "FWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "总产草量风干重",
+          "relatedField": "DWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
+      ]
+    };
+    $scope.data.titles = titlesArr['2'];
+    $scope.state = {
+      checked: {
+        regioncode: true
+      },
+      firstLoad: true
+    };
     $scope.tmp = {};
 
     $scope.onResetClick = () => {
@@ -23,12 +125,9 @@ module.exports = myApp =>
       $scope.data.dataList = [];
       $scope.data.totalRecords = 0;
       $scope.onResetClick();
+      $scope.data.titles = titlesArr[id];
+      $scope.state.firstLoad = true;
     }
-    $scope.state = {
-      checked: {
-        regioncode: true
-      }
-    };
 
     $scope.onResetClick();
     $scope.data.pageNo = 1;
@@ -65,6 +164,7 @@ module.exports = myApp =>
           postData[o] = $scope.data.searchParamData[o];
         }
       }
+      $scope.state.firstLoad = false;
       apiService[services[selectedDataTypeId]] && apiService[services[selectedDataTypeId]](postData).then(res=>{
         var data = res.data;
         if (data.success === CONST.API_SUCCESS) {
