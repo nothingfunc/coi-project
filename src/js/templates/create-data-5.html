@@ -1,9 +1,9 @@
 <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
   <div class="box-header with-border">
     <h3 class="box-title">
-      {{state.workState === STATES.EDIT_DATA ? '编辑非工程样地' : ''}}
-      {{state.workState === STATES.CREATE_DATA ? '添加非工程样地' : ''}}
-      {{state.workState === STATES.VIEW_DATA ? '查看非工程样地' : ''}}
+      {{state.workState === STATES.EDIT_DATA ? '编辑非工程灌木样方' : ''}}
+      {{state.workState === STATES.CREATE_DATA ? '添加非工程灌木样方' : ''}}
+      {{state.workState === STATES.VIEW_DATA ? '查看非工程灌木样方' : ''}}
       <small ng-if="state.workState === STATES.EDIT_DATA || state.workState === STATES.VIEW_DATA">
         数据编号：{{state.currentData}}
       </small>
@@ -35,7 +35,7 @@
           </div>
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">调查人：</label>
-            <div class="pull-left w-145">
+            <div class="pull-left" style="width: 145px;">
               <input type="text" class="form-control"
                      ng-disabled="state.workState === STATES.VIEW_DATA"
                      ng-model="data.dataParam.SURVEY_PERSON"
@@ -44,7 +44,7 @@
           </div>
           <div class="clearfix pull-left">
             <label class="pull-left control-label">样地编号：</label>
-            <div class="pull-left w-130">
+            <div class="pull-left">
               <input ng-disabled="state.workState === STATES.VIEW_DATA"
                      type="text" class="form-control"
                      ng-model="data.dataParam.SAMPLE_PLOT_NAME"
@@ -397,22 +397,26 @@
           <button type="submit" class="btn btn-success margin-r-20 pull-left" ng-click="onEditDataClick()">编辑</button>
         </div>
 
-        <div class="pull-right dropup" uib-dropdown
-             ng-hide="state.workState === STATES.EDIT_DATA ||
-                      state.workState === STATES.CREATE_DATA"
-             ng-click="onCreateDataClick(data.dataParam.HAS_BUSH === CONST.OPT_HAS[0].value ? '5' : '4')"
-        >
+        <div class="btn-group pull-right dropup" uib-dropdown
+                ng-hide="state.workState === STATES.EDIT_DATA ||
+                         state.workState === STATES.CREATE_DATA
+                         ">
           <button type="button" class="btn btn-default">
             {{data.dataParam.HAS_BUSH === CONST.OPT_HAS[0].value ? '添加灌木样方' : '添加草本样方'}}
           </button>
-          <!--预留给上拉列表-->
-          <!--<button type="button" class="btn btn-default" uib-dropdown-toggle>-->
-            <!--&lt;!&ndash;<span class="label label-danger">10</span>&ndash;&gt;-->
-            <!--<span class="caret"></span>-->
-          <!--</button>-->
-          <!--<div class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">-->
-            <!--<div ng-include="'sub-data-2-1.html'"></div>-->
-          <!--</div>-->
+          <button type="button" class="btn btn-default" uib-dropdown-toggle>
+            <span class="label label-danger">10</span> <span class="caret"></span>
+          </button>
+          <div class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">
+            <!--<li role="menuitem"><a href="#">asasas-->
+              <div ng-include="'sub-data-2-1.html'"></div>
+
+            <!--</a></li>-->
+            <!--<li role="menuitem"><a href="#">Another action</a></li>-->
+            <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
+            <!--<li class="divider"></li>-->
+            <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
+          </div>
         </div>
 
       </div>

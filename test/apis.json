@@ -110,7 +110,7 @@
           {
           "MISSION_ID": "@id()",
           "DATA_ID": "@id()",
-          "DATA_TYPE": "@integer(2,2)",
+          "DATA_TYPE": "@integer(2,5)",
           "CHECK_STU": "待审核",
           "CHECK_MSG": "@word(5,100)",
           "CHECK_MAN": "@first()"
@@ -133,7 +133,8 @@
           "GRASS_BG_TYPE":"@word(5)",
           "GRASS_BG_TYPE_ID":"@word(5)",
           "GRASS_SM_TYPE":"@word(10)",
-          "GRASS_SM_TYPE_ID":"@word(10)"
+          "GRASS_SM_TYPE_ID":"@word(10)",
+          "HAS_BUSH":"@pick(['有', '无'])"
         },
         "Data2":{
           "QUADRAT_AREA": "@integer(0, 200)",
