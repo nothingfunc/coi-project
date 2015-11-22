@@ -20,13 +20,11 @@ module.exports = myApp =>
         }).success(res => {
           $rootScope.loading(false);
           if(res.success == CONST.API_ERROR) {
-            res.RrrMsg &&
-            $rootScope.showTips({
+            res.ErrMsg && $rootScope.showTips({
               type: 'error',
-              msg: res.RrrMsg
+              msg: res.ErrMsg
             });
           }
-
         }).error(res => {
           $rootScope.loading(false);
           //passport session out

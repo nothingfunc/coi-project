@@ -106,17 +106,18 @@ module.exports = myApp => {
       };
 
       $scope.onShowDataClick = (dataId, type) => {
-        $scope.data.dataParam = {};
-        $scope.state.workState = STATES.VIEW_DATA;
-        $scope.state.currentData = dataId;
-        $scope.state.currentDataType = type;
-        $scope.state.workTemplate = 'create-data-' + type + '.html';
         apiService.getDataDetail({
           DATA_ID: dataId,
           DATA_TYPE: type
         }).then(res => {
           var data = res.data;
           if(data.success === CONST.API_SUCCESS) {
+            $scope.data.dataParam = {};
+            $scope.state.workState = STATES.VIEW_DATA;
+            $scope.state.currentData = dataId;
+            $scope.state.currentDataType = type;
+            $scope.state.workTemplate = 'create-data-' + type + '.html';
+
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
             $scope.tmp.region = {
@@ -162,20 +163,22 @@ module.exports = myApp => {
           method: 'POST',
           data: postData
         }).success(function(res, status, headers, config) {
+          $rootScope.loading(false);
           $scope.state.workState = STATES.VIEW_DATA;
           if(res.success === CONST.API_SUCCESS) {
             $scope.showCurrentData();
+          } else {
+            res.ErrMsg && $rootScope.showTips({
+              type: 'error',
+              msg: res.ErrMsg
+            });
           }
+        }).error(() => {
+          $rootScope.loading(false);
         });
       };
 
       $scope.showCurrentData = () => {
-        console.log(
-          $scope.state.workState === STATES.EDIT_DATA,
-          $scope.state.currentData,
-          $scope.state.currentDataType
-        );
-
         if($scope.state.currentData && $scope.state.currentDataType) {
           $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
         } else {

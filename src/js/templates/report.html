@@ -121,12 +121,12 @@
                 <th width="25%">数据类型</th>
                 <th width="20%">审核状态</th>
                 <th>审核意见</th>
-                <th width="40">操作</th>
+                <!--<th width="40">操作</th>-->
               </tr>
               </thead>
               <tbody>
               <tr ng-if="!data.dataList.length">
-                <td colspan="5" class="text-center text-muted">
+                <td colspan="4" class="text-center text-muted">
                   <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项任务 </span>
                   <br/><br/>
                 </td>
@@ -136,11 +136,11 @@
                   class="{{state.currentData===item.DATA_ID?'active':''}}"
                   ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
               >
-                <td><span class="word-keep-line">{{item.DATA_ID}}</span></td>
+                <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID}}</span></td>
                 <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
                 <td><span class="label label-default">{{item.CHECK_STU}}</span></td>
                 <td><span class="word-keep-line" title="{{item.CHECK_MSG}}">{{item.CHECK_MSG}}</span></td>
-                <td></td>
+                <!--<td></td>-->
               </tr>
               </tbody>
             </table>

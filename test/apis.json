@@ -127,6 +127,7 @@
       "mock": true,
       "res": {
         "success": "1",
+        "ErrMsg": "xxxx",
         "Data": {
           "SAMPLE_PLOT_ID": "888168",
           "COUNTRY_CODE":123,
@@ -250,6 +251,7 @@
       "mock": true,
       "res": {
         "success": "1",
+        "ErrMsg": "xxxxx",
         "DATA_ID": "@id()"
       }
     },
@@ -260,6 +262,7 @@
       "mock": true,
       "res": {
         "success": "1",
+        "ErrMsg": "xxxxx",
         "DATA_ID": "@id()"
       }
     }
