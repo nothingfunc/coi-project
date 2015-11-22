@@ -22,7 +22,7 @@ module.exports = myApp => {
 
 
     $templateCache.put("check-form.html", __inline('./check-form.html'));
-
+    $templateCache.put("save-edit-buttons.html", __inline('./save-edit-buttons.html'));
 
     $templateCache.put("none.html", __inline('./none.html'));
 
