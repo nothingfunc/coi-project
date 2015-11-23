@@ -2,7 +2,6 @@
  * Created by zhengguo.chen on 2015/11/22.
  */
 var CONST = require('../constant');
-var _ = require('underscore');
 
 module.exports = myApp => {
   myApp.controller('checkController', ['$scope', '$rootScope', "$timeout", "$state", '$filter', 'apiService',
@@ -30,7 +29,8 @@ module.exports = myApp => {
       var getMissions = pageIndex => {
         $scope.state.isLastPage = false;
         var postData = {
-          PAGEINDEX: $scope.state.pageIndex
+          PAGEINDEX: $scope.state.pageIndex,
+          PAGECOUNT: CONST.PAGE_SIZE
         }
         apiService.getAllUnCheMission(postData).success(data => {
           if(data.success === CONST.API_SUCCESS) {
@@ -151,8 +151,8 @@ module.exports = myApp => {
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
             $scope.tmp.region = {
-              name: data.Data.COUNTRY_NAME,
-              code: data.Data.COUNTRY_CODE
+              name: data.Data.COUNTY_NAME,
+              code: data.Data.COUNTY_CODE
             };
             $scope.tmp.grassBType = {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,

@@ -174,7 +174,7 @@ module.exports = myApp =>
     //行政区搜索
     $rootScope.getLocation = (value, notFilter) => apiService.regionAutoComp({
       KEY_WORD: value
-    }, true).then(res => {
+    }, true, true).then(res => {
       var data = res.data;
       if(data.success === CONST.API_SUCCESS) {
         for(var i = data.data.length - 1; i>=0; i--) {
@@ -185,7 +185,7 @@ module.exports = myApp =>
               code: item.BCODE
             }
           }
-          if(!notFilter) {
+          if(!notFilter && item.BLEV != "3") {
             data.data.splice(i, 1);
             continue;
           }
@@ -211,7 +211,7 @@ module.exports = myApp =>
     //草地类搜索
     $rootScope.getGrassBType = value => apiService.getGrassBType({
       KEY_WORD: value
-    }, true).then(res => {
+    }, true, true).then(res => {
       var data = res.data;
       if(data.success === CONST.API_SUCCESS) {
         return data.Data;
@@ -224,7 +224,7 @@ module.exports = myApp =>
     $rootScope.getGrassSType = (value, bId) => apiService.getGrassSType({
       KEY_WORD: value,
       B_ID: bId
-    }, true).then(res => {
+    }, true, true).then(res => {
       var data = res.data;
       if(data.success === CONST.API_SUCCESS) {
         return data.Data;

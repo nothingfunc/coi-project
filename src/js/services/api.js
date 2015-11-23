@@ -7,7 +7,7 @@ var $ = require('jquery');
 module.exports = myApp =>
   myApp.factory('apiService', ['$http', '$rootScope', '$timeout',
     ($http, $rootScope, $timeout) => {
-      const makeService = request => (data={}, notLoading, noAlert) => {
+      const makeService = request => (data={}, notLoading, notAlert) => {
         !notLoading && $rootScope.loading(true);
         var promise = $http({
           method: request.method,
@@ -20,7 +20,7 @@ module.exports = myApp =>
         }).success(res => {
           $rootScope.loading(false);
           if(res.success == CONST.API_ERROR) {
-            res.ErrMsg && $rootScope.showTips({
+            !notAlert && res.ErrMsg && $rootScope.showTips({
               type: 'error',
               msg: res.ErrMsg
             });
