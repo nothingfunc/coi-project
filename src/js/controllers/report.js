@@ -123,10 +123,13 @@ module.exports = myApp => {
 
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
-            $scope.tmp.region = {
-              name: data.Data.COUNTY_NAME,
-              code: data.Data.COUNTY_CODE
-            };
+
+            //$scope.tmp.region = {
+            //  name: data.Data.COUNTY_NAME,
+            //  code: data.Data.COUNTY_CODE
+            //};
+            $scope.tmp.region = data.Data.COUNTY_NAME;
+
             $scope.tmp.grassBType = {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
               TYPE_ID: data.Data.GRASS_BG_TYPE_ID

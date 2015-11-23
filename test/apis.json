@@ -182,8 +182,8 @@
         "ErrMsg": "xxxx",
         "Data": {
           "SAMPLE_PLOT_ID": "888168",
-          "COUNTRY_CODE":123,
-          "COUNTRY_NAME":"Hello",
+          "COUNTY_CODE":123,
+          "COUNTY_NAME":"Hello",
           "GRASS_BG_TYPE":"@word(5)",
           "GRASS_BG_TYPE_ID":"@word(5)",
           "GRASS_SM_TYPE":"@word(10)",

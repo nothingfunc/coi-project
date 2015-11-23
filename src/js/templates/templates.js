@@ -13,7 +13,7 @@ module.exports = myApp => {
     $templateCache.put("create-data-2.html", __inline('./create-data-2.html'));
     $templateCache.put("create-data-4.html", __inline('./create-data-4.html'));
     $templateCache.put("create-data-5.html", __inline('./create-data-5.html'));
-
+    $templateCache.put("create-data-3.html", __inline('./create-data-3.html'));
 
     $templateCache.put("search-data-list.html", __inline('./search-data-list.html'));
     $templateCache.put("search-data-2.html", __inline('./search-data-2.html'));
