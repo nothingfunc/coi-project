@@ -123,21 +123,40 @@ module.exports = myApp => {
 
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
+            $scope.tmp._img1 = getDataImg('01');
+            $scope.tmp._img2 = getDataImg('02');
 
-            //$scope.tmp.region = {
-            //  name: data.Data.COUNTY_NAME,
-            //  code: data.Data.COUNTY_CODE
-            //};
-            $scope.tmp.region = data.Data.COUNTY_NAME;
+            $scope.tmp.region = data.Data.COUNTY_CODE ? {
+              code: data.Data.COUNTY_CODE,
+              name: data.Data.COUNTY_NAME
+            } : '';
 
-            $scope.tmp.grassBType = {
+            $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
               TYPE_ID: data.Data.GRASS_BG_TYPE_ID
-            };
-            $scope.tmp.grassSType = {
+            } : '';
+            $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
               TYPE_NAME: data.Data.GRASS_SM_TYPE,
               TYPE_ID: data.Data.GRASS_SM_TYPE_ID
-            };
+            } : '';
+            $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+              TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
+              TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
+            } : '';
+            $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+              TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
+              TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
+            } : '';
+            $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+              TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
+              TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
+            } : '';
+            $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+              TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
+              TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
+            } : '';
+
+            console.log($scope.tmp);
 
             //获取子列表
             //$scope.getSubDataList();
@@ -162,10 +181,11 @@ module.exports = myApp => {
         $scope.data.dataParam.DATA_ID = isEditing ? $scope.state.currentData : undefined;
         $scope.data.dataParam.DATA_TYPE = $scope.state.currentDataType;
 
-        var postData = $.extend(
-          $scope.tmp.file ? {filename: $scope.tmp.file} : {},
-          $scope.data.dataParam
-        );
+        var fileObj = {};
+        $scope.tmp.file && (fileObj.filename = $scope.tmp.file);
+        $scope.tmp.file1 && (fileObj.filenamein = $scope.tmp.file1);
+        $scope.tmp.file2 && (fileObj.filenameout = $scope.tmp.file2);
+        var postData = $.extend(fileObj, $scope.data.dataParam);
 
         Upload.upload({
           url: isEditing ? apiService.updateData.url : apiService.addData.url,
@@ -210,16 +230,12 @@ module.exports = myApp => {
       };
 
 
-      var getDataImg = type => {
-        var DATA_TAG = '00';
-        if('3,6,7,8'.indexOf(type) !== -1) {
-          DATA_TAG = '01';
-        }
+      var getDataImg = (type = '00') => {
         return CONF.baseUrl + '/util/ShowPhoto.action?' +
         $.param({
           MISSION_ID: $scope.state.currentTask,
           DATA_ID: $scope.state.currentData,
-          DATA_TAG: DATA_TAG,
+          DATA_TAG: type,
           TIMES: (new Date().getTime())
         })
       };
@@ -245,43 +261,103 @@ module.exports = myApp => {
           //regionTimer = $timeout(() => $scope.tmp.region = "", 100);
         }
       }
+      //行政区部分事件（工程区内）
+      $scope.$watch('tmp.region1', region => {
+        if(typeof region === 'object') {
+          $scope.data.dataParam.I_COUNTY_CODE = region.code;
+          $scope.data.dataParam.I_COUNTY_NAME = region.name;
+          $timeout.cancel(regionTimer1);
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.I_COUNTY_CODE = '';
+          $scope.data.dataParam.I_COUNTY_NAME = '';
+        }
+      });
+      var regionTimer1 ;
+      $scope.onRegionBlur = () => {
+        if(!$scope.data.dataParam.COUNTY_CODE) {
+          //regionTimer2 = $timeout(() => $scope.tmp.region = "", 100);
+        }
+      }
+      //行政区部分事件（工程区外）
+      $scope.$watch('tmp.region2', region => {
+        if(typeof region === 'object') {
+          $scope.data.dataParam.O_COUNTY_CODE = region.code;
+          $scope.data.dataParam.COUNTY_NAME = region.name;
+          $timeout.cancel(regionTimer2);
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.O_COUNTY_CODE = '';
+          $scope.data.dataParam.O_COUNTY_NAME = '';
+        }
+      });
+      var regionTimer2 ;
+      $scope.onRegionBlur = () => {
+        if(!$scope.data.dataParam.COUNTY_CODE) {
+          //regionTimer2 = $timeout(() => $scope.tmp.region = "", 100);
+        }
+      }
 
       //草地类事件
       $scope.$watch('tmp.grassBType', type => {
         if(typeof type === 'object') {
           $scope.data.dataParam.GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.GRASS_BG_TYPE_ID = type.TYPE_ID;
-          $timeout.cancel(onTypeBBlur);
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.GRASS_BG_TYPE = '';
           $scope.data.dataParam.GRASS_BG_TYPE_ID = '';
         }
       });
-      var onTypeBBlur ;
-      $scope.onTypeBBlur = () => {
-        if(!$scope.data.dataParam.GRASS_BG_TYPE_ID) {
-          //regionTimer = $timeout(() => $scope.tmp.grassBType = "");
+      //草地类事件（工程区内）
+      $scope.$watch('tmp.grassBType1', type => {
+        if(typeof type === 'object') {
+          $scope.data.dataParam.I_GRASS_BG_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.I_GRASS_BG_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.I_GRASS_BG_TYPE = '';
+          $scope.data.dataParam.I_GRASS_BG_TYPE_ID = '';
         }
-      };
+      });
+      //草地类事件（工程区外）
+      $scope.$watch('tmp.grassBType2', type => {
+        if(typeof type === 'object') {
+          $scope.data.dataParam.O_GRASS_BG_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.O_GRASS_BG_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.O_GRASS_BG_TYPE = '';
+          $scope.data.dataParam.O_GRASS_BG_TYPE_ID = '';
+        }
+      });
+
 
       //草地型事件
       $scope.$watch('tmp.grassSType', type => {
         if(typeof type === 'object') {
           $scope.data.dataParam.GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.GRASS_SM_TYPE_ID = type.TYPE_ID;
-          $timeout.cancel(grassSType);
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.GRASS_SM_TYPE = '';
           $scope.data.dataParam.GRASS_SM_TYPE_ID = '';
         }
       });
-      var grassSType ;
-      $scope.onTypeSBlur = () => {
-        if(!$scope.data.dataParam.GRASS_SM_TYPE_ID) {
-          //regionTimer = $timeout(() => $scope.tmp.grassSType = "");
+      //草地型事件（工程区内）
+      $scope.$watch('tmp.grassSType1', type => {
+        if(typeof type === 'object') {
+          $scope.data.dataParam.I_GRASS_SM_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.I_GRASS_SM_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.I_GRASS_SM_TYPE = '';
+          $scope.data.dataParam.I_GRASS_SM_TYPE_ID = '';
         }
-      };
-
+      });
+      //草地型事件（工程区外）
+      $scope.$watch('tmp.grassSType2', type => {
+        if(typeof type === 'object') {
+          $scope.data.dataParam.O_GRASS_SM_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.O_GRASS_SM_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.O_GRASS_SM_TYPE = '';
+          $scope.data.dataParam.O_GRASS_SM_TYPE_ID = '';
+        }
+      });
 
     }
   ]);

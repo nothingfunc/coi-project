@@ -55,29 +55,6 @@
         <!--左右分栏-->
         <div class="clearfix">
           <div class="pull-left margin-r-20">
-            <div class="form-group-sm clearfix margin-t-10 hidden">
-              <div class="clearfix pull-left margin-r-10">
-                <label class="pull-left control-label">所在地区：</label>
-                <div class="pull-left" style="width: 210px;">
-                  <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
-                         ng-model="tmp.region"
-                         uib-typeahead="address as address.name for address in getLocation($viewValue)"
-                         class="form-control"
-                         ng-blur="onRegionBlur()"
-                  >
-                </div>
-              </div>
-              <div class="clearfix pull-left">
-                <label class="pull-left control-label">乡镇：</label>
-                <div class="pull-left" style="width: 90px;">
-                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                         type="text" class="form-control"
-                         ng-model="data.dataParam.TOWN_NAME"
-                  />
-                </div>
-              </div>
-
-            </div>
             <div class="form-group-sm clearfix margin-t-10">
               <label class="pull-left control-label">建成时间：</label>
               <div class="pull-left">
@@ -171,21 +148,19 @@
             <label class="pull-left control-label">工程区内草地类：</label>
             <div class="pull-left">
               <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="tmp.grassBType"
-                     uib-typeahead="type as type.I_TYPE_NAME for type in getGrassBType($viewValue)"
+                     ng-model="tmp.grassBType1"
+                     uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                      class="form-control"
-                     ng-blur="onTypeBBlur()"
               >
             </div>
           </div>
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">工程区内草地型：</label>
             <div class="pull-left" style="width: 250px;">
-              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.GRASS_BG_TYPE_ID"
-                     ng-model="tmp.grassSType"
-                     uib-typeahead="type as type.I_TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.I_GRASS_BG_TYPE_ID"
+                     ng-model="tmp.grassSType1"
+                     uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.I_GRASS_BG_TYPE_ID)"
                      class="form-control"
-                     ng-blur="onTypeSBlur()"
               >
             </div>
           </div>
@@ -195,21 +170,19 @@
             <label class="pull-left control-label">工程区外草地类：</label>
             <div class="pull-left">
               <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="tmp.grassBType"
-                     uib-typeahead="type as type.O_TYPE_NAME for type in getGrassBType($viewValue)"
+                     ng-model="tmp.grassBType2"
+                     uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                      class="form-control"
-                     ng-blur="onTypeBBlur()"
               >
             </div>
           </div>
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">工程区外草地型：</label>
             <div class="pull-left" style="width: 250px;">
-              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.GRASS_BG_TYPE_ID"
-                     ng-model="tmp.grassSType"
-                     uib-typeahead="type as type.O_TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.O_GRASS_BG_TYPE_ID"
+                     ng-model="tmp.grassSType2"
+                     uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.O_GRASS_BG_TYPE_ID)"
                      class="form-control"
-                     ng-blur="onTypeSBlur()"
               >
             </div>
           </div>
@@ -275,7 +248,7 @@
           <div class="pull-left margin-r-20 radio">
             <label ng-repeat="opt in CONST.OPT_PX" class="margin-r-5">
               <input
-                icheck type="radio" name="px"
+                icheck type="radio" name="i-px"
                 ng-disabled="state.workState === STATES.VIEW_DATA"
                 ng-model="data.dataParam.I_EXPOSURE"
                 value="{{opt.value}}"
@@ -289,7 +262,7 @@
           <div class="pull-left margin-r-20 radio">
             <label ng-repeat="opt in CONST.OPT_PX" class="margin-r-5">
               <input
-                icheck type="radio" name="px"
+                icheck type="radio" name="o-px"
                 ng-disabled="state.workState === STATES.VIEW_DATA"
                 ng-model="data.dataParam.O_EXPOSURE"
                 value="{{opt.value}}"
@@ -298,14 +271,31 @@
             </label>
           </div>
         </div>
+        <div class="form-group-sm clearfix margin-t-10">
           <div class="clearfix pull-left">
             <label class="pull-left control-label">工程区内坡位：</label>
             <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_PW" class="margin-r-5">
                 <input
-                  icheck type="radio" name="pw"
+                  icheck type="radio" name="i-pw"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.SLOPE"
+                  ng-model="data.dataParam.I_SLOPE"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">工程区内坡位：</label>
+            <div class="pull-left radio">
+              <label ng-repeat="opt in CONST.OPT_PW" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-pw"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_SLOPE"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -315,14 +305,14 @@
         </div>
         <h4 class="with-border"><span>地表特征</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">枯落物情况：</label>
-            <div class="pull-left margin-r-20 radio">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内枯落物情况：</label>
+            <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
                 <input
-                  icheck type="radio" name="klwqk"
+                  icheck type="radio" name="i-klwqk"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_LITTER"
+                  ng-model="data.dataParam.I_HAS_LITTER"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -330,13 +320,13 @@
             </div>
           </div>
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">覆沙情况：</label>
+            <label class="pull-left control-label">工程区外枯落物情况：</label>
             <div class="pull-left margin-r-20 radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
                 <input
-                  icheck type="radio" name="fsqk"
+                  icheck type="radio" name="o-klwqk"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_SAND"
+                  ng-model="data.dataParam.O_HAS_LITTER"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -345,14 +335,14 @@
           </div>
         </div>
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">地表侵蚀：</label>
-            <div class="pull-left margin-r-20 radio">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内覆沙情况：</label>
+            <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
                 <input
-                  icheck type="radio" name="qsqk"
+                  icheck type="radio" name="i-fsqk"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_EROSION"
+                  ng-model="data.dataParam.I_HAS_SAND"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -360,13 +350,43 @@
             </div>
           </div>
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">侵蚀原因：</label>
+            <label class="pull-left control-label">工程区外覆沙情况：</label>
             <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-fsqk"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_HAS_SAND"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内地表侵蚀：</label>
+            <div class="pull-left radio">
+              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                <input
+                  icheck type="radio" name="i-qsqk"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.I_HAS_EROSION"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">工程区内侵蚀原因：</label>
+            <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_QSYY" class="margin-r-5">
                 <input
-                  icheck type="radio" name="qsyy"
+                  icheck type="radio" name="i-qsyy"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.CAUSES_EROSION"
+                  ng-model="data.dataParam.I_CAUSES_EROSION"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -375,14 +395,14 @@
           </div>
         </div>
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">盐碱斑：</label>
-            <div class="pull-left margin-r-20 radio">
+          <div class="clearfix pull-left margin-r-20 ">
+            <label class="pull-left control-label">工程区外地表侵蚀：</label>
+            <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
                 <input
-                  icheck type="radio" name="yjb"
+                  icheck type="radio" name="o-qsqk"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_SALTALKALI"
+                  ng-model="data.dataParam.O_HAS_EROSION"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -390,44 +410,119 @@
             </div>
           </div>
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">裸地面积比例：</label>
+            <label class="pull-left control-label">工程区外侵蚀原因：</label>
+            <div class="pull-left radio">
+              <label ng-repeat="opt in CONST.OPT_QSYY" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-qsyy"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_CAUSES_EROSION"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内盐碱斑：</label>
+            <div class="pull-left radio">
+              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                <input
+                  icheck type="radio" name="i-yjb"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.I_HAS_SALTALKALI"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">工程区外盐碱斑：</label>
+            <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-yjb"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_HAS_SALTALKALI"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内裸地面积比例：</label>
             <div class="pull-left w-130">
               <input ng-disabled="state.workState === STATES.VIEW_DATA"
                      type="text" class="form-control"
-                     ng-model="data.dataParam.RATIO_BARELAND_AREA"
+                     ng-model="data.dataParam.I_RATIO_BARELAND_AREA"
               />
-              <!--<label ng-repeat="opt in CONST.OPT_LDMJBL" class="margin-r-5">-->
-                <!--<input-->
-                  <!--icheck type="radio" name="ldmjbl"-->
-                  <!--ng-disabled="state.workState === STATES.VIEW_DATA"-->
-                  <!--ng-model="data.dataParam.RATIO_BARELAND_AREA"-->
-                  <!--value="{{opt.value}}"-->
-                <!--/>-->
-                <!--<span>{{opt.name}}</span>-->
-              <!--</label>-->
+            </div>
+          </div>
+
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">工程区外裸地面积比例：</label>
+            <div class="pull-left w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control"
+                     ng-model="data.dataParam.O_RATIO_BARELAND_AREA"
+              />
             </div>
           </div>
         </div>
+
         <h4 class="with-border"><span>水分条件</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">体表有无季节性缺水：</label>
-            <div class="pull-left margin-r-20 radio">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内体表有无季节性缺水：</label>
+            <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
                 <input
-                  icheck type="radio" name="dbywjjxqs"
+                  icheck type="radio" name="i-dbywjjxqs"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_SEASONALWATER"
+                  ng-model="data.dataParam.I_HAS_SEASONALWATER"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
               </label>
             </div>
           </div>
+
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">年平均降水量：</label>
+            <label class="pull-left control-label">工程区外体表有无季节性缺水：</label>
+            <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-dbywjjxqs"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_HAS_SEASONALWATER"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内年平均降水量：</label>
             <div class="pull-left margin-r-5">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.AVE_ANNUALRAINFALL"/>
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVE_ANNUALRAINFALL"/>
+            </div>
+            <span class="pull-left control-label">毫米</span>
+          </div>
+
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">工程区外年平均降水量：</label>
+            <div class="pull-left margin-r-5">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVE_ANNUALRAINFALL"/>
             </div>
             <span class="pull-left control-label">毫米</span>
           </div>
@@ -435,13 +530,13 @@
         <h4 class="with-border"><span>利用</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">利用方式：</label>
+            <label class="pull-left control-label">工程区内利用方式：</label>
             <div class="pull-left margin-r-20 radio">
               <label ng-repeat="opt in CONST.OPT_LYFS" class="margin-r-5">
                 <input
-                  icheck type="radio" name="lyfs"
+                  icheck type="radio" name="i-lyfs"
                   ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.USE_PATTERN"
+                  ng-model="data.dataParam.I_USE_PATTERN"
                   value="{{opt.value}}"
                 />
                 <span>{{opt.name}}</span>
@@ -451,13 +546,29 @@
         </div>
         <div class="form-group-sm clearfix margin-t-10">
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">利用状况：</label>
+            <label class="pull-left control-label">工程区外利用方式：</label>
             <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_LYFS" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-lyfs"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_USE_PATTERN"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">工程区内利用状况：</label>
+            <div class="pull-left radio">
               <label ng-repeat="opt in CONST.OPT_LYZK" class="margin-r-5">
               <input
-                icheck type="radio" name="lyzc"
+                icheck type="radio" name="i-lyzc"
                 ng-disabled="state.workState === STATES.VIEW_DATA"
-                ng-model="data.dataParam.USE_SITUATION"
+                ng-model="data.dataParam.I_USE_SITUATION"
                 value="{{opt.value}}"
               />
               <span>{{opt.name}}</span>
@@ -465,15 +576,43 @@
             </div>
           </div>
         </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">工程区外利用状况：</label>
+            <div class="pull-left radio">
+              <label ng-repeat="opt in CONST.OPT_LYZK" class="margin-r-5">
+                <input
+                  icheck type="radio" name="o-lyzc"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.O_USE_SITUATION"
+                  value="{{opt.value}}"
+                />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
         <h4 class="with-border"><span>评价</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
-          <label class="pull-left control-label">综合评价：</label>
+          <label class="pull-left control-label">工程区内综合评价：</label>
           <div class="pull-left margin-r-20 radio">
             <label ng-repeat="opt in CONST.OPT_ZHPJ" class="margin-r-5">
               <input
-                icheck type="radio" name="zhpj"
+                icheck type="radio" name="i-zhpj"
                 ng-disabled="state.workState === STATES.VIEW_DATA"
-                ng-model="data.dataParam.ASSESSMENT"
+                ng-model="data.dataParam.I_ASSESSMENT"
+                value="{{opt.value}}"
+              />
+              <span>{{opt.name}}</span>
+            </label>
+          </div>
+          <label class="pull-left control-label">工程区外综合评价：</label>
+          <div class="pull-left radio">
+            <label ng-repeat="opt in CONST.OPT_ZHPJ" class="margin-r-5">
+              <input
+                icheck type="radio" name="o-zhpj"
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                ng-model="data.dataParam.O_ASSESSMENT"
                 value="{{opt.value}}"
               />
               <span>{{opt.name}}</span>
