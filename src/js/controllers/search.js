@@ -9,6 +9,7 @@ module.exports = myApp =>
     $scope.CONST = CONST;
     $scope.data = {};
     const titlesArr = {
+      //非工程start
       "2":[
         {
           "title": "年份",
@@ -102,7 +103,104 @@ module.exports = myApp =>
           "title": "详细",
           "relatedField": "xx_true"
         }
+      ],
+      //非工程end
+      //工程start
+      "3":[
+        {
+          "title": "年份",
+          "relatedField": "SUVEY_TIME"
+        },
+        {
+          "title": "样地名称",
+          "relatedField": "SAMPLE_PLOT_NAME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "SUVEY_PERSON"
+        },
+        {
+          "title": "灌木和高大草本",
+          "relatedField": "HAS_BUSH"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        },
+        {
+          "title": "关联样方",
+          "relatedField": "ck_true"
+        }
+      ],
+      "6":[
+        {
+          "title": "年份",
+          "relatedField": "SURVER_TIME"
+        },
+        {
+          "title": "植物盖度",
+          "relatedField": "COV_VEGETATION"
+        },
+        {
+          "title": "总产草量鲜重",
+          "relatedField": "FWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "总产草量风干重",
+          "relatedField": "DWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "可食产草量鲜重",
+          "relatedField": "FWEIGHT_EATGRASS"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "可食产草量风干重",
+          "relatedField": "DWEIGHT_EATGRASS"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
+      ],
+      "7":[
+        {
+          "title": "样方名称",
+          "relatedField": "QUADRAT_NAME"
+        },
+        {
+          "title": "年份",
+          "relatedField": "SURVER_TIME"
+        },
+        {
+          "title": "总盖度",
+          "relatedField": "TOTAL_VEGETATION"
+        },
+        {
+          "title": "总产草量鲜重",
+          "relatedField": "FWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "总产草量风干重",
+          "relatedField": "DWEIGHT_TOTALGRASS"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
       ]
+      //工程end
     };
     $scope.data.titles = titlesArr['2'];
     $scope.state = {
@@ -111,12 +209,12 @@ module.exports = myApp =>
       },
       firstLoad: true
     };
-    $scope.tmp = {};
 
     $scope.onResetClick = () => {
       $scope.state.checked = {};
       $scope.state.checked.regioncode = true;
       $scope.data.searchParamData = {};
+      $scope.tmp = {};
     };
     $scope.setDataType = function(id) {
       selectedDataTypeId = id;
@@ -147,8 +245,11 @@ module.exports = myApp =>
     $scope.data.dataList = [];
     var services = {};
     services['2'] = 'queryFpjByCondition';
+    services['3'] = 'queryFpjByCondition';
     services['4'] = 'queryFwqudByCondition';
     services['5'] = 'queryFbqudByCondition';
+    services['6'] = 'queryFwqudByCondition';
+    services['7'] = 'queryFbqudByCondition';
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
         $scope.data.pageNo = 1;
