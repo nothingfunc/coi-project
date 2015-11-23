@@ -159,6 +159,14 @@
       "res": {
         "success": "1"
       }
+    },
+    {
+      "url": "/mission/SubmitMission.action",
+      "desc": "单个任务上报操作",
+      "mock": true,
+      "res": {
+        "success": "1"
+      }
     }
 
 

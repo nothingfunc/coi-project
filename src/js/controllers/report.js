@@ -53,9 +53,11 @@ module.exports = myApp => {
           '<br/>任务编号：' + missionId +
           '<br/>确定提交该任务？'
         }).then(() => {
-          //apiService.onSubmitTaskClick();
-          getMissions();
-
+          apiService.submitMission({MISSION_ID: missionId}).success(res => {
+            if(res.success === CONST.API_SUCCESS) {
+              getMissions();
+            }
+          });
         });
       };
 
@@ -97,7 +99,8 @@ module.exports = myApp => {
       };
 
       $scope.onCreateDataClick = type => {
-        $scope.tmp.file = null;
+        $scope.tmp = {};
+
         //子类非工程样方需要设置SAMPLE_PLOT_ID，标识父级
         $scope.data.dataParam = {SAMPLE_PLOT_ID: $scope.data.dataParam ? $scope.data.dataParam.SAMPLE_PLOT_ID : undefined};
         $scope.state.workState = STATES.CREATE_DATA;
@@ -106,7 +109,7 @@ module.exports = myApp => {
       };
 
       $scope.onShowDataClick = (dataId, type) => {
-        $scope.tmp.file = null;
+        $scope.tmp = {};
         apiService.getDataDetail({
           DATA_ID: dataId,
           DATA_TYPE: type
@@ -156,7 +159,10 @@ module.exports = myApp => {
         $scope.data.dataParam.DATA_ID = isEditing ? $scope.state.currentData : undefined;
         $scope.data.dataParam.DATA_TYPE = $scope.state.currentDataType;
 
-        var postData = $.extend({filename: $scope.tmp.file}, $scope.data.dataParam);
+        var postData = $.extend(
+          $scope.tmp.file ? {filename: $scope.tmp.file} : {},
+          $scope.data.dataParam
+        );
 
         Upload.upload({
           url: isEditing ? apiService.updateData.url : apiService.addData.url,

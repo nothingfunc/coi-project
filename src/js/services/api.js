@@ -57,6 +57,7 @@ module.exports = myApp =>
       services.checkMission = makeService({method: 'POST', url: '/mission/CheckMission.action'});
       services.checkMissionOnce = makeService({method: 'POST', url: '/mission/CheckMissionOnce.action'});
       services.checkDataOption = makeService({method: 'POST', url: '/mission/CheckDataOption.action'});
+      services.submitMission = makeService({method: 'POST', url: '/mission/SubmitMission.action'});
 
       //数据------
       services.getDataDetail = makeService({method: 'POST', url: '/data/GetDataDetail.action'});
