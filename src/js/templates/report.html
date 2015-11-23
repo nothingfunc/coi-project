@@ -11,7 +11,11 @@
         {{
         state.workState === STATES.CREATE_DATA ? "添加数据":
         (state.workState === STATES.CREATE_TASK ? "创建任务":
-        (state.workState === STATES.VIEW_DATA_LIST  ? "数据列表":"未上报任务"))
+        (state.workState === STATES.VIEW_DATA_LIST  ? "数据列表":
+        (state.workState === STATES.VIEW_DATA  ? "查看数据":
+        (state.workState === STATES.EDIT_DATA  ? "编辑数据":
+        (state.workState === STATES.CREATE_DATA  ? "添加数据":
+        "未上报任务")))))
         }}
       </li>
     </ol>

@@ -8,7 +8,13 @@
         </a>
       </li>
       <li>
-        {{state.currentData ? "数据列表" : "未提交的审核任务"}}
+        {{
+        state.workState === STATES.CREATE_DATA ? "添加数据":
+        (state.workState === STATES.CREATE_TASK ? "创建任务":
+        (state.workState === STATES.VIEW_DATA_LIST  ? "数据列表":
+        (state.workState === STATES.VIEW_DATA  ? "审核数据":
+        "未提交的审核任务")))
+        }}
       </li>
     </ol>
   </section>

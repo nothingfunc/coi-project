@@ -170,6 +170,12 @@ module.exports = myApp => {
       };
 
       $scope.onCancelDataClick = () => {
+        if($scope.state.currentDataType == '7' || $scope.state.currentDataType == '6') {
+          $scope.state.currentDataType = '3';
+        }
+        if($scope.state.currentDataType == '5' || $scope.state.currentDataType == '4') {
+          $scope.state.currentDataType = '2';
+        }
         $scope.showCurrentData();
       };
 
