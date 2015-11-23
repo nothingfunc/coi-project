@@ -73,10 +73,14 @@
               </div>
             </div>
             <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" ng-model="eee" icheck>草地类型
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.GRASS_BG_TYPE">草地类
               </label>
               <div class="pull-left">
-                x
+                <input type="text" ng-disabled="!state.checked.GRASS_BG_TYPE"
+                       ng-model="tmp.grassBType"
+                       uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
+                       class="form-control"
+                    >
               </div>
             </div>
             <div class="col-sm-3">

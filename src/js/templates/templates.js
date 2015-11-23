@@ -17,8 +17,11 @@ module.exports = myApp => {
 
     $templateCache.put("search-data-list.html", __inline('./search-data-list.html'));
     $templateCache.put("search-data-2.html", __inline('./search-data-2.html'));
+    $templateCache.put("search-data-3.html", __inline('./search-data-3.html'));
     $templateCache.put("search-data-4.html", __inline('./search-data-4.html'));
     $templateCache.put("search-data-5.html", __inline('./search-data-5.html'));
+    $templateCache.put("search-data-6.html", __inline('./search-data-6.html'));
+    $templateCache.put("search-data-7.html", __inline('./search-data-7.html'));
 
 
     $templateCache.put("check-form.html", __inline('./check-form.html'));
