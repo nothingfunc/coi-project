@@ -143,7 +143,7 @@
           </div>
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">草地型：</label>
-            <div class="pull-left">
+            <div class="pull-left" style="width: 250px;">
               <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.GRASS_BG_TYPE_ID"
                      ng-model="tmp.grassSType"
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
@@ -301,16 +301,20 @@
           </div>
           <div class="clearfix pull-left">
             <label class="pull-left control-label">裸地面积比例：</label>
-            <div class="pull-left radio">
-              <label ng-repeat="opt in CONST.OPT_LDMJBL" class="margin-r-5">
-                <input
-                  icheck type="radio" name="ldmjbl"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.RATIO_BARELAND_AREA"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
+            <div class="pull-left w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control"
+                     ng-model="data.dataParam.RATIO_BARELAND_AREA"
+              />
+              <!--<label ng-repeat="opt in CONST.OPT_LDMJBL" class="margin-r-5">-->
+                <!--<input-->
+                  <!--icheck type="radio" name="ldmjbl"-->
+                  <!--ng-disabled="state.workState === STATES.VIEW_DATA"-->
+                  <!--ng-model="data.dataParam.RATIO_BARELAND_AREA"-->
+                  <!--value="{{opt.value}}"-->
+                <!--/>-->
+                <!--<span>{{opt.name}}</span>-->
+              <!--</label>-->
             </div>
           </div>
         </div>

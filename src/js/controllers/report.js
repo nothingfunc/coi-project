@@ -53,9 +53,11 @@ module.exports = myApp => {
           '<br/>任务编号：' + missionId +
           '<br/>确定提交该任务？'
         }).then(() => {
-          //apiService.onSubmitTaskClick();
-          getMissions();
-
+          apiService.submitMission({MISSION_ID: missionId}).success(res => {
+            if(res.success === CONST.API_SUCCESS) {
+              getMissions();
+            }
+          });
         });
       };
 
@@ -97,13 +99,17 @@ module.exports = myApp => {
       };
 
       $scope.onCreateDataClick = type => {
+        $scope.tmp = {};
+
         //子类非工程样方需要设置SAMPLE_PLOT_ID，标识父级
         $scope.data.dataParam = {SAMPLE_PLOT_ID: $scope.data.dataParam ? $scope.data.dataParam.SAMPLE_PLOT_ID : undefined};
         $scope.state.workState = STATES.CREATE_DATA;
+        $scope.state.currentDataType = type;
         $scope.state.workTemplate = 'create-data-' + type + '.html';
       };
 
       $scope.onShowDataClick = (dataId, type) => {
+        $scope.tmp = {};
         apiService.getDataDetail({
           DATA_ID: dataId,
           DATA_TYPE: type
@@ -118,8 +124,8 @@ module.exports = myApp => {
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
             $scope.tmp.region = {
-              name: data.Data.COUNTRY_NAME,
-              code: data.Data.COUNTRY_CODE
+              name: data.Data.COUNTY_NAME,
+              code: data.Data.COUNTY_CODE
             };
             $scope.tmp.grassBType = {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
@@ -153,7 +159,10 @@ module.exports = myApp => {
         $scope.data.dataParam.DATA_ID = isEditing ? $scope.state.currentData : undefined;
         $scope.data.dataParam.DATA_TYPE = $scope.state.currentDataType;
 
-        var postData = $.extend({FILENAME: $scope.tmp.file}, $scope.data.dataParam);
+        var postData = $.extend(
+          $scope.tmp.file ? {filename: $scope.tmp.file} : {},
+          $scope.data.dataParam
+        );
 
         Upload.upload({
           url: isEditing ? apiService.updateData.url : apiService.addData.url,
@@ -219,17 +228,17 @@ module.exports = myApp => {
       //行政区部分事件
       $scope.$watch('tmp.region', region => {
         if(typeof region === 'object') {
-          $scope.data.dataParam.COUNTRY_CODE = region.code;
-          $scope.data.dataParam.COUNTRY_NAME = region.name;
+          $scope.data.dataParam.COUNTY_CODE = region.code;
+          $scope.data.dataParam.COUNTY_NAME = region.name;
           $timeout.cancel(regionTimer);
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.COUNTRY_CODE = '';
-          $scope.data.dataParam.COUNTRY_NAME = '';
+          $scope.data.dataParam.COUNTY_CODE = '';
+          $scope.data.dataParam.COUNTY_NAME = '';
         }
       });
       var regionTimer ;
       $scope.onRegionBlur = () => {
-        if(!$scope.data.dataParam.COUNTRY_CODE) {
+        if(!$scope.data.dataParam.COUNTY_CODE) {
           //regionTimer = $timeout(() => $scope.tmp.region = "", 100);
         }
       }

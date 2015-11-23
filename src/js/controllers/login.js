@@ -11,15 +11,9 @@ module.exports = myApp =>
     };
 
     $scope.login = () => {
-      apiService.login($scope.loginData).then(res => {
-        var data = res.data;
+      apiService.login($scope.loginData).success(data => {
         if(data && data.success == CONST.API_SUCCESS) {
           $state.go('search');
-        } else {
-          $rootScope.showTips({
-            type: 'error',
-            msg: data.ErrMsg || '帐号或密码错误'
-          });
         }
       })
     };

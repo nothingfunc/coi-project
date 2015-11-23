@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "3",
+        "userRole": "5",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -53,6 +53,7 @@
       "mock": true,
       "res": {
         "success": "1",
+        "ErrMsg": "NULL REQUEST",
         "Data|0-50": [{
           "TYPE_ID": "@word(3)",
           "TYPE_NAME": "@word(10)"
@@ -154,6 +155,14 @@
     {
       "url": "/mission/CheckDataOption.action",
       "desc": "单个数据审核操作",
+      "mock": true,
+      "res": {
+        "success": "1"
+      }
+    },
+    {
+      "url": "/mission/SubmitMission.action",
+      "desc": "单个任务上报操作",
       "mock": true,
       "res": {
         "success": "1"
