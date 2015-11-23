@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "5",
+        "userRole": "3",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -128,7 +128,7 @@
           {
           "MISSION_ID": "@id()",
           "DATA_ID": "@id()",
-          "DATA_TYPE": "@integer(2,5)",
+          "DATA_TYPE": "@integer(2,7)",
           "CHECK_STU": "待审核",
           "CHECK_MSG": "@word(5,100)",
           "CHECK_MAN": "@first()"
