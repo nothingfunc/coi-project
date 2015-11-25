@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "3",
+        "userRole": "5",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -313,7 +313,7 @@
       "desc": "所有数据修改通用接口，通用字段+各类型数据字段+图片，需要传入DATA_ID",
       "mock": true,
       "res": {
-        "success": "1",
+        "success": "0",
         "ErrMsg": "xxxxx",
         "DATA_ID": "@id()"
       }

@@ -228,7 +228,6 @@ module.exports = myApp => {
               $scope.state.currentDataType = nextItem.DATA_TYPE;
               findNext = true;
             }
-            console.log(item.DATA_ID,$scope.state.currentData,$rootScope.data.user.userRole, item.CHECK_STU);
           } else {
             if(
               ($rootScope.data.user.userRole == '4' && item.CHECK_STU === '待市审核') ||

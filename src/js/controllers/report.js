@@ -104,7 +104,12 @@ module.exports = myApp => {
         $scope.tmp = {};
 
         //子类非工程样方需要设置SAMPLE_PLOT_ID，标识父级
-        $scope.data.dataParam = {SAMPLE_PLOT_ID: $scope.data.dataParam ? $scope.data.dataParam.SAMPLE_PLOT_ID : undefined};
+        if('4,5,6,7'.indexOf(type) !== -1) {
+          var samplePlotId = $scope.state.currentData;
+        }
+        $scope.data.dataParam = {
+          SAMPLE_PLOT_ID: samplePlotId
+        };
         $scope.state.workState = STATES.CREATE_DATA;
         $scope.state.currentDataType = type;
         $scope.state.workTemplate = 'create-data-' + type + '.html';
@@ -201,9 +206,9 @@ module.exports = myApp => {
           data: postData
         }).success(function(res, status, headers, config) {
           $rootScope.loading(false);
-          $scope.state.workState = STATES.VIEW_DATA;
           if(res.success === CONST.API_SUCCESS) {
-            console.log(res)
+            //console.log(res)
+            $scope.state.workState = STATES.VIEW_DATA;
             if(!isEditing) {
               $scope.state.currentData = res.DATA_ID || null;
             }
