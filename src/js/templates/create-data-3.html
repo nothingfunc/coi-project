@@ -88,7 +88,7 @@
                 <i class="fa fa-file-image-o"></i><br/>
                 <small>请选择工程区内景观照片文件</small>
               </span>
-              <a href="{{tmp.file1.$ngfBlobUrl || tmp.file1.$ngfDataUrl || tmp._img1}}" target="_blank">
+              <a ng-click="$parent.showLightBox(tmp.file1.$ngfBlobUrl || tmp.file1.$ngfDataUrl || tmp._img1)" href="javascript:;">
                 <img uib-tooltip="点击查看原图"
                      style="width:100%; height: 100%;"
                      ngf-src="tmp.file1 || tmp._img1"
@@ -111,7 +111,7 @@
                 <i class="fa fa-file-image-o"></i><br/>
                 <small>请选择工程区外景观照片文件</small>
               </span>
-              <a href="{{tmp.file2.$ngfBlobUrl || tmp.file2.$ngfDataUrl || tmp._img2}}" target="_blank">
+              <a ng-click="$parent.showLightBox(tmp.file2.$ngfBlobUrl || tmp.file2.$ngfDataUrl || tmp._img2)" href="javascript:;">
                 <img uib-tooltip="点击查看原图"
                      style="width:100%; height: 100%;"
                      ngf-src="tmp.file2 || tmp._img2"

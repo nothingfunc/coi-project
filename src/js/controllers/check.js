@@ -26,7 +26,7 @@ module.exports = myApp => {
         isLastPage: 0
       };
 
-      var getMissions = pageIndex => {
+      var getMissions = () => {
         $scope.state.isLastPage = false;
         var postData = {
           PAGEINDEX: $scope.state.pageIndex,
@@ -53,11 +53,14 @@ module.exports = myApp => {
         getMissions();
       }
 
-      var getDataList = missionId => apiService.getRefDataByMission({
+      var getDataList = (missionId, autoClickFirst) => apiService.getRefDataByMission({
         MISSION_ID: missionId
       }).success(data => {
         if(data.success === CONST.API_SUCCESS) {
           $scope.data.dataList = data.rows;
+          if(autoClickFirst && data.rows.length) {
+            $scope.onShowDataClick(data.rows[0].DATA_ID, data.rows[0].DATA_TYPE);
+          }
         } else {
           $scope.data.dataList = [];
         }
@@ -71,8 +74,14 @@ module.exports = myApp => {
           '<br/>任务编号：' + missionId +
           '<br/>确定提交该任务？'
         }).then(() => {
-          //apiService.onSubmitTaskClick();
-          getMissions();
+          apiService.checkMission(
+            {MISSION_ID: missionId}
+          ).success(res => {
+            if(res.success === CONST.API_SUCCESS) {
+              getMissions();
+              $scope.state.currentTask && getDataList($scope.state.currentTask);
+            }
+          })
         });
       };
 
@@ -95,6 +104,7 @@ module.exports = myApp => {
               if(res.success === CONST.API_SUCCESS) {
                 $rootScope.showTips({msg: '提交审核任务成功'});
                 getMissions();
+                $scope.state.currentTask && getDataList($scope.state.currentTask);
               }
             });
           });
@@ -105,20 +115,11 @@ module.exports = myApp => {
         $scope.state.workState = STATES.VIEW_DATA_LIST;
         $scope.state.currentTask = missionId;
         $scope.state.currentTaskName = missionName;
-        getDataList(missionId);
+        getDataList(missionId, true);
       };
 
       $scope.cancelCreateTask = () => {
         $scope.state.workState = STATES.VIEW_DATA_LIST;
-      };
-
-      $scope.createTask = () => {
-        apiService.createNewMission($scope.data.taskParamData).success(res => {
-          if(res.success = CONST.API_SUCCESS) {
-            $scope.cancelCreateTask();
-            getMissions();
-          }
-        })
       };
 
 
@@ -215,6 +216,52 @@ module.exports = myApp => {
         $scope.state.currentData = null;
       };
 
+      //获取下一条ID和TYPE，并展示，返回是否成功
+      var showNextData = () => {
+        var findNext = false;
+        var allChecked = true;
+        $scope.data.dataList.forEach((item, index) => {
+          if(item.DATA_ID == $scope.state.currentData) {
+            var nextItem = $scope.data.dataList[index+1];
+            if(!findNext && nextItem) {
+              $scope.state.currentData = nextItem.DATA_ID;
+              $scope.state.currentDataType = nextItem.DATA_TYPE;
+              findNext = true;
+            }
+            console.log(item.DATA_ID,$scope.state.currentData,$rootScope.data.user.userRole, item.CHECK_STU);
+          } else {
+            if(
+              ($rootScope.data.user.userRole == '4' && item.CHECK_STU === '待市审核') ||
+              ($rootScope.data.user.userRole == '3' && item.CHECK_STU === '市通过，待省审核')
+            ) {
+              allChecked = false;
+            }
+          }
+        });
+
+        console.log(allChecked);
+
+        if(allChecked) {
+          $rootScope.showTips({
+            type: 'confirm',
+            msg: '该任务的所有数据都已完成审核，是否提交该任务？'
+          }).then(() => {
+            apiService.checkMission(
+              {MISSION_ID: $scope.state.currentTask}
+            ).success(res => {
+              if(res.success === CONST.API_SUCCESS) {
+                $scope.onShowTaskClick();
+                getMissions();
+              }
+            })
+          }, () => {
+            $scope.showCurrentData();
+          });
+        } else {
+          $scope.showCurrentData();
+        }
+      };
+
       //审核部分的事件
       $scope.onSubmitCheckClick = () => {
         var postData = {
@@ -225,7 +272,9 @@ module.exports = myApp => {
         };
         apiService.checkDataOption(postData).success(res => {
           if(res.success === CONST.API_SUCCESS) {
+            showNextData();
             getDataList($scope.state.currentTask);
+            //获取下一条数据
             $scope.tmp._checkIsOpen = false;
           }
         })

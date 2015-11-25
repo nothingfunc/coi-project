@@ -56,6 +56,7 @@ module.exports = myApp => {
           apiService.submitMission({MISSION_ID: missionId}).success(res => {
             if(res.success === CONST.API_SUCCESS) {
               getMissions();
+              $scope.state.currentTask && getDataList($scope.state.currentTask);
             }
           });
         });
@@ -85,6 +86,7 @@ module.exports = myApp => {
           if(data.success = CONST.API_SUCCESS) {
             $scope.cancelCreateTask();
             getMissions();
+            $scope.state.currentTask && getDataList($scope.state.currentTask);
           }
         })
       };
@@ -201,6 +203,10 @@ module.exports = myApp => {
           $rootScope.loading(false);
           $scope.state.workState = STATES.VIEW_DATA;
           if(res.success === CONST.API_SUCCESS) {
+            console.log(res)
+            if(!isEditing) {
+              $scope.state.currentData = res.DATA_ID || null;
+            }
             $scope.showCurrentData();
           } else {
             res.ErrMsg && $rootScope.showTips({
@@ -215,12 +221,13 @@ module.exports = myApp => {
 
       $scope.showCurrentData = () => {
         if($scope.state.currentData && $scope.state.currentDataType) {
+          getDataList($scope.state.currentTask);
           $scope.onShowDataClick($scope.state.currentData, $scope.state.currentDataType);
         } else {
           getDataList($scope.state.currentTask);
           $scope.state.workTemplate = 'none.html';
         }
-      }
+      };
 
       $scope.onEditDataClick = () => {
         $scope.state.workState = STATES.EDIT_DATA;
@@ -234,7 +241,6 @@ module.exports = myApp => {
           }
         })
       };
-
 
       var getDataImg = (type = '00') => {
         return CONF.baseUrl + '/util/ShowPhoto.action?' +
@@ -258,7 +264,7 @@ module.exports = myApp => {
           $timeout.cancel(regionTimer);
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.COUNTY_CODE = '';
-          $scope.data.dataParam.COUNTY_NAME = '';
+          $scope.data.dataParam.COUNTY_NAME = region;
         }
       });
       var regionTimer ;
@@ -275,7 +281,7 @@ module.exports = myApp => {
           $timeout.cancel(regionTimer1);
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.I_COUNTY_CODE = '';
-          $scope.data.dataParam.I_COUNTY_NAME = '';
+          $scope.data.dataParam.I_COUNTY_NAME = region;
         }
       });
       var regionTimer1 ;
@@ -292,7 +298,7 @@ module.exports = myApp => {
           $timeout.cancel(regionTimer2);
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.O_COUNTY_CODE = '';
-          $scope.data.dataParam.O_COUNTY_NAME = '';
+          $scope.data.dataParam.O_COUNTY_NAME = region;
         }
       });
       var regionTimer2 ;
@@ -308,7 +314,7 @@ module.exports = myApp => {
           $scope.data.dataParam.GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.GRASS_BG_TYPE_ID = type.TYPE_ID;
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.GRASS_BG_TYPE = '';
+          $scope.data.dataParam.GRASS_BG_TYPE = type;
           $scope.data.dataParam.GRASS_BG_TYPE_ID = '';
         }
       });
@@ -318,7 +324,7 @@ module.exports = myApp => {
           $scope.data.dataParam.I_GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.I_GRASS_BG_TYPE_ID = type.TYPE_ID;
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.I_GRASS_BG_TYPE = '';
+          $scope.data.dataParam.I_GRASS_BG_TYPE = type;
           $scope.data.dataParam.I_GRASS_BG_TYPE_ID = '';
         }
       });
@@ -328,7 +334,7 @@ module.exports = myApp => {
           $scope.data.dataParam.O_GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.O_GRASS_BG_TYPE_ID = type.TYPE_ID;
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.O_GRASS_BG_TYPE = '';
+          $scope.data.dataParam.O_GRASS_BG_TYPE = type;
           $scope.data.dataParam.O_GRASS_BG_TYPE_ID = '';
         }
       });
@@ -340,7 +346,7 @@ module.exports = myApp => {
           $scope.data.dataParam.GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.GRASS_SM_TYPE_ID = type.TYPE_ID;
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.GRASS_SM_TYPE = '';
+          $scope.data.dataParam.GRASS_SM_TYPE = type;
           $scope.data.dataParam.GRASS_SM_TYPE_ID = '';
         }
       });
@@ -350,7 +356,7 @@ module.exports = myApp => {
           $scope.data.dataParam.I_GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.I_GRASS_SM_TYPE_ID = type.TYPE_ID;
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.I_GRASS_SM_TYPE = '';
+          $scope.data.dataParam.I_GRASS_SM_TYPE = type;
           $scope.data.dataParam.I_GRASS_SM_TYPE_ID = '';
         }
       });
@@ -360,7 +366,7 @@ module.exports = myApp => {
           $scope.data.dataParam.O_GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.O_GRASS_SM_TYPE_ID = type.TYPE_ID;
         } else if($scope.data.dataParam) {
-          $scope.data.dataParam.O_GRASS_SM_TYPE = '';
+          $scope.data.dataParam.O_GRASS_SM_TYPE = type;
           $scope.data.dataParam.O_GRASS_SM_TYPE_ID = '';
         }
       });

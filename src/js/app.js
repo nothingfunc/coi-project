@@ -10,12 +10,13 @@ require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-ui-select');
 require('angular-file-upload');
+require('angular-bootstrap-lightbox');
 
 var myApp = angular.module('grassland-project',
   [ /*'react',*/
     'pasvaz.bindonce', 'ui.router',
     'ui.bootstrap', 'ui.select',
-    'ngFileUpload'
+    'ngFileUpload', 'bootstrapLightbox'
   ]
 );
 

@@ -7,8 +7,8 @@ var CONST = require("../constant");
 var _ = require("underscore");
 
 module.exports = myApp =>
-  myApp.controller('rootController', ['$scope', '$rootScope', '$filter', '$state', '$timeout', '$q', '$sce', '$uibModal', 'apiService',
-  function($scope, $rootScope, $filter, $state, $timeout, $q, $sce, $uibModal, apiService) {
+  myApp.controller('rootController', ['$scope', '$rootScope', '$filter', '$state', '$timeout', '$q', '$sce', '$uibModal', 'Lightbox', 'apiService',
+  function($scope, $rootScope, $filter, $state, $timeout, $q, $sce, $uibModal, Lightbox, apiService) {
     $rootScope.CONST = CONST;
     $rootScope.data = {
       role: null,
@@ -26,6 +26,8 @@ module.exports = myApp =>
         isLoginPage: true
       };
     };
+
+
 
     $rootScope.getUserDepts = () => $rootScope.data.user.userdept;
 
@@ -161,6 +163,17 @@ module.exports = myApp =>
       }
     });
 
+    $rootScope.goHome = () => {
+      $rootScope.checkSession(false).then(() => {
+        $state.go($rootScope.data.role.defaultState);
+        console.log($rootScope.data.user)
+      });
+    };
+
+    $rootScope.isCityUser = () => {
+      return $rootScope.data.user ? $rootScope.data.user.userRole == '4' : false;
+    }
+
     //通用时间配置
     $rootScope.dateOptions = {
       'showWeeks': false,
@@ -256,5 +269,10 @@ module.exports = myApp =>
       }, 2000);
     };
 
-
+    //全屏图片显示
+    $rootScope.showLightBox = (url, name) => {
+      Lightbox.openModal([{
+        url: url
+      }], 0);
+    }
   }]);

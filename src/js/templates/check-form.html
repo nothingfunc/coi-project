@@ -1,49 +1,71 @@
 <div class="pull-left dropup" uib-dropdown is-open="tmp._checkIsOpen"
      ng-hide="state.workStateSuper !== STATES.CHECK_DATA">
-  <button type="submit" class="btn btn-success margin-r-20 pull-left"
-          ng-click="onCheckDataClick()"
-          uib-dropdown-toggle
-  >审核</button>
-  <div class="uib-dropdown-menu dropdown-check" role="menu">
-    <div class="box {{data.checkParam.CHECK_TAG == '2' ? 'box-danger' : 'box-success'}}"
-         ng-click="$event.stopPropagation();">
-      <div class="box-header with-border">
-        <h3 class="box-title">审核数据</h3>
-      </div>
-      <div class="form-horizontal">
-        <div class="box-body">
-          <div class="form-group-sm clearfix">
-            <label class="control-label pull-left">审核结果：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label class="margin-r-5"><input type="radio" icheck name="shenhejieguo" value="1" ng-model="data.checkParam.CHECK_TAG"/> <span>审核通过</span></label>
-              <label><input type="radio" icheck name="shenhejieguo" value="2" ng-model="data.checkParam.CHECK_TAG"/> <span>审核驳回</span></label>
-            </div>
-          </div>
-          <div class="form-group-sm margin-t-10 clearfix" ng-if="data.checkParam.CHECK_TAG == '2'">
-            <label class="pull-left control-label">审核意见：</label>
-          <textarea
-            class="form-control pull-left"
-            style="width: 300px; resize: none;"
-            rows="3"
-            type="text"
-            ng-model="data.checkParam.CHECK_MSG"
-          >
-          </textarea>
-          </div>
-        </div>
-      </div>
-      <div class="box-footer">
-        <div class="pull-right">
-          <button class="btn pull-left margin-r-20 {{data.checkParam.CHECK_TAG == '2' ? 'btn-danger' : 'btn-success'}}"
-                  ng-click="onSubmitCheckClick()"
-                  ng-disabled="!data.checkParam.CHECK_TAG || (data.checkParam.CHECK_TAG=='2'&&!data.checkParam.CHECK_MSG)"
-          >提交</button>
-          <button class="btn btn-default pull-left"
-                  ng-click="onCancelCheckClick()"
-          >取消</button>
-        </div>
-      </div>
-    </div>
+  <label class="control-label pull-left">审核结果：</label>
+  <div class="pull-left margin-r-20 radio">
+    <label class="margin-r-5"><input type="radio" icheck name="shenhejieguo" value="1" ng-model="data.checkParam.CHECK_TAG"/> <span>审核通过</span></label>
+    <label><input type="radio" icheck name="shenhejieguo" value="2" ng-model="data.checkParam.CHECK_TAG"/> <span>审核驳回</span></label>
   </div>
+  <label class="pull-left control-label" ng-if="data.checkParam.CHECK_TAG == '2'">审核意见：</label>
+  <input
+    ng-if="data.checkParam.CHECK_TAG == '2'"
+    class="form-control pull-left margin-r-20"
+    style="width: 200px"
+    type="text"
+    ng-model="data.checkParam.CHECK_MSG"
+  />
+
+  <button type="submit"
+          class="btn pull-left {{data.checkParam.CHECK_TAG == '2' ? 'btn-danger' : 'btn-success'}}"
+          ng-disabled="!data.checkParam.CHECK_TAG || (data.checkParam.CHECK_TAG=='2'&&!data.checkParam.CHECK_MSG)"
+          ng-click="onSubmitCheckClick()"
+          uib-dropdown-toggle
+  >提交审核</button>
+
+  <!--<button type="submit" class="btn btn-success margin-r-20 pull-left"-->
+          <!--ng-click="onCheckDataClick()"-->
+          <!--uib-dropdown-toggle-->
+  <!--&gt;审核</button>-->
+
+  <!--<div class="uib-dropdown-menu dropdown-check" role="menu">-->
+    <!--<div class="box {{data.checkParam.CHECK_TAG == '2' ? 'box-danger' : 'box-success'}}"-->
+         <!--ng-click="$event.stopPropagation();">-->
+      <!--<div class="box-header with-border">-->
+        <!--<h3 class="box-title">审核数据</h3>-->
+      <!--</div>-->
+      <!--<div class="form-horizontal">-->
+        <!--<div class="box-body">-->
+          <!--<div class="form-group-sm clearfix">-->
+            <!--<label class="control-label pull-left">审核结果：</label>-->
+            <!--<div class="pull-left margin-r-20 radio">-->
+              <!--<label class="margin-r-5"><input type="radio" icheck name="shenhejieguo" value="1" ng-model="data.checkParam.CHECK_TAG"/> <span>审核通过</span></label>-->
+              <!--<label><input type="radio" icheck name="shenhejieguo" value="2" ng-model="data.checkParam.CHECK_TAG"/> <span>审核驳回</span></label>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="form-group-sm margin-t-10 clearfix" ng-if="data.checkParam.CHECK_TAG == '2'">-->
+            <!--<label class="pull-left control-label">审核意见：</label>-->
+          <!--<textarea-->
+            <!--class="form-control pull-left"-->
+            <!--style="width: 300px; resize: none;"-->
+            <!--rows="3"-->
+            <!--type="text"-->
+            <!--ng-model="data.checkParam.CHECK_MSG"-->
+          <!--&gt;-->
+          <!--</textarea>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="box-footer">-->
+        <!--<div class="pull-right">-->
+          <!--<button class="btn pull-left margin-r-20 {{data.checkParam.CHECK_TAG == '2' ? 'btn-danger' : 'btn-success'}}"-->
+                  <!--ng-click="onSubmitCheckClick()"-->
+                  <!--ng-disabled="!data.checkParam.CHECK_TAG || (data.checkParam.CHECK_TAG=='2'&&!data.checkParam.CHECK_MSG)"-->
+          <!--&gt;提交</button>-->
+          <!--<button class="btn btn-default pull-left"-->
+                  <!--ng-click="onCancelCheckClick()"-->
+          <!--&gt;取消</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>
 

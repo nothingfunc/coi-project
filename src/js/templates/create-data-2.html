@@ -111,7 +111,7 @@
                 <i class="fa fa-file-image-o"></i><br/>
                 <small>请选择景观照片文件</small>
               </span>
-              <a href="{{tmp.file.$ngfBlobUrl || tmp.file.$ngfDataUrl || tmp._img}}" target="_blank">
+              <a ng-click="$parent.showLightBox(tmp.file.$ngfBlobUrl || tmp.file.$ngfDataUrl || tmp._img)" href="javascript:;">
                 <img uib-tooltip="点击查看原图"
                      style="width:100%; height: 100%;"
                      ngf-src="tmp.file || tmp._img"

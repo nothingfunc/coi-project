@@ -13,7 +13,7 @@ module.exports = myApp =>
     $scope.login = () => {
       apiService.login($scope.loginData).success(data => {
         if(data && data.success == CONST.API_SUCCESS) {
-          $state.go('search');
+          $rootScope.goHome();
         }
       })
     };
