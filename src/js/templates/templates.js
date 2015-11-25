@@ -17,6 +17,8 @@ module.exports = myApp => {
     $templateCache.put("create-data-6.html", __inline('./create-data-6.html'));
     $templateCache.put("create-data-7.html", __inline('./create-data-7.html'));
 
+    $templateCache.put("data-detail-dialog.html", __inline('./data-detail-dialog.html'));
+
     $templateCache.put("search-data-list.html", __inline('./search-data-list.html'));
     $templateCache.put("search-data-2.html", __inline('./search-data-2.html'));
     $templateCache.put("search-data-3.html", __inline('./search-data-3.html'));

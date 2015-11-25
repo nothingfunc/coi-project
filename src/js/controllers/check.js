@@ -151,18 +151,39 @@ module.exports = myApp => {
 
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
-            $scope.tmp.region = {
-              name: data.Data.COUNTY_NAME,
-              code: data.Data.COUNTY_CODE
-            };
-            $scope.tmp.grassBType = {
+            $scope.tmp._img1 = getDataImg('01');
+            $scope.tmp._img2 = getDataImg('02');
+
+            $scope.tmp.region = data.Data.COUNTY_CODE ? {
+              code: data.Data.COUNTY_CODE,
+              name: data.Data.COUNTY_NAME
+            } : '';
+
+            $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
               TYPE_ID: data.Data.GRASS_BG_TYPE_ID
-            };
-            $scope.tmp.grassSType = {
+            } : '';
+            $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
               TYPE_NAME: data.Data.GRASS_SM_TYPE,
               TYPE_ID: data.Data.GRASS_SM_TYPE_ID
-            };
+            } : '';
+            $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+              TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
+              TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
+            } : '';
+            $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+              TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
+              TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
+            } : '';
+            $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+              TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
+              TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
+            } : '';
+            $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+              TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
+              TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
+            } : '';
+
 
             //获取子列表
             //$scope.getSubDataList();

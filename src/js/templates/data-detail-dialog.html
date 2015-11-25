@@ -1,0 +1,12 @@
+<style>
+  .box-footer {
+    display: none;
+  }
+</style>
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">查看详情</h3>
+</div>
+<div class="modal-body">
+  <div ng-include="'create-data-' + tmp.type + '.html'"></div>
+</div>

@@ -2,8 +2,8 @@
  * Created by zhengguo.chen on 2015/11/17.
  */
 module.exports = myApp =>
-  myApp.controller('searchController', ['$scope', '$rootScope', "$timeout", 'apiService',
-  function($scope, $rootScope, $timeout, apiService) {
+  myApp.controller('searchController', ['$scope', '$rootScope', "$timeout", 'apiService', '$uibModal',
+  function($scope, $rootScope, $timeout, apiService, $uibModal) {
     let CONST = require('../constant'),
         selectedDataTypeId = 2;
     $scope.CONST = CONST;
@@ -266,8 +266,7 @@ module.exports = myApp =>
         }
       }
       $scope.state.firstLoad = false;
-      apiService[services[selectedDataTypeId]] && apiService[services[selectedDataTypeId]](postData).then(res=>{
-        var data = res.data;
+      apiService[services[selectedDataTypeId]] && apiService[services[selectedDataTypeId]](postData).success(data=>{
         if (data.success === CONST.API_SUCCESS) {
           $scope.data.dataList = data.data;
           $scope.data.totalRecords  = data.count;
@@ -278,6 +277,90 @@ module.exports = myApp =>
 
     $scope.pageChanged = () => {
       $scope.onSearchDataClick(true);
+    };
+    $scope.onDataDetailClick = (dataId) => {
+      apiService.getDataDetail({
+        DATA_ID: dataId,
+        DATA_TYPE: selectedDataTypeId
+      }).success(data => {
+        if (data.success === CONST.API_SUCCESS) {
+          $uibModal.open({
+            templateUrl: 'data-detail-dialog.html',
+            size: 'lg',
+            controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
+              $scope.tmp = {
+                type: selectedDataTypeId
+              };
+              $scope.data = {
+                dataParam: data.Data
+              };
+
+              var getDataImg = (type = '00') => {
+                return CONF.baseUrl + '/util/ShowPhoto.action?' +
+                  $.param({
+                    MISSION_ID: '',
+                    DATA_ID: dataId,
+                    DATA_TAG: type,
+                    TIMES: (new Date().getTime())
+                  })
+              };
+
+              $scope.tmp._img = getDataImg();
+              $scope.tmp._img1 = getDataImg('01');
+              $scope.tmp._img2 = getDataImg('02');
+
+              $scope.tmp.region = data.Data.COUNTY_CODE ? {
+                code: data.Data.COUNTY_CODE,
+                name: data.Data.COUNTY_NAME
+              } : '';
+
+              $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
+                TYPE_NAME: data.Data.GRASS_BG_TYPE,
+                TYPE_ID: data.Data.GRASS_BG_TYPE_ID
+              } : '';
+              $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
+                TYPE_NAME: data.Data.GRASS_SM_TYPE,
+                TYPE_ID: data.Data.GRASS_SM_TYPE_ID
+              } : '';
+              $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+                TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
+                TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
+              } : '';
+              $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+                TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
+                TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
+              } : '';
+              $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+                TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
+                TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
+              } : '';
+              $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+                TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
+                TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
+              } : '';
+
+              $scope.STATES = {
+                'CREATE_TASK': 0,
+                'VIEW_DATA_LIST': 1,
+                'VIEW_DATA': 2,
+                'CREATE_DATA': 3,
+                'EDIT_DATA': 4,
+                'CHECK_DATA': 9
+              };
+
+              $scope.state = {
+                currentDataType: selectedDataTypeId,
+                workState: 2,
+                currentData: dataId
+              };
+
+              $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+              };
+            }]
+          });
+        }
+      });
     };
     //设置默认显示的模板
     $scope.setDataType(2);
