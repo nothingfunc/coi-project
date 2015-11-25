@@ -256,7 +256,7 @@ module.exports = myApp =>
       }
       let postData = {
         needCount: true,
-        PageIndex: ($scope.data.pageNo - 1)*CONST.PAGE_SIZE,
+        PageIndex: $scope.data.pageNo - 1,
         PageSize: CONST.PAGE_SIZE
       };
       for (let o in $scope.data.searchParamData) {
