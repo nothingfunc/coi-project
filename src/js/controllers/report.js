@@ -3,8 +3,8 @@
  */
 var CONST = require('../constant');
 module.exports = myApp => {
-  myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", '$filter', 'Upload', 'apiService',
-    function($scope, $rootScope, $timeout, $state, $filter, Upload, apiService) {
+  myApp.controller('reportController', ['$scope', '$rootScope', "$timeout", "$state", '$q', '$filter', 'Upload', 'apiService',
+    function($scope, $rootScope, $timeout, $state, $q, $filter, Upload, apiService) {
       const STATES = {
         'CREATE_TASK': 0,
         'VIEW_DATA_LIST': 1,
@@ -26,13 +26,18 @@ module.exports = myApp => {
         currentData: null
       };
 
-      var getMissions = () => apiService.getAllUnSubMission().success(data => {
-        if(data.success === CONST.API_SUCCESS) {
-          $scope.data.missions = data.rows;
-        } else {
-          $scope.data.missions = [];
-        }
-      });
+      var getMissions = () => {
+        var deferred = $q.defer();
+        apiService.getAllUnSubMission().success(data => {
+          if(data.success === CONST.API_SUCCESS) {
+            $scope.data.missions = data.rows;
+          } else {
+            $scope.data.missions = [];
+          }
+          deferred.resolve();
+        });
+        return deferred.promise;
+      }
       getMissions();
 
       var getDataList = missionId => apiService.getRefDataByMission({
@@ -55,8 +60,21 @@ module.exports = myApp => {
         }).then(() => {
           apiService.submitMission({MISSION_ID: missionId}).success(res => {
             if(res.success === CONST.API_SUCCESS) {
-              getMissions();
-              $scope.state.currentTask && getDataList($scope.state.currentTask);
+              getMissions().then(() => {
+                if(!$scope.data.missions.some(item => {
+                  if($scope.state.currentTask == item.MISSION_ID) {
+                    getDataList($scope.state.currentTask);
+                    return true;
+                  }
+                })) {
+                  $scope.state.currentTask = null;
+                  $scope.state.currentTaskName = null;
+                  $scope.state.currentData = null;
+                  $scope.state.workState = STATES.VIEW_DATA_LIST;
+                  $scope.data.dataList = [];
+                }
+              });
+              //$scope.state.currentTask && getDataList($scope.state.currentTask);
             }
           });
         });
@@ -183,26 +201,37 @@ module.exports = myApp => {
 
       $scope.validateData = () => {
         var checkSurveyTime = () => {
-          if($scope.data.dataParam.SURVEY_TIME) {
+          if(!$scope.data.dataParam.SURVEY_TIME) {
+            console.log(123);
             $rootScope.showTips({
               type: 'error',
               msg: '调查时间为空或格式错误'
             });
             return false;
           }
+          return true;
         };
         var checkRegion = () => {
-          if($scope.data.dataParam.SURVEY_TIME) {
+          if(!$scope.data.dataParam.COUNTY_CODE) {
+            console.log(1234);
             $rootScope.showTips({
               type: 'error',
-              msg: '调查时间为空或格式错误'
+              msg: '所在地区不能为空'
             });
             return false;
           }
+          return true;
         };
-        switch($scope.data.currentDataType) {
-          case '2':
+        switch(parseInt($scope.state.currentDataType)) {
+          case 2:
             return checkSurveyTime() && checkRegion();
+          case 4:
+          case 5:
+          case 6:
+          case 7:
+            return checkSurveyTime();
+          default:
+            return true;
         }
       };
 
@@ -211,6 +240,11 @@ module.exports = myApp => {
         $scope.data.dataParam.SURVEY_TIME = $rootScope.formatTime($scope.data.dataParam.SURVEY_TIME);
         $scope.data.dataParam.COMPLETE_TIME = $rootScope.formatTime($scope.data.dataParam.COMPLETE_TIME);
         var isEditing = $scope.state.workState === STATES.EDIT_DATA;
+
+        if(!$scope.validateData()) {
+          return ;
+        }
+
         $rootScope.loading();
 
         //提交表单通过这里提交
@@ -288,7 +322,6 @@ module.exports = myApp => {
 
       //行政区部分事件
       $scope.$watch('tmp.region', region => {
-        console.log(region);
         if(typeof region === 'object') {
           $scope.data.dataParam.COUNTY_CODE = region.code;
           $scope.data.dataParam.COUNTY_NAME = region.name;
@@ -302,40 +335,6 @@ module.exports = myApp => {
       $scope.onRegionBlur = () => {
         if(!$scope.data.dataParam.COUNTY_CODE) {
           regionTimer = $timeout(() => $scope.tmp.region = "", 100);
-        }
-      }
-      //行政区部分事件（工程区内）
-      $scope.$watch('tmp.region1', region => {
-        if(typeof region === 'object') {
-          $scope.data.dataParam.I_COUNTY_CODE = region.code;
-          $scope.data.dataParam.I_COUNTY_NAME = region.name;
-          $timeout.cancel(regionTimer1);
-        } else if($scope.data.dataParam) {
-          $scope.data.dataParam.I_COUNTY_CODE = '';
-          $scope.data.dataParam.I_COUNTY_NAME = region;
-        }
-      });
-      var regionTimer1 ;
-      $scope.onRegionBlur = () => {
-        if(!$scope.data.dataParam.COUNTY_CODE) {
-          //regionTimer2 = $timeout(() => $scope.tmp.region = "", 100);
-        }
-      }
-      //行政区部分事件（工程区外）
-      $scope.$watch('tmp.region2', region => {
-        if(typeof region === 'object') {
-          $scope.data.dataParam.O_COUNTY_CODE = region.code;
-          $scope.data.dataParam.COUNTY_NAME = region.name;
-          $timeout.cancel(regionTimer2);
-        } else if($scope.data.dataParam) {
-          $scope.data.dataParam.O_COUNTY_CODE = '';
-          $scope.data.dataParam.O_COUNTY_NAME = region;
-        }
-      });
-      var regionTimer2 ;
-      $scope.onRegionBlur = () => {
-        if(!$scope.data.dataParam.COUNTY_CODE) {
-          //regionTimer2 = $timeout(() => $scope.tmp.region = "", 100);
         }
       }
 

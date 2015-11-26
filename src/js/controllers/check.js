@@ -27,7 +27,7 @@ module.exports = myApp => {
       };
 
       var getMissions = () => {
-        var deffered = $q.defer();
+        var deferred = $q.defer();
         $scope.state.isLastPage = false;
         var postData = {
           PAGEINDEX: $scope.state.pageIndex,
@@ -43,17 +43,34 @@ module.exports = myApp => {
             $scope.data.missions = [];
             $scope.state.isLastPage = true;
           }
-          deffered.resolve();
+          deferred.resolve();
           $scope.tmp.selectAll = false;
         });
-        return deffered.promise;
+        return deferred.promise;
       }
       getMissions();
+
+      var refreshMissions = () => {
+        getMissions().then(() => {
+          if(!$scope.data.missions.some(item => {
+            if($scope.state.currentTask == item.MISSION_ID) {
+              getDataList($scope.state.currentTask);
+              return true;
+            }
+          })) {
+            $scope.state.currentTask = null;
+            $scope.state.currentTaskName = null;
+            $scope.state.currentData = null;
+            $scope.state.workState = STATES.VIEW_DATA_LIST;
+            $scope.data.dataList = [];
+          }
+        });
+      }
 
       //翻页
       $scope.getPageMissions = offset => {
         $scope.state.pageIndex += offset;
-        getMissions();
+        refreshMissions();
       }
 
       var getDataList = (missionId, autoClickFirst) => {
@@ -86,8 +103,7 @@ module.exports = myApp => {
             {MISSION_ID: missionId}
           ).success(res => {
             if(res.success === CONST.API_SUCCESS) {
-              getMissions();
-              $scope.state.currentTask && getDataList($scope.state.currentTask);
+              refreshMissions();
             }
           })
         });
@@ -111,8 +127,7 @@ module.exports = myApp => {
             apiService.checkMissionOnce(postData).success(res => {
               if(res.success === CONST.API_SUCCESS) {
                 $rootScope.showTips({msg: '提交审核任务成功'});
-                getMissions();
-                $scope.state.currentTask && getDataList($scope.state.currentTask);
+                refreshMissions();
               }
             });
           });
@@ -150,7 +165,9 @@ module.exports = myApp => {
         }).success(data => {
           if(data.success === CONST.API_SUCCESS) {
             $scope.data.dataParam = {};
-            $scope.data.checkParam = {};
+            $scope.data.checkParam = {
+              CHECK_TAG: '1'
+            };
             $scope.state.workState = STATES.VIEW_DATA;
             $scope.state.workStateSuper = STATES.CHECK_DATA;
             $scope.state.currentData = dataId;
@@ -277,9 +294,7 @@ module.exports = myApp => {
             ).success(res => {
               if(res.success === CONST.API_SUCCESS) {
                 $scope.onShowTaskClick();
-                getMissions().then(() => {
-                  $scope.state.currentTask && getDataList($scope.state.currentTask);
-                })
+                refreshMissions();
               }
             })
           }, () => {

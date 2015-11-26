@@ -61,9 +61,11 @@
                 <label class="pull-left control-label">所在地区：</label>
                 <div class="pull-left" style="width: 210px;">
                   <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
-                         ng-model="tmp.region"
                          uib-typeahead="address as address.name for address in getLocation($viewValue)"
                          class="form-control"
+                         ng-model="tmp.region"
+                         typeahead-select-on-exact="true"
+                         typeahead-select-on-blur="true"
                          ng-blur="onRegionBlur()"
                   >
                 </div>
@@ -154,6 +156,8 @@
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                      class="form-control"
                      ng-blur="onTypeBBlur()"
+                     typeahead-select-on-exact="true"
+                     typeahead-select-on-blur="true"
               >
             </div>
           </div>
@@ -165,6 +169,8 @@
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
                      class="form-control"
                      ng-blur="onTypeSBlur()"
+                     typeahead-select-on-exact="true"
+                     typeahead-select-on-blur="true"
               >
             </div>
           </div>

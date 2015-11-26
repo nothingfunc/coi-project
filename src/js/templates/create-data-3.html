@@ -151,6 +151,9 @@
                      ng-model="tmp.grassBType1"
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                      class="form-control"
+                     ng-blur="onTypeBBlur1()"
+                     typeahead-select-on-exact="true"
+                     typeahead-select-on-blur="true"
               >
             </div>
           </div>
@@ -161,6 +164,9 @@
                      ng-model="tmp.grassSType1"
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.I_GRASS_BG_TYPE_ID)"
                      class="form-control"
+                     ng-blur="onTypeSBlur1()"
+                     typeahead-select-on-exact="true"
+                     typeahead-select-on-blur="true"
               >
             </div>
           </div>
@@ -173,6 +179,9 @@
                      ng-model="tmp.grassBType2"
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                      class="form-control"
+                     ng-blur="onTypeBBlur2()"
+                     typeahead-select-on-exact="true"
+                     typeahead-select-on-blur="true"
               >
             </div>
           </div>
@@ -183,6 +192,9 @@
                      ng-model="tmp.grassSType2"
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.O_GRASS_BG_TYPE_ID)"
                      class="form-control"
+                     ng-blur="onTypeSBlur2()"
+                     typeahead-select-on-exact="true"
+                     typeahead-select-on-blur="true"
               >
             </div>
           </div>
