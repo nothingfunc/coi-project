@@ -16,8 +16,9 @@ var arrMap = arr => arr.map((v, i) => {
   }
 })
 
-let years = [];
-for (let y=1977; y<=2050; y++) {
+let years = [],
+    curYear = (new Date()).getFullYear();
+for (let y=1977; y<=curYear; y++) {
   years.push(y);
 }
 const CONSTANT = {

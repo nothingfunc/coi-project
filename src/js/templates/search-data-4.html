@@ -19,12 +19,13 @@
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
               </label>
               <div class="pull-left w-130">
-                <div ui-select ng-model="data.searchParamData.year" ng-disabled="!state.checked.year" theme="bootstrap">
-                  <div ui-select-match>{{$select.selected}}</div>
-                  <div ui-select-choices repeat="year in CONST.YEARS">
-                    <span>{{year}}</span>
-                  </div>
-                </div>
+                <input type="text"
+                       ng-model="data.searchParamData.year"
+                       ng-disabled="!state.checked.year"
+                       ng-blur="onYearBlur()"
+                       uib-typeahead="year for year in CONST.YEARS | filter:$viewValue"
+                       class="form-control"
+                    >
               </div>
             </div>
             <div class="col-sm-3">
@@ -47,12 +48,16 @@
               <span class="control-label pull-left">（%）</span>
             </div>
             <div class="col-sm-3">
-              <label class="pull-left control-label">所在地区：</label>
-              <div class="pull-left" style="width: 180px;">
+              <label class="pull-left control-label"><input type="checkbox" icheck ng-model="state.checked.regioncode">所在地区：</label>
+              <div class="pull-left">
                 <input type="text"
                        ng-model="tmp.region"
+                       ng-disabled="!state.checked.regioncode"
+                       ng-blur="onRegionBlur()"
                        uib-typeahead="address as address.name for address in getLocation($viewValue, true)"
                        class="form-control"
+                       typeahead-select-on-exact="true"
+                       typeahead-select-on-blur="true"
                     >
               </div>
             </div>

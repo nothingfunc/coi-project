@@ -18,13 +18,14 @@
             <div class="col-sm-3">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
               </label>
-              <div class="pull-left w-130">
-                <div ui-select ng-model="data.searchParamData.year" ng-disabled="!state.checked.year" theme="bootstrap">
-                  <div ui-select-match>{{$select.selected}}</div>
-                  <div ui-select-choices repeat="year in CONST.YEARS">
-                    <span>{{year}}</span>
-                  </div>
-                </div>
+              <div class="pull-left">
+                <input type="text"
+                       ng-model="data.searchParamData.year"
+                       ng-disabled="!state.checked.year"
+                       ng-blur="onYearBlur()"
+                       uib-typeahead="year for year in CONST.YEARS | filter:$viewValue"
+                       class="form-control"
+                    >
               </div>
             </div>
             <div class="col-sm-3">
@@ -63,10 +64,14 @@
           <!--end form-group-sm-->
           <div class="form-group-sm clearfix">
             <div class="col-sm-3">
-              <label class="pull-left control-label">所在地区：</label>
-              <div class="pull-left" style="width: 180px;">
+              <label class="pull-left control-label"><input type="checkbox" icheck ng-model="state.checked.regioncode">所在地区：</label>
+              <div class="pull-left">
                 <input type="text"
                        ng-model="tmp.region"
+                       ng-disabled="!state.checked.regioncode"
+                       ng-blur="onRegionBlur()"
+                       typeahead-select-on-exact="true"
+                       typeahead-select-on-blur="true"
                        uib-typeahead="address as address.name for address in getLocation($viewValue, true)"
                        class="form-control"
                     >
@@ -147,13 +152,13 @@
               </div>
             </div>
             <div class="col-sm-3">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.HAS_PUSH">灌木和高大草本
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.HAS_BUSH">灌木和高大草本
               </label>
               <div class="pull-left margin-r-20 radio">
                 <label class="margin-r-5">
                   <input
                       icheck type="radio" name="haspush"
-                      ng-disabled="!state.checked.HAS_PUSH"
+                      ng-disabled="!state.checked.HAS_BUSH"
                       ng-model="data.searchParamData.HAS_BUSH"
                       value="有"
                       />
@@ -164,7 +169,7 @@
                 <label class="margin-r-5">
                   <input
                       icheck type="radio" name="haspush"
-                      ng-disabled="!state.checked.HAS_PUSH"
+                      ng-disabled="!state.checked.HAS_BUSH"
                       ng-model="data.searchParamData.HAS_BUSH"
                       value="无"
                       />

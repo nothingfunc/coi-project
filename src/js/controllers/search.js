@@ -205,14 +205,12 @@ module.exports = myApp =>
     $scope.data.titles = titlesArr['2'];
     $scope.state = {
       checked: {
-        regioncode: true
       },
       firstLoad: true
     };
 
     $scope.onResetClick = () => {
       $scope.state.checked = {};
-      $scope.state.checked.regioncode = true;
       $scope.data.searchParamData = {};
       $scope.tmp = {};
     };
@@ -231,11 +229,26 @@ module.exports = myApp =>
     $scope.data.pageNo = 1;
 
     //行政区部分事件
+    let regionTimer = null;
     $scope.$watch('tmp.region', region => {
       if(typeof region === 'object') {
+        $timeout.cancel(regionTimer);
         $scope.data.searchParamData.regioncode = region.code;
+      } else {
+        delete $scope.data.searchParamData.regioncode;
       }
     });
+    $scope.onRegionBlur = () => {
+      if (!$scope.tmp.region || !$scope.data.searchParamData.regioncode) {
+        delete $scope.data.searchParamData.regioncode;
+        regionTimer = $timeout(() => $scope.tmp.region = "", 100);
+      }
+    };
+    $scope.onYearBlur = () => {
+      if (!$scope.data.searchParamData.year) {
+        delete $scope.data.searchParamData.year;
+      }
+    };
     //草地类
     $scope.$watch('tmp.grassBType', grassBType => {
       if (typeof grassBType === 'object') {
