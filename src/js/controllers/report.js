@@ -181,6 +181,31 @@ module.exports = myApp => {
         $scope.showCurrentData();
       };
 
+      $scope.validateData = () => {
+        var checkSurveyTime = () => {
+          if($scope.data.dataParam.SURVEY_TIME) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: '调查时间为空或格式错误'
+            });
+            return false;
+          }
+        };
+        var checkRegion = () => {
+          if($scope.data.dataParam.SURVEY_TIME) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: '调查时间为空或格式错误'
+            });
+            return false;
+          }
+        };
+        switch($scope.data.currentDataType) {
+          case '2':
+            return checkSurveyTime() && checkRegion();
+        }
+      };
+
       $scope.onSaveDataClick = () => {
         //格式化时间
         $scope.data.dataParam.SURVEY_TIME = $rootScope.formatTime($scope.data.dataParam.SURVEY_TIME);
@@ -263,19 +288,20 @@ module.exports = myApp => {
 
       //行政区部分事件
       $scope.$watch('tmp.region', region => {
+        console.log(region);
         if(typeof region === 'object') {
           $scope.data.dataParam.COUNTY_CODE = region.code;
           $scope.data.dataParam.COUNTY_NAME = region.name;
           $timeout.cancel(regionTimer);
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.COUNTY_CODE = '';
-          $scope.data.dataParam.COUNTY_NAME = region;
+          $scope.data.dataParam.COUNTY_NAME = '';
         }
       });
       var regionTimer ;
       $scope.onRegionBlur = () => {
         if(!$scope.data.dataParam.COUNTY_CODE) {
-          //regionTimer = $timeout(() => $scope.tmp.region = "", 100);
+          regionTimer = $timeout(() => $scope.tmp.region = "", 100);
         }
       }
       //行政区部分事件（工程区内）

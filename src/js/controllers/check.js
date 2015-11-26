@@ -4,8 +4,8 @@
 var CONST = require('../constant');
 
 module.exports = myApp => {
-  myApp.controller('checkController', ['$scope', '$rootScope', "$timeout", "$state", '$filter', 'apiService',
-    function($scope, $rootScope, $timeout, $state, $filter, apiService) {
+  myApp.controller('checkController', ['$scope', '$rootScope', '$timeout', '$q', '$state', '$filter', 'apiService',
+    function($scope, $rootScope, $timeout, $q, $state, $filter, apiService) {
       const STATES = {
         'VIEW_DATA_LIST': 1,
         'VIEW_DATA': 2,
@@ -27,6 +27,7 @@ module.exports = myApp => {
       };
 
       var getMissions = () => {
+        var deffered = $q.defer();
         $scope.state.isLastPage = false;
         var postData = {
           PAGEINDEX: $scope.state.pageIndex,
@@ -42,8 +43,10 @@ module.exports = myApp => {
             $scope.data.missions = [];
             $scope.state.isLastPage = true;
           }
+          deffered.resolve();
           $scope.tmp.selectAll = false;
         });
+        return deffered.promise;
       }
       getMissions();
 
@@ -53,18 +56,23 @@ module.exports = myApp => {
         getMissions();
       }
 
-      var getDataList = (missionId, autoClickFirst) => apiService.getRefDataByMission({
-        MISSION_ID: missionId
-      }).success(data => {
-        if(data.success === CONST.API_SUCCESS) {
-          $scope.data.dataList = data.rows;
-          if(autoClickFirst && data.rows.length) {
-            $scope.onShowDataClick(data.rows[0].DATA_ID, data.rows[0].DATA_TYPE);
+      var getDataList = (missionId, autoClickFirst) => {
+        var deferred = $q.defer();
+        apiService.getRefDataByMission({
+          MISSION_ID: missionId
+        }).success(data => {
+          if(data.success === CONST.API_SUCCESS) {
+            deferred.resolve();
+            $scope.data.dataList = data.rows;
+            if(autoClickFirst && data.rows.length) {
+              $scope.onShowDataClick(data.rows[0].DATA_ID, data.rows[0].DATA_TYPE);
+            }
+          } else {
+            $scope.data.dataList = [];
           }
-        } else {
-          $scope.data.dataList = [];
-        }
-      });
+        });
+        return deferred.promise;
+      }
 
       $scope.onSubmitTaskClick = (missionId, missionName) => {
         $rootScope.showTips({
@@ -151,18 +159,39 @@ module.exports = myApp => {
 
             $scope.data.dataParam = data.Data;
             $scope.tmp._img = getDataImg();
-            $scope.tmp.region = {
-              name: data.Data.COUNTY_NAME,
-              code: data.Data.COUNTY_CODE
-            };
-            $scope.tmp.grassBType = {
+            $scope.tmp._img1 = getDataImg('01');
+            $scope.tmp._img2 = getDataImg('02');
+
+            $scope.tmp.region = data.Data.COUNTY_CODE ? {
+              code: data.Data.COUNTY_CODE,
+              name: data.Data.COUNTY_NAME
+            } : '';
+
+            $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
               TYPE_ID: data.Data.GRASS_BG_TYPE_ID
-            };
-            $scope.tmp.grassSType = {
+            } : '';
+            $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
               TYPE_NAME: data.Data.GRASS_SM_TYPE,
               TYPE_ID: data.Data.GRASS_SM_TYPE_ID
-            };
+            } : '';
+            $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+              TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
+              TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
+            } : '';
+            $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+              TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
+              TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
+            } : '';
+            $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+              TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
+              TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
+            } : '';
+            $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+              TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
+              TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
+            } : '';
+
 
             //获取子列表
             //$scope.getSubDataList();
@@ -220,25 +249,23 @@ module.exports = myApp => {
       var showNextData = () => {
         var findNext = false;
         var allChecked = true;
+        var currentDataId = $scope.state.currentData;
         $scope.data.dataList.forEach((item, index) => {
-          if(item.DATA_ID == $scope.state.currentData) {
+          if(item.DATA_ID == currentDataId) {
             var nextItem = $scope.data.dataList[index+1];
             if(!findNext && nextItem) {
               $scope.state.currentData = nextItem.DATA_ID;
               $scope.state.currentDataType = nextItem.DATA_TYPE;
               findNext = true;
             }
-          } else {
-            if(
-              ($rootScope.data.user.userRole == '4' && item.CHECK_STU === '待市审核') ||
-              ($rootScope.data.user.userRole == '3' && item.CHECK_STU === '市通过，待省审核')
-            ) {
-              allChecked = false;
-            }
+          }
+
+          if(($rootScope.data.user.userRole == '4' && item.CHECK_STU === '待市审核') ||
+            ($rootScope.data.user.userRole == '3' && item.CHECK_STU === '市通过，待省审核')
+          ) {
+            allChecked = false;
           }
         });
-
-        console.log(allChecked);
 
         if(allChecked) {
           $rootScope.showTips({
@@ -250,7 +277,9 @@ module.exports = myApp => {
             ).success(res => {
               if(res.success === CONST.API_SUCCESS) {
                 $scope.onShowTaskClick();
-                getMissions();
+                getMissions().then(() => {
+                  $scope.state.currentTask && getDataList($scope.state.currentTask);
+                })
               }
             })
           }, () => {
@@ -271,12 +300,13 @@ module.exports = myApp => {
         };
         apiService.checkDataOption(postData).success(res => {
           if(res.success === CONST.API_SUCCESS) {
-            showNextData();
-            getDataList($scope.state.currentTask);
-            //获取下一条数据
+            getDataList($scope.state.currentTask).then(() => {
+              //获取下一条数据
+              $timeout(showNextData, 500);
+            });
             $scope.tmp._checkIsOpen = false;
           }
-        })
+        });
       };
       $scope.onCancelCheckClick = () => {
         $scope.tmp._checkIsOpen = false;

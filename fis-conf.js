@@ -21,7 +21,8 @@ fis
   })
   .match('/src/js/**.js', {
     parser: fis.plugin('es6-babel', {
-      optional: ["es7.classProperties"]
+      optional: ["es7.classProperties"],
+      blacklist: ["useStrict"]
     }),
     isMod: true,
     rExt: '.js',
