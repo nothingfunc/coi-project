@@ -274,5 +274,18 @@ module.exports = myApp =>
       Lightbox.openModal([{
         url: url
       }], 0);
+    };
+
+
+    $rootScope.getDataImg = (missionId, dataId, type='00') => {
+      return CONF.baseUrl + '/util/ShowPhoto.action?' +
+        $.param({
+          MISSION_ID: missionId,
+          DATA_ID: dataId,
+          DATA_TAG: type,
+          TIMES: new Date().getTime()
+        })
     }
+
+
   }]);

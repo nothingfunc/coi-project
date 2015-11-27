@@ -64,9 +64,8 @@
                          uib-typeahead="address as address.name for address in getLocation($viewValue)"
                          class="form-control"
                          ng-model="tmp.region"
-                         typeahead-select-on-exact="true"
-                         typeahead-select-on-blur="true"
                          ng-blur="onRegionBlur()"
+                         typeahead-min-length="0"
                   >
                 </div>
               </div>
@@ -156,8 +155,7 @@
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                      class="form-control"
                      ng-blur="onTypeBBlur()"
-                     typeahead-select-on-exact="true"
-                     typeahead-select-on-blur="true"
+                     typeahead-min-length="0"
               >
             </div>
           </div>
@@ -169,8 +167,7 @@
                      uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
                      class="form-control"
                      ng-blur="onTypeSBlur()"
-                     typeahead-select-on-exact="true"
-                     typeahead-select-on-blur="true"
+                     typeahead-min-length="0"
               >
             </div>
           </div>

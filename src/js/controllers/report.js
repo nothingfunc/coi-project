@@ -147,9 +147,9 @@ module.exports = myApp => {
             $scope.state.workTemplate = 'create-data-' + type + '.html';
 
             $scope.data.dataParam = data.Data;
-            $scope.tmp._img = getDataImg();
-            $scope.tmp._img1 = getDataImg('01');
-            $scope.tmp._img2 = getDataImg('02');
+            $scope.tmp._img = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '00');
+            $scope.tmp._img1 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '01');
+            $scope.tmp._img2 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '02');
 
             $scope.tmp.region = data.Data.COUNTY_CODE ? {
               code: data.Data.COUNTY_CODE,
@@ -303,16 +303,6 @@ module.exports = myApp => {
           if(data.success === CONST.API_SUCCESS) {
             //$rootScope.
           }
-        })
-      };
-
-      var getDataImg = (type = '00') => {
-        return CONF.baseUrl + '/util/ShowPhoto.action?' +
-        $.param({
-          MISSION_ID: $scope.state.currentTask,
-          DATA_ID: $scope.state.currentData,
-          DATA_TAG: type,
-          TIMES: (new Date().getTime())
         })
       };
 

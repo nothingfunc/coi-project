@@ -35,6 +35,7 @@
                        ng-model="tmp.grassBType"
                        uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
                        class="form-control"
+                       typeahead-min-length="0"
                     >
               </div>
             </div>
@@ -53,6 +54,7 @@
                        ng-model="tmp.region"
                        uib-typeahead="address as address.name for address in getLocation($viewValue, true)"
                        class="form-control"
+                       typeahead-min-length="0"
                     >
               </div>
             </div>

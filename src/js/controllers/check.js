@@ -175,10 +175,10 @@ module.exports = myApp => {
             $scope.state.workTemplate = 'create-data-' + type + '.html';
 
             $scope.data.dataParam = data.Data;
-            $scope.tmp._img = getDataImg();
-            $scope.tmp._img1 = getDataImg('01');
-            $scope.tmp._img2 = getDataImg('02');
-
+            $scope.tmp._img = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '00');
+            $scope.tmp._img1 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '01');
+            $scope.tmp._img2 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '02');
+            
             $scope.tmp.region = data.Data.COUNTY_CODE ? {
               code: data.Data.COUNTY_CODE,
               name: data.Data.COUNTY_NAME
@@ -242,20 +242,6 @@ module.exports = myApp => {
             //$rootScope.
           }
         })
-      };
-
-      var getDataImg = type => {
-        var DATA_TAG = '00';
-        if('3,6,7,8'.indexOf(type) !== -1) {
-          DATA_TAG = '01';
-        }
-        return CONF.baseUrl + '/util/ShowPhoto.action?' +
-          $.param({
-            MISSION_ID: $scope.state.currentTask,
-            DATA_ID: $scope.state.currentData,
-            DATA_TAG: DATA_TAG,
-            TIMES: (new Date().getTime())
-          })
       };
 
       $scope.onCancelCreateDataClick = () => {

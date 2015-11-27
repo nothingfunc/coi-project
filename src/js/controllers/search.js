@@ -278,7 +278,7 @@ module.exports = myApp =>
     $scope.pageChanged = () => {
       $scope.onSearchDataClick(true);
     };
-    $scope.onDataDetailClick = (dataId) => {
+    $scope.onDataDetailClick = (missionId, dataId) => {
       apiService.getDataDetail({
         DATA_ID: dataId,
         DATA_TYPE: selectedDataTypeId
@@ -294,20 +294,9 @@ module.exports = myApp =>
               $scope.data = {
                 dataParam: data.Data
               };
-
-              var getDataImg = (type = '00') => {
-                return CONF.baseUrl + '/util/ShowPhoto.action?' +
-                  $.param({
-                    MISSION_ID: '',
-                    DATA_ID: dataId,
-                    DATA_TAG: type,
-                    TIMES: (new Date().getTime())
-                  })
-              };
-
-              $scope.tmp._img = getDataImg();
-              $scope.tmp._img1 = getDataImg('01');
-              $scope.tmp._img2 = getDataImg('02');
+              $scope.tmp._img = $rootScope.getDataImg(missionId, dataId, '00');
+              $scope.tmp._img1 = $rootScope.getDataImg(missionId, dataId, '01');
+              $scope.tmp._img2 = $rootScope.getDataImg(missionId, dataId, '02');
 
               $scope.tmp.region = data.Data.COUNTY_CODE ? {
                 code: data.Data.COUNTY_CODE,

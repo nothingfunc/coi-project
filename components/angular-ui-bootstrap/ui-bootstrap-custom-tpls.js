@@ -361,6 +361,20 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position'])
       }
     };
 
+    /**czg modified this!!!**/
+    element.bind('focus', function(evt) {
+      if (modelCtrl.$viewValue === '' || modelCtrl.$viewValue === ' ' || modelCtrl.$viewValue === undefined) {
+        $timeout(function() {
+          if(modelCtrl.$viewValue === '') {
+            modelCtrl.$setViewValue(' ');
+          } else {
+            modelCtrl.$setViewValue('');
+          }
+        })
+      }
+    });
+    /**czg modified this!!!**/
+
     $document.bind('click', dismissClickHandler);
 
     originalScope.$on('$destroy', function() {
