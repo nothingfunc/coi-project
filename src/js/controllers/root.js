@@ -185,10 +185,11 @@ module.exports = myApp =>
     $rootScope.formatTime = datetime => $filter("date")(datetime, 'yyyy-MM-dd');
 
     //行政区搜索
-    $rootScope.getLocation = (value, notFilter) => apiService.regionAutoComp({
+    $rootScope.getLocation = value => apiService.regionAutoComp({
       KEY_WORD: value
     }, true, true).then(res => {
       var data = res.data;
+      var userRole = $rootScope.data.user.userRole;
       if(data.success === CONST.API_SUCCESS) {
         for(var i = data.data.length - 1; i>=0; i--) {
           var item = data.data[i];
@@ -198,7 +199,8 @@ module.exports = myApp =>
               code: item.BCODE
             }
           }
-          if(!notFilter && item.BLEV != "3") {
+          //县级用户
+          if(userRole=='5' && item.BLEV != "3") {
             data.data.splice(i, 1);
             continue;
           }
@@ -207,6 +209,11 @@ module.exports = myApp =>
               name: item.PNAME + ' ' + item.SNAME,
               code: item.SCODE
             }
+          }
+          //市级用户
+          if(userRole=='4' && item.BLEV != "3" && item.BLEV != "2") {
+            data.data.splice(i, 1);
+            continue;
           }
           if(item.BLEV == "1") {
             data.data[i] = {
