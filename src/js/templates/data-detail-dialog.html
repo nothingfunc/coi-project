@@ -4,7 +4,7 @@
   }
 </style>
 <div class="modal-header">
-  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <button type="button" class="close" ng-click="cancel();$event.stopPropagation();$event.preventDefault();">&times;</button>
   <h3 class="modal-title">查看详情</h3>
 </div>
 <div class="modal-body">

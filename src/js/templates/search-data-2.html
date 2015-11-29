@@ -1,9 +1,9 @@
 <style>
-  .form-group-sm {
+  .form-horizontal[name="searchData"] .form-group-sm {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  .form-group-sm + .form-group-sm {
+  .form-horizontal[name="searchData"] .form-group-sm + .form-group-sm {
     border-top: 1px dashed #d2d6de;
   }
 </style>
@@ -70,8 +70,6 @@
                        ng-model="tmp.region"
                        ng-disabled="!state.checked.regioncode"
                        ng-blur="onRegionBlur()"
-                       typeahead-select-on-exact="true"
-                       typeahead-select-on-blur="true"
                        uib-typeahead="address as address.name for address in getLocation($viewValue, true)"
                        class="form-control"
                        typeahead-min-length="0"

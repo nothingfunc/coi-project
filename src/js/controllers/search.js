@@ -211,7 +211,7 @@ module.exports = myApp =>
 
     $scope.onResetClick = () => {
       $scope.state.checked = {};
-      $scope.data.searchParamData = {};
+      $scope.data.searchParamData = {year: new Date().getFullYear()};
       $scope.tmp = {};
     };
     $scope.setDataType = function(id) {
@@ -223,6 +223,12 @@ module.exports = myApp =>
       $scope.onResetClick();
       $scope.data.titles = titlesArr[id];
       $scope.state.firstLoad = true;
+    }
+    $scope.setDataRelatedType = type => {
+      $scope.data.dataRelatedType = CONST.DATA_TYPE[type];
+      $scope.state.workRelatedTemplate = "search-data-" + type + ".html";
+      $scope.data.dataRelatedList = [];
+      $scope.data.titlesRelated = titlesArr[type];
     }
 
     $scope.onResetClick();
@@ -366,6 +372,31 @@ module.exports = myApp =>
     };
     //设置默认显示的模板
     $scope.setDataType(2);
+
+
+    //获取非关联样方cancel
+    $scope.toggleRelatedData = (item, event) => {
+      if(item._isRelatedDataOpen) {
+        item._isRelatedDataOpen = false;
+        return false;
+      }
+      var dataRelatedType = '4';
+      if(selectedDataTypeId == '2') {
+        dataRelatedType = item.HAS_BUSH === '无' ? '4' : '5';
+      }
+      $scope.setDataRelatedType(dataRelatedType);
+      apiService.queryFqudBySmpId({
+        HAS_BUSH: item.HAS_BUSH,
+        DATA_ID: item.DATA_ID
+      }).success(res => {
+        $scope.data.dataRelatedList = res.data;
+        item._isRelatedDataOpen = true;
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+    }
+
   }]);
 
 

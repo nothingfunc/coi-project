@@ -206,8 +206,8 @@ module.exports = myApp =>
           }
           if(item.BLEV == "2") {
             data.data[i] = {
-              name: item.PNAME + ' ' + item.SNAME,
-              code: item.SCODE
+              name: item.SNAME + ' ' + item.BNAME,
+              code: item.BCODE
             }
           }
           //市级用户
@@ -217,8 +217,8 @@ module.exports = myApp =>
           }
           if(item.BLEV == "1") {
             data.data[i] = {
-              name: item.PNAME,
-              code: item.PCODE
+              name: item.BNAME,
+              code: item.BCODE
             }
           }
         }

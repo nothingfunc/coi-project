@@ -1,0 +1,30 @@
+<div class="box box-success no-margin" style="box-shadow: none">
+  <div class="box-header with-border">
+    <h3 class="box-title">查看关联样方 <small>{{data.dataRelatedType}}</small></h3>
+  </div>
+  <div class="box-body" style="max-height: 300px; overflow-y: auto">
+    <table class="table table-hove table-condensed">
+      <thead>
+        <tr>
+          <th ng-repeat="title in data.titlesRelated">{{title.title}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-if="!data.dataRelatedList.length">
+          <td colspan="{{data.titlesRelated.length}}" class="text-center text-muted">
+            <br>没有数据</span>
+            <br><br>
+          </td>
+        </tr>
+        <tr ng-repeat="dataList in data.dataRelatedList">
+          <td ng-repeat="title in data.titlesRelated">
+            {{title.relatedField!=='CHECK_STU'?dataList[title.relatedField]:CONST.CHECK_STU[dataList[title.relatedField]].name}}
+            <a href="javascript:;" ng-if="title.relatedField === 'xx_true'"
+               ng-click="onDataDetailClick(dataList.MISSION_ID, dataList.DATA_ID); $event.stopPropagation(); $event.preventDefault();">详细</a>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
