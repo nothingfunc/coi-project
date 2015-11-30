@@ -130,14 +130,26 @@ input.form-control[readonly] {
  box-shadow: none;
 }
 
+html {
+  height: 100%;
+}
+
 //登录状态
-.login {
+body.login {
+  height: 100%;
+  background: url('/src/img/bg.jpg') no-repeat center center;
+  background-size: cover;
   .content-wrapper{
     margin-left: 0;
     transform: translate(0, 0);
+    background: transparent !important;
+  }
+  .navbar {
+    background: transparent !important;
   }
   .logo {
     position: static;
+    background: transparent !important;
   }
   &[ng-cloak] {
     .navbar-custom-menu,
@@ -290,3 +302,5 @@ input.form-control[readonly] {
     }
   }
 }
+
+

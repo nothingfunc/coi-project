@@ -24,12 +24,12 @@
         <td ng-repeat="title in data.titles">
           {{title.relatedField!=='CHECK_STU'?dataList[title.relatedField]:CONST.CHECK_STU[dataList[title.relatedField]].name}}
           <a href="javascript:;" ng-if="title.relatedField === 'xx_true'"
-             ng-click="onDataDetailClick(dataList.MISSION_ID, dataList.DATA_ID);">
+             ng-click="onDataDetailClick(dataList.MISSION_ID, dataList.DATA_ID, data.selectedDataTypeId);">
             详细</a>
           <span uib-dropdown
-                ng-init="item._isRelatedDataOpen=false" is-open="item._isRelatedDataOpen">
+                on-toggle="toggleRelatedData(open, dataList)">
             <a href="javascript:;" ng-if="title.relatedField === 'ck_true'"
-               ng-click="toggleRelatedData(dataList, $event)" uib-dropdown-toggle>查看</a>
+               uib-dropdown-toggle>查看</a>
             <div class="uib-dropdown-menu dropdown-menu-top-right no-padding"
                  style="overflow: visible;"
                  role="menu">

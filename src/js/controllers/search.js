@@ -216,6 +216,7 @@ module.exports = myApp =>
     };
     $scope.setDataType = function(id) {
       selectedDataTypeId = id;
+      $scope.data.selectedDataTypeId = id;
       $scope.data.datatype = CONST.DATA_TYPE[id];
       $scope.state.workTemplate = "search-data-" + id + ".html";
       $scope.data.dataList = [];
@@ -225,6 +226,7 @@ module.exports = myApp =>
       $scope.state.firstLoad = true;
     }
     $scope.setDataRelatedType = type => {
+      $scope.data.selectedDataRelatedTypeId = type;
       $scope.data.dataRelatedType = CONST.DATA_TYPE[type];
       $scope.state.workRelatedTemplate = "search-data-" + type + ".html";
       $scope.data.dataRelatedList = [];
@@ -297,10 +299,10 @@ module.exports = myApp =>
     $scope.pageChanged = () => {
       $scope.onSearchDataClick(true);
     };
-    $scope.onDataDetailClick = (missionId, dataId) => {
+    $scope.onDataDetailClick = (missionId, dataId, dataType) => {
       apiService.getDataDetail({
         DATA_ID: dataId,
-        DATA_TYPE: selectedDataTypeId
+        DATA_TYPE: dataType
       }).success(data => {
         if (data.success === CONST.API_SUCCESS) {
           $uibModal.open({
@@ -308,7 +310,7 @@ module.exports = myApp =>
             size: 'lg',
             controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
               $scope.tmp = {
-                type: selectedDataTypeId
+                type: dataType
               };
               $scope.data = {
                 dataParam: data.Data
@@ -357,7 +359,7 @@ module.exports = myApp =>
               };
 
               $scope.state = {
-                currentDataType: selectedDataTypeId,
+                currentDataType: dataType,
                 workState: 2,
                 currentData: dataId
               };
@@ -375,9 +377,8 @@ module.exports = myApp =>
 
 
     //获取非关联样方cancel
-    $scope.toggleRelatedData = (item, event) => {
-      if(item._isRelatedDataOpen) {
-        item._isRelatedDataOpen = false;
+    $scope.toggleRelatedData = (open, item) => {
+      if(!open) {
         return false;
       }
       var dataRelatedType = '4';
@@ -390,9 +391,6 @@ module.exports = myApp =>
         DATA_ID: item.DATA_ID
       }).success(res => {
         $scope.data.dataRelatedList = res.data;
-        item._isRelatedDataOpen = true;
-        event.preventDefault();
-        event.stopPropagation();
       });
 
     }

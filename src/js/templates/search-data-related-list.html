@@ -20,7 +20,7 @@
           <td ng-repeat="title in data.titlesRelated">
             {{title.relatedField!=='CHECK_STU'?dataList[title.relatedField]:CONST.CHECK_STU[dataList[title.relatedField]].name}}
             <a href="javascript:;" ng-if="title.relatedField === 'xx_true'"
-               ng-click="onDataDetailClick(dataList.MISSION_ID, dataList.DATA_ID); $event.stopPropagation(); $event.preventDefault();">详细</a>
+               ng-click="onDataDetailClick(dataList.MISSION_ID, dataList.DATA_ID, data.selectedDataRelatedTypeId); $event.stopPropagation(); $event.preventDefault();">详细</a>
           </td>
         </tr>
       </tbody>
