@@ -80,6 +80,10 @@ module.exports = myApp =>
 
       //获取非工程灌木样方列表，b是灌木
       services.queryFbqudByCondition = makeService({method: 'POST', url: '/data/QueryFbqudByCondition.action'});
+
+      //查询工程样地
+      services.QueryPjByCondition = makeService({method: 'POST', url: '/data/QueryPjByCondition.action'});
+
       //获取行政区------
       services.regionAutoComp = makeService({method: 'POST', url: '/util/RegionAutoComp.action'});
 

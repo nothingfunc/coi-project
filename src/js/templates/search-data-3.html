@@ -15,6 +15,32 @@
     <form class="form-horizontal" name="searchData" ng-submit="onSearchDataClick()" novalidate>
       <div class="box-body">
         <div class="form-group-sm clearfix">
+          <div class="col-sm-12">
+            <label class="pull-left control-label margin-r-10">样地位置
+            </label>
+            <div class="pull-left margin-r-20 radio">
+              <label class="margin-r-5">
+                <input
+                    icheck type="radio" name="ydwz"
+                    ng-model="data.searchParamData.IsInside"
+                    value="true"
+                    />
+                <span>工程区域内</span>
+              </label>
+            </div>
+            <div class="pull-left margin-r-20 radio">
+              <label class="margin-r-5">
+                <input
+                    icheck type="radio" name="ydwz"
+                    ng-model="data.searchParamData.IsInside"
+                    value="false"
+                    />
+                <span>工程区域外</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix">
           <div class="col-sm-3">
             <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
             </label>

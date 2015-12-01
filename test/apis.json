@@ -276,7 +276,22 @@
         }]
       }
     },
-
+    {
+      "url": "/data/QueryPjByCondition.action",
+      "desc": "查询工程样地数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "2000",
+        "data|0-10":[{
+          "CHECKSTU": "1",
+          "YDH": "@last()、@last()",
+          "YDNAME": "2015-10-14 00:00:00",
+          "GRASSTYPE": "@word(5)",
+          "HAS_BUSH": "@pick(['有', '无'])"
+        }]
+      }
+    },
     {
       "url": "/data/QueryFqudBySmpId.action",
       "desc": "根据样地ID获取样方列表//创建是使用咯. HAS_BUSH DATA_ID",
