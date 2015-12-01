@@ -66,6 +66,9 @@ module.exports = myApp =>
       services.updateData = makeService({method: 'POST', url: '/data/UpdateData.action'});
       services.updateData.url = CONF.baseUrl + '/data/UpdateData.action';
 
+      //获取所有的工程信息数据
+      services.getAllProjectInfo = makeService({method: 'POST', url: '/data/GetAllProjectInfo.action'});
+
       //查询非工程样地
       services.queryFpjByCondition = makeService({method: 'POST', url: '/data/QueryFpjByCondition.action'});
 

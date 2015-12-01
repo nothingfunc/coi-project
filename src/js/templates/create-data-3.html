@@ -12,6 +12,143 @@
   <div class="box-body no-padding">
     <form class="form-horizontal" novalidate>
       <div class="box-body scroll-content">
+        <div class="form-group-sm clearfix" style="margin-left: -4px;">
+          <div class="btn-group" uib-dropdown>
+            <button class="btn btn-box-tool text-green"
+                    uib-dropdown-toggle>
+              <i class="fa fa-file-text-o"></i> 选择工程信息 <span class="caret"></span>
+            </button>
+            <ul class="uib-dropdown-menu"
+                role="menu" aria-labelledby="single-button">
+              <li role="menuitem"
+                  ng-class="{'active': project.DATA_ID == data.projectParam.DATA_ID}"
+                  ng-repeat="project in data.projectList">
+                <a href="javascript:;" ng-click="onSelectProjectClick(project)">{{project.P_NAME}}</a>
+              </li>
+              <li class="text-muted text-center" ng-if="!data.projectList.length">
+                没有数据
+              </li>
+            </ul>
+          </div>
+          <button class="btn btn-box-tool text-green"
+                  ng-disabled="state.projectState == STATES.CREATE_PROJECT || state.projectState == STATES.EDIT_PROJECT"
+                  ng-click="onCreateProjectClick()">
+            <i class="fa fa-plus-circle"></i> 添加工程信息</span>
+          </button>
+        </div>
+        <span ng-show="state.projectState != STATES.NO_PROJECT">
+          <h4 class="with-border" style="margin-top: 10px;"><span>工程信息</span></h4>
+          <div class="form-group-sm clearfix">
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">工程名称：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                       ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                       ng-model="data.projectParam.P_NAME"
+                />
+              </div>
+            </div>
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">工程措施：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                     ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                     ng-model="data.projectParam.P_MEASURE"
+                />
+              </div>
+            </div>
+            <div class="clearfix pull-left">
+              <label class="pull-left control-label">工程面积：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                     ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                     ng-model="data.projectParam.P_AREA"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group-sm margin-t-10 clearfix">
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">建设时间：</label>
+              <div class="input-group w-130">
+                <input ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                         type="text" class="form-control datepicker-bootstrap"
+                         uib-datepicker-popup
+                         ng-model="data.projectParam.COMPLETE_TIME"
+                         is-open="__dateIsOpen1"
+                         datepicker-options="dateOptions"
+                         show-button-bar="false"
+                />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default"
+                          ng-click="__dateIsOpen1=!__dateIsOpen0"
+                          ng-click="__dateIsOpen1=!__dateIsOpen0"
+                          ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                  ><i class="fa fa-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">项目投资：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                     ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                     ng-model="data.projectParam.P_FINAC"
+                />
+              </div>
+            </div>
+            <div class="clearfix pull-left">
+              <label class="pull-left control-label">其中中央：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                     ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                     ng-model="data.projectParam.C_FINAC"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group-sm margin-t-10 clearfix">
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">所在地区：</label>
+              <div class="pull-left" style="width: 210px;">
+                <input type="text" ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                       uib-typeahead="address as address.name for address in getLocation($viewValue)"
+                       class="form-control"
+                       ng-model="tmp.projectRegion"
+                       ng-blur="onProjectRegionBlur()"
+                       typeahead-min-length="0"
+                >
+              </div>
+            </div>
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">项目地点：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                       ng-disabled="state.projectState === STATES.VIEW_PROJECT"
+                       ng-model="data.projectParam.TOWN_NAME"
+                />
+              </div>
+            </div>
+          </div>
+        </span>
+        <p class="text-center text-red margin-t-10" ng-show="state.projectState == STATES.NO_PROJECT">
+          请先选择或添加一条工程信息
+        </p>
+        <div class="form-group-sm margin-t-10 clearfix">
+          <div class="pull-right">
+            <button class="btn btn-box-tool text-green"
+                    ng-click="onEditProjectClick()"
+                    ng-show="state.projectState == STATES.VIEW_PROJECT">
+              <i class="fa fa-edit"></i> 编辑工程信息</span>
+            </button>
+            <button class="btn btn-box-tool text-red"
+                    ng-click="onSaveProjectClick()"
+                    ng-show="state.projectState == STATES.CREATE_PROJECT || state.projectState == STATES.EDIT_PROJECT">
+              <i class="fa fa-floppy-o"></i> 保存工程信息</span>
+            </button>
+          </div>
+        </div>
+
         <h4 class="with-border"><span>基本信息</span></h4>
         <div class="form-group-sm clearfix">
           <div class="clearfix pull-left margin-r-20">
@@ -55,26 +192,6 @@
         <!--左右分栏-->
         <div class="clearfix">
           <div class="pull-left margin-r-20">
-            <div class="form-group-sm clearfix margin-t-10">
-              <label class="pull-left control-label">建成时间：</label>
-              <div class="pull-left">
-                <div class="input-group" style="width: 133px;">
-                  <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control datepicker-bootstrap"
-                         uib-datepicker-popup
-                         ng-model="data.dataParam.COMPLETE_TIME"
-                         is-open="__dateIsOpen1"
-                         datepicker-options="dateOptions"
-                         show-button-bar="false"
-                  />
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default"
-                          ng-click="__dateIsOpen1=!__dateIsOpen1"
-                          ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ><i class="fa fa-calendar"></i></button>
-                </span>
-                </div>
-              </div>
-            </div>
             <div class="form-group-sm clearfix margin-t-10 hidden">
               <label class="pull-left control-label">景观照片编号：</label>
               <div class="pull-left control-label">

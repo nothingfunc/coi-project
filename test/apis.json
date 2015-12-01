@@ -317,6 +317,30 @@
         "ErrMsg": "xxxxx",
         "DATA_ID": "@id()"
       }
+    },
+
+    {
+      "url": "/data/GetAllProjectInfo.action",
+      "desc": "获取所有工程信息",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "ErrMsg": "xxxxx",
+        "data|0-5": [
+          {
+            "DATA_ID": "@id()",
+            "P_NAME": "@word(5,20)",
+            "P_MEASURE": "@word(5),@word(5)",
+            "P_AREA": "@integer(100,999)",
+            "P_FINAC": "@integer(1,10)",
+            "C_FINAC": "@integer(1,10)",
+            "COUNTY_CODE": "@integer(1000,9999)",
+            "COUNTY_NAME": "@region()",
+            "TOWN_NAME": "@word(4,10)",
+            "COMPLETE_TIME": "2011-12-03"
+          }
+        ]
+      }
     }
 
 
