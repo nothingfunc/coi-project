@@ -113,11 +113,7 @@ module.exports = myApp =>
         },
         {
           "title": "样地名称",
-          "relatedField": "SAMPLE_PLOT_NAME"
-        },
-        {
-          "title": "调查人",
-          "relatedField": "SUVEY_PERSON"
+          "relatedField": "YDNAME"
         },
         {
           "title": "灌木和高大草本",
@@ -205,13 +201,14 @@ module.exports = myApp =>
     $scope.data.titles = titlesArr['2'];
     $scope.state = {
       checked: {
+        IsInside: true
       },
       firstLoad: true
     };
 
     $scope.onResetClick = () => {
-      $scope.state.checked = {};
-      $scope.data.searchParamData = {year: new Date().getFullYear()};
+      $scope.state.checked = {IsInside: true};
+      $scope.data.searchParamData = {year: new Date().getFullYear(), IsInside: "true"};
       $scope.tmp = {};
     };
     $scope.setDataType = function(id) {
@@ -266,7 +263,7 @@ module.exports = myApp =>
     $scope.data.dataList = [];
     var services = {};
     services['2'] = 'queryFpjByCondition';
-    services['3'] = 'queryFpjByCondition';
+    services['3'] = 'QueryPjByCondition';
     services['4'] = 'queryFwqudByCondition';
     services['5'] = 'queryFbqudByCondition';
     services['6'] = 'queryFwqudByCondition';
