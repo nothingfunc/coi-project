@@ -220,32 +220,24 @@
         </div>
 
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left">
+          <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">工程区内枯落物情况：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
-                <input
-                  icheck type="radio" name="i-klwqk"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.I_WEIGHT_LITTER"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
+            <div class="pull-left">
+              <input
+                to-number
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                type="text" class="form-control"
+                ng-model="data.dataParam.I_WEIGHT_LITTER"/>
             </div>
           </div>
           <div class="clearfix pull-left">
             <label class="pull-left control-label">工程区外枯落物情况：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
-                <input
-                  icheck type="radio" name="o-klwqk"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.O_WEIGHT_LITTER"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
+            <div class="pull-left">
+              <input
+                to-number
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                type="text" class="form-control"
+                ng-model="data.dataParam.O_WEIGHT_LITTER"/>
             </div>
           </div>
         </div>

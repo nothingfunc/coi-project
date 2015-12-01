@@ -144,16 +144,9 @@
           </div>
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">枯落物情况：</label>
-            <div class="pull-left margin-r-20 radio">
-              <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
-                <input
-                  icheck type="radio" name="klwqk"
-                  ng-disabled="state.workState === STATES.VIEW_DATA"
-                  ng-model="data.dataParam.HAS_LITTER"
-                  value="{{opt.value}}"
-                />
-                <span>{{opt.name}}</span>
-              </label>
+            <div class="pull-left margin-r-20">
+              <input to-number
+                     ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.WEIGHT_LITTER"/>
             </div>
           </div>
         </div>

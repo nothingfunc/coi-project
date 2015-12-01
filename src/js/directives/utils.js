@@ -112,6 +112,20 @@ module.exports = myApp => {
     };
   }]);
 
+  //自动转换数字
+  myApp.directive('toNumber', function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ngModel) {
+        ngModel.$parsers.push(function (value) {
+          var number = parseFloat(value || '') || '';
+          setTimeout(function() { elem.val(number) }, 50);
+          return number;
+        });
+      }
+    };
+  });
+
   ////生成radio组
   //myApp.directive('radioGroup', ['$timeout', ($timeout) => {
   //  return {
