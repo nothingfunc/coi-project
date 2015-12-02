@@ -108,10 +108,6 @@ module.exports = myApp =>
       //工程start
       "3":[
         {
-          "title": "年份",
-          "relatedField": "SUVEY_TIME"
-        },
-        {
           "title": "样地名称",
           "relatedField": "YDNAME"
         },
@@ -121,7 +117,7 @@ module.exports = myApp =>
         },
         {
           "title": "审核结果",
-          "relatedField": "CHECK_STU"
+          "relatedField": "CHECKSTU"
         },
         {
           "title": "详细",
@@ -134,32 +130,28 @@ module.exports = myApp =>
       ],
       "6":[
         {
-          "title": "年份",
-          "relatedField": "SURVER_TIME"
+          "title": "建设时间",
+          "relatedField": "PROJECTTIME"
         },
         {
-          "title": "植物盖度",
-          "relatedField": "COV_VEGETATION"
+          "title": "样方名称",
+          "relatedField": "YFNAME"
         },
         {
-          "title": "总产草量鲜重",
-          "relatedField": "FWEIGHT_TOTALGRASS"
+          "title": "工程名称",
+          "relatedField": "PROJECTNAME"
         },
         {
-          "title": "总产草量风干重",
-          "relatedField": "DWEIGHT_TOTALGRASS"
+          "title": "工程面积",
+          "relatedField": "PROJECTAREA"
         },
         {
-          "title": "可食产草量鲜重",
-          "relatedField": "FWEIGHT_EATGRASS"
+          "title": "项目投资",
+          "relatedField": "PROJECTFINANCE"
         },
         {
           "title": "审核结果",
-          "relatedField": "CHECK_STU"
-        },
-        {
-          "title": "可食产草量风干重",
-          "relatedField": "DWEIGHT_EATGRASS"
+          "relatedField": "CHECKSTU"
         },
         {
           "title": "详细",
@@ -168,28 +160,28 @@ module.exports = myApp =>
       ],
       "7":[
         {
+          "title": "建设时间",
+          "relatedField": "PROJECTTIME"
+        },
+        {
           "title": "样方名称",
-          "relatedField": "QUADRAT_NAME"
+          "relatedField": "YFNAME"
         },
         {
-          "title": "年份",
-          "relatedField": "SURVER_TIME"
+          "title": "工程名称",
+          "relatedField": "PROJECTNAME"
         },
         {
-          "title": "总盖度",
-          "relatedField": "TOTAL_VEGETATION"
+          "title": "工程面积",
+          "relatedField": "PROJECTAREA"
         },
         {
-          "title": "总产草量鲜重",
-          "relatedField": "FWEIGHT_TOTALGRASS"
-        },
-        {
-          "title": "总产草量风干重",
-          "relatedField": "DWEIGHT_TOTALGRASS"
+          "title": "项目投资",
+          "relatedField": "PROJECTFINANCE"
         },
         {
           "title": "审核结果",
-          "relatedField": "CHECK_STU"
+          "relatedField": "CHECKSTU"
         },
         {
           "title": "详细",
@@ -266,8 +258,8 @@ module.exports = myApp =>
     services['3'] = 'QueryPjByCondition';
     services['4'] = 'queryFwqudByCondition';
     services['5'] = 'queryFbqudByCondition';
-    services['6'] = 'queryFwqudByCondition';
-    services['7'] = 'queryFbqudByCondition';
+    services['6'] = 'QueryPwqudByCondition';
+    services['7'] = 'QueryPbqudByCondition';
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
         $scope.data.pageNo = 1;
@@ -381,14 +373,26 @@ module.exports = myApp =>
       var dataRelatedType = '4';
       if(selectedDataTypeId == '2') {
         dataRelatedType = item.HAS_BUSH === '无' ? '4' : '5';
+      } else if (selectedDataTypeId == '3') {
+        dataRelatedType = item.HAS_BUSH === '无' ? '6' : '7';
       }
       $scope.setDataRelatedType(dataRelatedType);
-      apiService.queryFqudBySmpId({
-        HAS_BUSH: item.HAS_BUSH,
-        DATA_ID: item.DATA_ID
-      }).success(res => {
-        $scope.data.dataRelatedList = res.data;
-      });
+      if (selectedDataTypeId == '2') {
+        apiService.queryFqudBySmpId({
+          HAS_BUSH: item.HAS_BUSH,
+          DATA_ID: item.DATA_ID
+        }).success(res => {
+          $scope.data.dataRelatedList = res.data;
+        });
+      } else {
+        apiService.QueryPqudBySmpId({
+          hasBash: item.HAS_BUSH=='有'?true:false,
+          ydh: item.YDH
+        }).success(res => {
+          $scope.data.dataRelatedList = res.data;
+        });
+      }
+
 
     }
 

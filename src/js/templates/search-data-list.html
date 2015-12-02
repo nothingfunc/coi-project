@@ -22,7 +22,7 @@
       </tr>
       <tr ng-repeat="dataList in data.dataList">
         <td ng-repeat="title in data.titles">
-          {{title.relatedField!=='CHECK_STU'?dataList[title.relatedField]:CONST.CHECK_STU[dataList[title.relatedField]].name}}
+          {{title.relatedField!=='CHECK_STU'&&title.relatedField!=='CHECKSTU'?dataList[title.relatedField]:CONST.CHECK_STU[dataList[title.relatedField]].name}}
           <a href="javascript:;" ng-if="title.relatedField === 'xx_true'"
              ng-click="onDataDetailClick(dataList.MISSION_ID, dataList.DATA_ID, data.selectedDataTypeId);">
             详细</a>

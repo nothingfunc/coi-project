@@ -84,6 +84,15 @@ module.exports = myApp =>
       //查询工程样地
       services.QueryPjByCondition = makeService({method: 'POST', url: '/data/QueryPjByCondition.action'});
 
+      //查询工程草本样方列表，w是草本
+      services.QueryPwqudByCondition = makeService({method: 'POST', url: '/data/QueryPwqudByCondition.action'});
+
+      //获取非工程灌木样方列表，b是灌木
+      services.QueryPbqudByCondition = makeService({method: 'POST', url: '/data/QueryPbqudByCondition.action'});
+
+      //获取工程样方关联
+      services.QueryPqudBySmpId = makeService({method: 'POST', url: '/data/QueryPqudBySmpId.action'});
+
       //获取行政区------
       services.regionAutoComp = makeService({method: 'POST', url: '/util/RegionAutoComp.action'});
 
