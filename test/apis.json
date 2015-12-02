@@ -277,24 +277,8 @@
       }
     },
     {
-      "url": "/data/QueryPjByCondition.action",
-      "desc": "查询工程样地数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
-      "mock": true,
-      "res": {
-        "success": "1",
-        "count": "2000",
-        "data|0-10":[{
-          "CHECKSTU": "1",
-          "YDH": "@last()、@last()",
-          "YDNAME": "2015-10-14 00:00:00",
-          "GRASSTYPE": "@word(5)",
-          "HAS_BUSH": "@pick(['有', '无'])"
-        }]
-      }
-    },
-    {
       "url": "/data/QueryFqudBySmpId.action",
-      "desc": "根据样地ID获取样方列表//创建是使用咯. HAS_BUSH DATA_ID",
+      "desc": "根据非工程样地ID获取样方列表//创建是使用咯. HAS_BUSH DATA_ID",
       "mock": true,
       "res": {
         "success": "1",
@@ -311,7 +295,77 @@
         }]
       }
     },
+    {
+      "url": "/data/QueryPjByCondition.action",
+      "desc": "查询工程样地数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "2000",
+        "data|0-10":[{
+          "DATA_ID": "@id()",
+          "CHECKSTU": "1",
+          "YDH": "@id()",
+          "YDNAME": "2015-10-14 00:00:00",
+          "GRASSTYPE": "@word(5)",
+          "HAS_BUSH": "@pick(['有', '无'])"
+        }]
+      }
+    },
+    {
+      "url": "/data/QueryPwqudByCondition.action",
+      "desc": "查询工程草本样方数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "integer(0,100)",
+        "data|0-20":[{
+          "DATA_ID": "@id()",
+          "PROJECTNAME": "@word(5)",
+          "PROJECTTIME": "2015-10-14 00:00:00",
+          "PROJECTAREA": "@id()",
+          "PROJECTFINANCE": "@integer(100, 9999)",
+          "YFNAME": "@word(4)",
+          "CHECKSTU": "@integer(0, 5)"
+        }]
+      }
+    },
+    {
+      "url": "/data/QueryPbqudByCondition.action",
+      "desc": "查询工程灌木样方数据列表,分页参数+条件筛选参数 needCount, PageIndex, PageSize",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "count": "integer(0,100)",
+        "data|0-20":[{
+          "PROJECTNAME": "@word(5)",
+          "PROJECTTIME": "2015-10-14 00:00:00",
+          "PROJECTAREA": "@id()",
+          "PROJECTFINANCE": "@integer(100, 9999)",
+          "YFNAME": "@word(4)",
+          "CHECKSTU": "@integer(0, 5)"
+        }]
+      }
+    },
 
+    {
+      "url": "/data/QueryPqudBySmpId.action",
+      "desc": "根据工程样地ID获取样方列表//创建是使用咯. HAS_BUSH DATA_ID",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-10":[{
+          "YFH": "@id()",
+          "YFNAME": "@word(5)",
+          "PROJECTNAME": "@word(5)",
+          "PROJECTTIME": "2015-10-14 00:00:00",
+          "PROJECTAREA": "@id()",
+          "PROJECTFINANCE": "@integer(100, 9999)",
+          "YFNAME": "@word(4)",
+          "CHECKSTU": "@integer(0, 5)"
+        }]
+      }
+    },
     {
       "url": "/data/AddData.action",
       "desc": "所有数据添加通用接口，通用字段+各类型数据字段+图片",

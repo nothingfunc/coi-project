@@ -1,12 +1,3 @@
-<style>
-  .form-group-sm {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-  .form-group-sm + .form-group-sm {
-    border-top: 1px dashed #d2d6de;
-  }
-</style>
 <div class="box box-success">
     <div class="box-header with-border">
       <h3 class="box-title">{{data.datatype}}查询</h3>
@@ -14,6 +5,32 @@
     <div class="box-body no-padding">
       <form class="form-horizontal" name="searchData" ng-submit="onSearchDataClick()" novalidate>
         <div class="box-body">
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-12">
+              <label class="pull-left control-label margin-r-10">样地位置
+              </label>
+              <div class="pull-left margin-r-20 radio">
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="ydwz"
+                      ng-model="data.searchParamData.IsInside"
+                      value="true"
+                      />
+                  <span>工程区域内</span>
+                </label>
+              </div>
+              <div class="pull-left margin-r-20 radio">
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="ydwz"
+                      ng-model="data.searchParamData.IsInside"
+                      value="false"
+                      />
+                  <span>工程区域外</span>
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="form-group-sm clearfix">
             <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
@@ -29,27 +46,12 @@
               </div>
             </div>
             <div class="col-sm-4">
-              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.GRASS_BG_TYPE">草地类型
-              </label>
-              <div class="pull-left">
-                <input type="text" ng-disabled="!state.checked.GRASS_BG_TYPE"
-                       ng-model="tmp.grassBType"
-                       uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
-                       class="form-control"
-                       typeahead-min-length="0"
-                    >
-              </div>
-            </div>
-            <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_PLANT">主要植物种
               </label>
               <div class="pull-left">
                 <input ng-model="data.searchParamData.MAIN_PLANT" type="text" class="form-control" style="width:120px" ng-disabled="!state.checked.MAIN_PLANT">
               </div>
             </div>
-          </div>
-          <!--end form-group-sm-->
-          <div class="form-group-sm clearfix">
             <div class="col-sm-4">
               <label class="pull-left control-label"><input type="checkbox" icheck ng-model="state.checked.regioncode">所在地区：</label>
               <div class="pull-left">
@@ -63,6 +65,9 @@
                     >
               </div>
             </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
             <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.MAIN_BUSH">灌木和高大草本名称
               </label>
@@ -78,9 +83,6 @@
               </div>
               <span class="control-label pull-left">（%）</span>
             </div>
-          </div>
-          <!--end form-group-sm-->
-          <div class="form-group-sm clearfix">
             <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.FWEIGHT_TOTALGRASS">总产草量鲜重
               </label>
@@ -89,6 +91,9 @@
               </div>
               <span class="control-label pull-left">（千克/公顷）</span>
             </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
             <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.DWEIGHT_TOTALGRASS">总产草量风干重
               </label>
