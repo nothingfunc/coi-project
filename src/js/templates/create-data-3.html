@@ -12,7 +12,9 @@
   <div class="box-body no-padding">
     <form class="form-horizontal" novalidate>
       <div class="box-body scroll-content">
-        <div class="form-group-sm clearfix" style="margin-left: -4px;">
+        <div class="form-group-sm clearfix"
+             ng-hide="state.workState === STATES.VIEW_DATA"
+             style="margin-left: -4px;">
           <div class="btn-group" uib-dropdown>
             <button class="btn btn-box-tool text-green"
                     uib-dropdown-toggle>
@@ -114,7 +116,7 @@
                 <input type="text" ng-disabled="state.projectState === STATES.VIEW_PROJECT"
                        uib-typeahead="address as address.name for address in getLocation($viewValue)"
                        class="form-control"
-                       ng-model="tmp.projectRegion"
+                       ng-model="projectTmp.region"
                        ng-blur="onProjectRegionBlur()"
                        typeahead-min-length="0"
                 >
@@ -134,7 +136,8 @@
         <p class="text-center text-red margin-t-10" ng-show="state.projectState == STATES.NO_PROJECT">
           请先选择或添加一条工程信息
         </p>
-        <div class="form-group-sm margin-t-10 clearfix">
+        <div class="form-group-sm margin-t-10 clearfix"
+             ng-hide="state.workState === STATES.VIEW_DATA">
           <div class="pull-right">
             <button class="btn btn-box-tool text-green"
                     ng-click="onEditProjectClick()"

@@ -4,8 +4,6 @@
 
 //rootController，负责公共方法，所有controller的通信和数据共享
 var CONST = require("../constant");
-var _ = require("underscore");
-
 module.exports = myApp =>
   myApp.controller('rootController', ['$scope', '$rootScope', '$filter', '$state', '$timeout', '$q', '$sce', '$uibModal', 'Lightbox', 'apiService',
   function($scope, $rootScope, $filter, $state, $timeout, $q, $sce, $uibModal, Lightbox, apiService) {

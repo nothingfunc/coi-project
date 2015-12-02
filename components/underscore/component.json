@@ -1,6 +1,0 @@
-{
-    "repos": "https://github.com/jashkenas/underscore.git",
-    "version": "1.7.0",
-    "main": "underscore.js",
-    "name": "underscore"
-}

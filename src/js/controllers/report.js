@@ -21,6 +21,7 @@ module.exports = myApp => {
       };
 
       $scope.tmp = {};
+      $scope.projectTmp = {};
       $scope.data = {};
       $scope.STATES = STATES;
 
@@ -61,6 +62,7 @@ module.exports = myApp => {
        * 获取工程信息数据，该方法仅在工程样地时使用！
        */
       var getProjectList = forceReload => {
+        var deferred = $q.defer();
         if(!forceReload && $scope.data.projectList !== undefined) {
           return ;
         }
@@ -70,49 +72,80 @@ module.exports = myApp => {
           } else {
             $scope.data.projectList = [];
           }
+          deferred.resolve();
         });
+        return deferred.promise;
       };
       $scope.$watch('state.currentDataType', type => {
-        console.log('watch type', type);
         if(type == 3) {
           getProjectList();
         }
       });
       //行政区部分事件
-      $scope.$watch('tmp.projectRegion', region => {
+      $scope.$watch('projectTmp.region', region => {
+        console.log(region);
         if(typeof region === 'object') {
           $scope.data.projectParam.COUNTY_CODE = region.code;
           $scope.data.projectParam.COUNTY_NAME = region.name;
           $timeout.cancel(projectRegionTimer);
-        } else if($scope.data.projectParam) {
+        } else if($scope.data.projectParam && region !== undefined) {
           $scope.data.projectParam.COUNTY_CODE = '';
           $scope.data.projectParam.COUNTY_NAME = '';
         }
       });
       var projectRegionTimer ;
-      $scope.onRegionBlur = () => {
+      $scope.onProjectRegionBlur = () => {
         if(!$scope.data.projectParam.COUNTY_CODE) {
-          regionTimer = $timeout(() => $scope.tmp.projectRegion = '', 100);
+          projectRegionTimer = $timeout(() => $scope.projectTmp.region = '', 100);
         }
       }
       $scope.onSelectProjectClick = project => {
         $scope.state.projectState = STATES.VIEW_PROJECT;
         $scope.data.projectParam = project;
-        $scope.tmp.projectRegion = project.COUNTY_CODE ? {
+        $scope.projectTmp.region = project.COUNTY_CODE ? {
           code: project.COUNTY_CODE,
           name: project.COUNTY_NAME
         } : '';
-        console.log(project);
+        $scope.data.dataParam.PROJECT_ID = project.DATA_ID;
       };
       $scope.onCreateProjectClick = () => {
         $scope.data.projectParam = {};
+        $scope.projectTmp.region = undefined;
         $scope.state.projectState = STATES.CREATE_PROJECT;
       };
       $scope.onEditProjectClick = () => {
         $scope.state.projectState = STATES.EDIT_PROJECT;
       };
       $scope.onSaveProjectClick = () => {
-        $scope.state.projectState = STATES.VIEW_PROJECT;
+        $scope.data.projectParam.COMPLETE_TIME = $rootScope.formatTime($scope.data.projectParam.COMPLETE_TIME);
+        var isEditing = $scope.state.projectState === STATES.EDIT_PROJECT;
+
+        //设置通用数据
+        $scope.data.projectParam.MISSION_ID = $scope.state.currentTask;
+        $scope.data.projectParam.DATA_ID = isEditing ? $scope.data.projectParam.DATA_ID : undefined;
+        $scope.data.projectParam.DATA_TYPE = 8;
+
+        //工程信息校验，type为8
+        if(!$scope.validateData(8)) {
+          return ;
+        }
+
+        apiService[isEditing ? 'updateData' : 'addData']($scope.data.projectParam).success(res => {
+          if(res.success === CONST.API_SUCCESS) {
+            $scope.state.projectState = STATES.VIEW_PROJECT;
+            if(!isEditing) {
+              getProjectList(true).then(() => {
+                setCurrentProject(res.DATA_ID);
+              });
+            } else {
+              getProjectList(true);
+            }
+
+          }
+        })
+
+
+        //$scope.state.projectState = STATES.VIEW_PROJECT;
       };
 
       $scope.onSubmitTaskClick = (missionId, missionName) => {
@@ -201,6 +234,14 @@ module.exports = myApp => {
         $scope.state.workTemplate = 'create-data-' + type + '.html';
       };
 
+      var setCurrentProject = projectId => {
+        $scope.data.projectList.some(item => {
+          if(projectId == item.DATA_ID) {
+            $scope.onSelectProjectClick(item);
+          }
+        });
+      }
+
       $scope.onShowDataClick = (dataId, type) => {
         $scope.tmp = {};
         apiService.getDataDetail({
@@ -249,7 +290,17 @@ module.exports = myApp => {
               TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
             } : '';
 
-            console.log($scope.tmp);
+
+            //如果type是3，就设置他的工程信息
+            if(type == '3') {
+              if(!$scope.data.projectList) {
+                $scope.$watch('data.projectList', () => {
+                  $scope.data.projectList && setCurrentProject(data.Data.PROJECT_ID);
+                })
+              } else {
+                setCurrentProject(data.Data.PROJECT_ID);
+              }
+            }
 
             //获取子列表
             //$scope.getSubDataList();
@@ -267,7 +318,7 @@ module.exports = myApp => {
         $scope.showCurrentData();
       };
 
-      $scope.validateData = () => {
+      $scope.validateData = (type = $scope.state.currentDataType) => {
         var checkSurveyTime = () => {
           if(!$scope.data.dataParam.SURVEY_TIME) {
             $rootScope.showTips({
@@ -288,6 +339,16 @@ module.exports = myApp => {
           }
           return true;
         };
+        var checkProjectRegion = () => {
+          if(!$scope.data.projectParam.COUNTY_CODE) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: '所在地区不能为空'
+            });
+            return false;
+          }
+          return true;
+        }
         var checkProject = () => {
           if(!$scope.data.projectParam || !$scope.data.projectParam.DATA_ID) {
             $rootScope.showTips({
@@ -298,7 +359,7 @@ module.exports = myApp => {
           }
           return true;
         };
-        switch(parseInt($scope.state.currentDataType)) {
+        switch(parseInt(type)) {
           case 2:
             return checkSurveyTime() && checkRegion();
           case 3:
@@ -308,6 +369,8 @@ module.exports = myApp => {
           case 6:
           case 7:
             return checkSurveyTime();
+          case 8:
+            return checkProjectRegion();
           default:
             return true;
         }
