@@ -9,7 +9,7 @@
           <div class="col-sm-12">
             <label class="pull-left control-label margin-r-10">样地位置
             </label>
-            <div class="pull-left margin-r-20 radio">
+            <div class="pull-left radio">
               <label class="margin-r-5">
                 <input
                     icheck type="radio" name="ydwz"
@@ -18,8 +18,6 @@
                     />
                 <span>工程区域内</span>
               </label>
-            </div>
-            <div class="pull-left margin-r-20 radio">
               <label class="margin-r-5">
                 <input
                     icheck type="radio" name="ydwz"
@@ -81,7 +79,7 @@
         <!--end form-group-sm-->
         <div class="form-group-sm clearfix">
           <div class="col-sm-3">
-            <label class="pull-left control-label"><input type="checkbox" icheck ng-model="state.checked.regioncode">所在地区：</label>
+            <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.regioncode">所在地区</label>
             <div class="pull-left">
               <input type="text"
                      ng-model="tmp.region"
