@@ -370,6 +370,39 @@
       }
     },
     {
+      "url": "/data/QuerySupfeedCouByCondition.action",
+      "desc": "分县牧户调查数据返回",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-10":[{
+          "DATA_ID": "@id()",
+          "MISSION_ID": 123,
+          "AREA_FAMILYHOLD": "123",
+          "WEIGHT_MENTALG": "1234",
+          "SURVEY_TIME": "2015-10-14 00:00:00",
+          "SURVEY_PERSON": "@word(5)"
+        }]
+      }
+    },
+    {
+      "url": "/data/QuerySupfeedPerByCondition.action",
+      "desc": "分户牧户调查数据返回",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-10":[{
+          "DATA_ID": "@id()",
+          "MISSION_ID": 123,
+          "HERDSMAN_NAME": "zhangsan",
+          "AREA_FAMILYHOLD": "123",
+          "WEIGHT_MENTALG": "1234",
+          "SURVEY_TIME": "2015-10-14 00:00:00",
+          "SURVEY_PERSON": "@word(5)"
+        }]
+      }
+    },
+    {
       "url": "/data/AddData.action",
       "desc": "所有数据添加通用接口，通用字段+各类型数据字段+图片",
       "mock": true,

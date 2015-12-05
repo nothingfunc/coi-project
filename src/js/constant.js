@@ -14,7 +14,17 @@ var arrMap = arr => arr.map((v, i) => {
     value: i,
     name: v
   }
-})
+});
+var objKeyValue = obj => {
+  let arr = [];
+  for (let o in obj) {
+    arr.push({
+      name: obj[o],
+      value: o
+    });
+  }
+  return arr;
+};
 
 let years = [],
     curYear = (new Date()).getFullYear();
@@ -58,14 +68,6 @@ const CONSTANT = {
     }
   },
   YEARS: years,
-  CHECK_STU: {
-    '0': '未上报',
-    '1': '待市级审核',
-    '2': '市级审核驳回',
-    '3': '待省级审核',
-    '4': '省级审核驳回',
-    '5': '审核完成'
-  },
 
   DATA_TYPE: {
     '2': '非工程样地',
@@ -81,6 +83,27 @@ const CONSTANT = {
     '12': '分户牧户调查',
     '13': '自然生态调查'
   },
+
+  DATA_ZXD: objKeyValue({
+    'AREA_FAMILYHOLD' : '家庭承包面积',
+    'AREA_MENTALG' : '人工草地面积',
+    'WEIGHT_MENTALG' : '人工草地产草总量',
+    'WEIGHT_STRAW' : '补饲秸秆等总量',
+    'WEIGHT_SILAGE' : '青贮饲料总量',
+    'WEIGHT_GRAIN' : '粮食补饲量',
+    'DAYS_SUPFEED' : '补饲总天数',
+    'DAYS_HERD' : '放牧总天数',
+    'NUM_SHEEP' : '绵羊数量',
+    'NUM_GOAT' : '山羊数量',
+    'NUM_CATTLE' : '牛数量',
+    'NUM_HORSE' : '马数量',
+    'NUM_CAMEL' : '骆驼数量',
+    'NUM_MULE' : '骡数量',
+    'NUM_DONKEY' : '驴数量',
+    'NUM_ELSEANIMAL' : '其它草食家畜数量',
+    'AREA_MENTALG' : '人工草地面积'
+  }),
+
   PAGE_SIZE: 20,
   CHECK_STU: arrMap(['未上报', '待市级审核', '市级审核驳回', '待省级审核', '省级审核驳回', '审核完成']),
 

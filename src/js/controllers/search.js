@@ -187,20 +187,82 @@ module.exports = myApp =>
           "title": "详细",
           "relatedField": "xx_true"
         }
-      ]
+      ],
       //工程end
+      //分县牧户补饲调查 start
+      '11': [
+        {
+          "title": "年份",
+          "relatedField": "SURVEY_TIME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "SURVEY_PERSON"
+        },
+        {
+          "title": "家庭承包面积",
+          "relatedField": "AREA_FAMILYHOLD"
+        },
+        {
+          "title": "人工草地产草总量",
+          "relatedField": "WEIGHT_MENTALG"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
+      ],
+      //分县牧户补饲调查 end
+      //分县牧户补饲调查 start
+      '12': [
+        {
+          "title": "年份",
+          "relatedField": "SURVEY_TIME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "SURVEY_PERSON"
+        },
+        {
+          "title": "户主姓名",
+          "relatedField": "HERDSMAN_NAME"
+        },
+        {
+          "title": "家庭承包面积",
+          "relatedField": "AREA_FAMILYHOLD"
+        },
+        {
+          "title": "人工草地产草总量",
+          "relatedField": "WEIGHT_MENTALG"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
+      ]
+      //分县牧户补饲调查 end
     };
     $scope.data.titles = titlesArr['2'];
     $scope.state = {
-      checked: {
-        IsInside: true
-      },
+      checked:{},
       firstLoad: true
     };
-
+    var setSomeField = () => {
+      if (selectedDataTypeId == '3' || selectedDataTypeId == '6' || selectedDataTypeId == '7') {
+        $scope.state.checked.IsInside = true;
+        $scope.data.searchParamData.IsInside = "true";
+      } else if( selectedDataTypeId == '11') {
+        $scope.state.checked.filType = true;
+        $scope.state.checked.filValue = true;
+        $scope.state.checked.filMinval = true;
+        $scope.state.checked.filMaxval = true;
+      }
+    };
+    setSomeField();
     $scope.onResetClick = () => {
-      $scope.state.checked = {IsInside: true};
-      $scope.data.searchParamData = {year: new Date().getFullYear(), IsInside: "true"};
+      $scope.state.checked = {};
+      $scope.data.searchParamData = {year: new Date().getFullYear()};
+      setSomeField();
       $scope.tmp = {};
     };
     $scope.setDataType = function(id) {
@@ -260,6 +322,8 @@ module.exports = myApp =>
     services['5'] = 'queryFbqudByCondition';
     services['6'] = 'QueryPwqudByCondition';
     services['7'] = 'QueryPbqudByCondition';
+    services['11'] = 'QuerySupfeedCouByCondition';
+    services['12'] = 'QuerySupfeedPerByCondition';
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
         $scope.data.pageNo = 1;

@@ -93,6 +93,12 @@ module.exports = myApp =>
       //获取工程样方关联
       services.QueryPqudBySmpId = makeService({method: 'POST', url: '/data/QueryPqudBySmpId.action'});
 
+      //获取分县牧户补饲调查数据
+      services.QuerySupfeedCouByCondition = makeService({method: 'POST', url: '/data/QuerySupfeedCouByCondition.action'});
+
+      //获取分户牧户补饲调查数据
+      services.QuerySupfeedPerByCondition = makeService({method: 'POST', url: '/data/QuerySupfeedPerByCondition.action'});
+
       //获取行政区------
       services.regionAutoComp = makeService({method: 'POST', url: '/util/RegionAutoComp.action'});
 
