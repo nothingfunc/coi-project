@@ -259,6 +259,12 @@ module.exports = myApp =>
       }
     };
     setSomeField();
+    $scope.$watch('state.checked.filFieldName', value => {
+        $scope.state.checked.filType = !!value;
+        $scope.state.checked.filValue = !!value;
+        $scope.state.checked.filMinval = !!value;
+        $scope.state.checked.filMaxval = !!value;
+    });
     $scope.onResetClick = () => {
       $scope.state.checked = {};
       $scope.data.searchParamData = {year: new Date().getFullYear()};

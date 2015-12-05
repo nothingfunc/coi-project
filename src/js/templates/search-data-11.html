@@ -129,10 +129,10 @@
         </div>
         <div class="box-footer">
           <div class="text-center">
-            <button type="submit" class="btn btn-success margin-r-20" ng-disabled="state.checked.filFieldName &&
+            <button type="submit" class="btn btn-success margin-r-20" ng-disabled="state.checked.filFieldName && (
              (!data.searchParamData.filFieldName || !data.searchParamData.filType) ||
               (data.searchParamData.filType <=3  && !data.searchParamData.filValue) ||
-              (data.searchParamData.filType >=5  && (!data.searchParamData.filMinval || !data.searchParamData.filMaxval))">查询</button>
+              (data.searchParamData.filType >=5  && (!data.searchParamData.filMinval || !data.searchParamData.filMaxval)))">查询</button>
             <button class="btn btn-default" ng-click="onResetClick();$event.preventDefault();">重置</button>
           </div>
         </div>
