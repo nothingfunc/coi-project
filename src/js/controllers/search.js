@@ -280,6 +280,9 @@ module.exports = myApp =>
         if (data.success === CONST.API_SUCCESS) {
           $scope.data.dataList = data.data;
           $scope.data.totalRecords  = data.count;
+        } else {
+          $scope.data.dataList = [];
+          $scope.data.totalRecords  = 0;
         }
       });
     };
@@ -297,10 +300,69 @@ module.exports = myApp =>
           $uibModal.open({
             templateUrl: 'data-detail-dialog.html',
             size: 'lg',
-            controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
+            controller: ['$scope', '$uibModalInstance', '$q', function($scope, $uibModalInstance, $q) {
+              var STATES = {
+                'CREATE_TASK': 0,
+                'VIEW_DATA_LIST': 1,
+                'VIEW_DATA': 2,
+                'CREATE_DATA': 3,
+                'EDIT_DATA': 4,
+                'CHECK_DATA': 9,
+
+                //----project state
+                'VIEW_PROJECT': 101,
+                'NO_PROJECT': 103
+              };
+
+              $scope.STATES = STATES;
+
+              $scope.state = {};
               $scope.tmp = {
                 type: dataType
               };
+              $scope.projectTmp = {};
+
+              /**
+               * 获取工程信息数据，该方法仅在工程样地时使用！
+               */
+              var getProjectList = forceReload => {
+                var deferred = $q.defer();
+                if(!forceReload && $scope.data.projectList !== undefined) {
+                  return ;
+                }
+                apiService.getAllProjectInfo().success(res => {
+                  if(res.success === CONST.API_SUCCESS) {
+                    $scope.data.projectList = res.data;
+                  } else {
+                    $scope.data.projectList = [];
+                  }
+                  deferred.resolve();
+                });
+                return deferred.promise;
+              };
+              $scope.$watch('state.currentDataType', type => {
+                if(type == 3) {
+                  getProjectList();
+                }
+              });
+              $scope.onSelectProjectClick = project => {
+                $scope.state.projectState = STATES.VIEW_PROJECT;
+                $scope.data.projectParam = project;
+                $scope.projectTmp.region = project.COUNTY_CODE ? {
+                  code: project.COUNTY_CODE,
+                  name: project.COUNTY_NAME
+                } : '';
+                $scope.data.dataParam.PROJECT_ID = project.DATA_ID;
+              };
+              var setCurrentProject = projectId => {
+                console.log(projectId, $scope.state.projectState)
+                $scope.data.projectList.some(item => {
+                  if(projectId == item.DATA_ID) {
+                    $scope.onSelectProjectClick(item);
+                  }
+                });
+              }
+
               $scope.data = {
                 dataParam: data.Data
               };
@@ -338,20 +400,22 @@ module.exports = myApp =>
                 TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
               } : '';
 
-              $scope.STATES = {
-                'CREATE_TASK': 0,
-                'VIEW_DATA_LIST': 1,
-                'VIEW_DATA': 2,
-                'CREATE_DATA': 3,
-                'EDIT_DATA': 4,
-                'CHECK_DATA': 9
-              };
-
               $scope.state = {
                 currentDataType: dataType,
                 workState: 2,
                 currentData: dataId
               };
+
+              //如果type是3，就设置他的工程信息
+              if(dataType == '3') {
+                if(!$scope.data.projectList) {
+                  $scope.$watch('data.projectList', () => {
+                    $scope.data.projectList && setCurrentProject(data.Data.PROJECT_ID);
+                  })
+                } else {
+                  setCurrentProject(data.Data.PROJECT_ID);
+                }
+              }
 
               $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
@@ -386,8 +450,8 @@ module.exports = myApp =>
         });
       } else {
         apiService.QueryPqudBySmpId({
-          hasBash: item.HAS_BUSH=='有'?true:false,
-          ydh: item.YDH
+          HAS_BUSH: item.HAS_BUSH=='有'?true:false,
+          DATA_ID: item.YDH
         }).success(res => {
           $scope.data.dataRelatedList = res.data;
         });

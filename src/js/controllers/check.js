@@ -116,6 +116,7 @@ module.exports = myApp => {
         return deferred.promise;
       };
       $scope.$watch('state.currentDataType', type => {
+        console.log(type);
         if(type == 3) {
           getProjectList();
         }

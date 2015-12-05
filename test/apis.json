@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "3",
+        "userRole": "5",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -189,7 +189,8 @@
           "GRASS_SM_TYPE":"@word(10)",
           "GRASS_SM_TYPE_ID":"@word(10)",
           "HAS_BUSH":"@pick(['有', '无'])",
-          "PROJECT_ID": "@integer(1, 3)"
+          "PROJECT_ID": "@integer(1, 3)",
+          "COMPLETE_TIME": ""
         },
         "Data2":{
           "QUADRAT_AREA": "@integer(0, 200)",
@@ -309,7 +310,8 @@
           "YDH": "@id()",
           "YDNAME": "2015-10-14 00:00:00",
           "GRASSTYPE": "@word(5)",
-          "HAS_BUSH": "@pick(['有', '无'])"
+          "HAS_BUSH": "@pick(['有', '无'])",
+          "MISSION_ID": 123
         }]
       }
     },
