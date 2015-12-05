@@ -370,6 +370,8 @@ module.exports = myApp => {
           case 5:
           case 6:
           case 7:
+          case 11:
+          case 12:
             return checkSurveyTime();
           case 8:
             return checkProjectRegion();

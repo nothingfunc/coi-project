@@ -128,7 +128,7 @@
           {
           "MISSION_ID": "@id()",
           "DATA_ID": "@id()",
-          "DATA_TYPE": "@integer(2,7)",
+          "DATA_TYPE": "@integer(2,12)",
           "CHECK_STU": "待市审核",
           "CHECK_MSG": "@word(5,100)",
           "CHECK_MAN": "@first()"

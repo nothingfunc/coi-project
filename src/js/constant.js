@@ -100,8 +100,7 @@ const CONSTANT = {
     'NUM_CAMEL' : '骆驼数量',
     'NUM_MULE' : '骡数量',
     'NUM_DONKEY' : '驴数量',
-    'NUM_ELSEANIMAL' : '其它草食家畜数量',
-    'AREA_MENTALG' : '人工草地面积'
+    'NUM_ELSEANIMAL' : '其它草食家畜数量'
   }),
 
   PAGE_SIZE: 20,

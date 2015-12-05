@@ -1,0 +1,113 @@
+<div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      {{state.workState === STATES.EDIT_DATA ? '编辑分户牧户调查' : ''}}
+      {{state.workState === STATES.CREATE_DATA ? '添加分户牧户调查' : ''}}
+      {{state.workState === STATES.VIEW_DATA ? '查看分户牧户调查' : ''}}
+      <small ng-if="state.workState === STATES.EDIT_DATA || state.workState === STATES.VIEW_DATA">
+        数据编号：{{state.currentData}}
+      </small>
+    </h3>
+  </div>
+  <div class="box-body no-padding">
+    <form class="form-horizontal" novalidate>
+      <div class="box-body scroll-content">
+        <h4 class="with-border"><span>基本信息</span></h4>
+        <div class="form-group-sm clearfix">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">调查时间：</label>
+            <div class="input-group" style="width: 133px;">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control datepicker-bootstrap"
+                     uib-datepicker-popup
+                     ng-model="data.dataParam.SURVEY_TIME"
+                     is-open="__dateIsOpen0"
+                     datepicker-options="dateOptions"
+                     show-button-bar="false"
+                     required
+              />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default"
+                        ng-click="__dateIsOpen0=!__dateIsOpen0"
+                        ng-disabled="state.workState === STATES.VIEW_DATA"
+                ><i class="fa fa-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">调查人：</label>
+            <div class="pull-left w-130">
+              <input type="text" class="form-control"
+                     ng-disabled="state.workState === STATES.VIEW_DATA"
+                     ng-model="data.dataParam.SURVEY_PERSON"
+              />
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">户主姓名：</label>
+            <div class="pull-left w-130">
+              <input type="text" class="form-control"
+                     ng-disabled="state.workState === STATES.VIEW_DATA"
+                     ng-model="data.dataParam.HERDSMAN_NAME"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-10">
+            <label class="pull-left control-label">所在地区：</label>
+            <div class="pull-left" style="width: 210px;">
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
+                     uib-typeahead="address as address.name for address in getLocation($viewValue)"
+                     class="form-control"
+                     ng-model="tmp.region"
+                     ng-blur="onRegionBlur()"
+                     typeahead-min-length="0"
+              >
+            </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">牧户所在行政村：</label>
+            <div class="pull-left w-130">
+              <input type="text" class="form-control"
+                     ng-disabled="state.workState === STATES.VIEW_DATA"
+                     ng-model="data.dataParam.TOWN_NAME"
+              />
+            </div>
+          </div>
+        </div>
+
+        <h4 class="with-border" style="margin-bottom: 0"><span>概况</span> </h4>
+        <div style="max-width: 600px;">
+          <div ng-repeat="item in CONST.DATA_ZXD"
+               class="pull-left form-group-sm margin-r-20 margin-t-10">
+            <label class="pull-left control-label" style="width: 110px; text-align: left;">{{item.name}}：</label>
+            <div class="pull-left w-145">
+              <input
+                to-number
+                type="text" class="form-control w-145"
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                ng-model="data.dataParam[item.value]"
+              />
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="box-footer">
+        <span ng-include="'save-edit-buttons.html'"></span>
+
+        <span ng-include="'check-form.html'"></span>
+
+        <div class="pull-right dropup" uib-dropdown
+             ng-hide="state.workState === STATES.EDIT_DATA ||
+                      state.workState === STATES.CREATE_DATA ||
+                      state.workStateSuper === STATES.CHECK_DATA"
+             ng-click="onCreateDataClick(data.dataParam.HAS_BUSH === CONST.OPT_HAS[0].value ? '5' : '4')"
+        >
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
