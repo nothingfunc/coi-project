@@ -46,448 +46,507 @@
 
         </div>
 
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内样方名称：</label>
-            <div class="pull-left w-145">
-              <input type="text" class="form-control"
-                     ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="data.dataParam.I_QUADRAT_NAME"
-              />
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外样方名称：</label>
-            <div class="pull-left w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text" class="form-control"
-                     ng-model="data.dataParam.O_QUADRAT_NAME"
-              />
-            </div>
-          </div>
+        <div class="form-group-sm margin-t-10 clearfix">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th width="20%">&nbsp;</th>
+                <th>工程区域内</th>
+                <th>工程区域外</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <label class="pull-left control-label">样方名称：</label>
+                </td>
+                <td>
+                  <input type="text" class="form-control w-145"
+                         ng-disabled="state.workState === STATES.VIEW_DATA"
+                         ng-model="data.dataParam.I_QUADRAT_NAME"
+                  />
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text" class="form-control w-145"
+                         ng-model="data.dataParam.O_QUADRAT_NAME"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="control-label">景观照片：</label>
+                </td>
+                <td>
+                  <div class="image-wrapper">
+                    <span class="image-tooltip text-gray">
+                      <i class="fa fa-file-image-o"></i><br/>
+                      <small>请选择工程区内景观照片文件</small>
+                    </span>
+                    <a ng-click="$parent.showLightBox(tmp.file1.$ngfBlobUrl || tmp.file1.$ngfDataUrl || tmp._img1)"
+                       href="javascript:;">
+                      <img uib-tooltip="点击查看原图"
+                           style="width:100%; height: 100%;"
+                           ngf-src="tmp.file1 || tmp._img1"
+                      >
+                    </a>
+                    <span class="image-control"
+                          ngf-select ng-model="tmp.file1" name="file1" ngf-pattern="'image/*'"
+                          accept="image/*" ngf-max-size="20MB"
+                          ng-hide="state.workState === STATES.VIEW_DATA"
+                    >
+                      选择工程区内景观照片文件
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <div class="image-wrapper">
+                    <span class="image-tooltip text-gray">
+                      <i class="fa fa-file-image-o"></i><br/>
+                      <small>请选择工程区外景观照片文件</small>
+                    </span>
+                    <a ng-click="$parent.showLightBox(tmp.file2.$ngfBlobUrl || tmp.file2.$ngfDataUrl || tmp._img2)"
+                       href="javascript:;">
+                      <img uib-tooltip="点击查看原图"
+                           style="width:100%; height: 100%;"
+                           ngf-src="tmp.file2 || tmp._img2"
+                      >
+                    </a>
+                    <span class="image-control"
+                          ngf-select ng-model="tmp.file2" name="file2" ngf-pattern="'image/*'"
+                          accept="image/*" ngf-max-size="20MB"
+                          ng-hide="state.workState === STATES.VIEW_DATA"
+                    >
+                      选择工程区外景观照片文件
+                    </span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="pull-left control-label">样方面积：</label>
+                </td>
+                <td>
+                  <input type="text" class="form-control w-145"
+                         ng-disabled="state.workState === STATES.VIEW_DATA"
+                         ng-model="data.dataParam.I_QUADRAT_AREA"
+                  />
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text" class="form-control w-145"
+                         ng-model="data.dataParam.O_QUADRAT_AREA"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="pull-left control-label">东经：</label>
+                </td>
+                <td>
+                  <input type="text" class="form-control w-145"
+                         ng-disabled="state.workState === STATES.VIEW_DATA"
+                         ng-model="data.dataParam.I_LONGITUDE"
+                  />
+                </td>
+                <td>
+                  <input type="text" class="form-control w-145"
+                         ng-disabled="state.workState === STATES.VIEW_DATA"
+                         ng-model="data.dataParam.O_LONGITUDE"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="pull-left control-label">北纬：</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text" class="form-control w-145"
+                         ng-model="data.dataParam.I_LATITUDE"
+                  />
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text" class="form-control w-145"
+                         ng-model="data.dataParam.O_LATITUDE"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="pull-left control-label">海拔：</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text" class="form-control w-145"
+                         ng-model="data.dataParam.I_ELEVATION"
+                  />
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text" class="form-control w-145"
+                         ng-model="data.dataParam.O_ELEVATION"
+                  />
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
         </div>
-
-        <!--左右分栏-->
-        <div class="clearfix">
-          <div class="pull-left margin-t-10 margin-r-20">
-            <div class="image-wrapper">
-                <span class="image-tooltip text-gray">
-                  <i class="fa fa-file-image-o"></i><br/>
-                  <small>请选择工程区内景观照片文件</small>
-                </span>
-              <a ng-click="$parent.showLightBox(tmp.file1.$ngfBlobUrl || tmp.file1.$ngfDataUrl || tmp._img1)" href="javascript:;">
-                <img uib-tooltip="点击查看原图"
-                     style="width:100%; height: 100%;"
-                     ngf-src="tmp.file1 || tmp._img1"
-                >
-              </a>
-                <span class="image-control"
-                      ngf-select ng-model="tmp.file1" name="file1" ngf-pattern="'image/*'"
-                      accept="image/*" ngf-max-size="20MB"
-                      ng-hide="state.workState === STATES.VIEW_DATA"
-                >
-                  选择工程区内景观照片文件
-                </span>
-              </i>
-            </div>
-          </div>
-
-          <div class="pull-left margin-t-10">
-            <div class="image-wrapper">
-                <span class="image-tooltip text-gray">
-                  <i class="fa fa-file-image-o"></i><br/>
-                  <small>请选择工程区外景观照片文件</small>
-                </span>
-              <a ng-click="$parent.showLightBox(tmp.file2.$ngfBlobUrl || tmp.file2.$ngfDataUrl || tmp._img2)" href="javascript:;">
-                <img uib-tooltip="点击查看原图"
-                     style="width:100%; height: 100%;"
-                     ngf-src="tmp.file2 || tmp._img2"
-                >
-              </a>
-                <span class="image-control"
-                      ngf-select ng-model="tmp.file2" name="file2" ngf-pattern="'image/*'"
-                      accept="image/*" ngf-max-size="20MB"
-                      ng-hide="state.workState === STATES.VIEW_DATA"
-                >
-                  选择工程区外景观照片文件
-                </span>
-              </i>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内样方面积：</label>
-            <div class="pull-left w-145">
-              <input type="text" class="form-control"
-                     ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="data.dataParam.I_QUADRAT_AREA"
-              />
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外样方面积：</label>
-            <div class="pull-left w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text" class="form-control"
-                     ng-model="data.dataParam.O_QUADRAT_AREA"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内东经：</label>
-            <div class="pull-left w-145">
-              <input type="text" class="form-control"
-                     ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="data.dataParam.I_LONGITUDE"
-              />
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外东经：</label>
-            <div class="pull-left w-145">
-              <input type="text" class="form-control"
-                     ng-disabled="state.workState === STATES.VIEW_DATA"
-                     ng-model="data.dataParam.O_LONGITUDE"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内北纬：</label>
-            <div class="pull-left w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text" class="form-control"
-                     ng-model="data.dataParam.I_LATITUDE"
-              />
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外北纬：</label>
-            <div class="pull-left w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text" class="form-control"
-                     ng-model="data.dataParam.O_LATITUDE"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内海拔：</label>
-            <div class="pull-left w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text" class="form-control"
-                     ng-model="data.dataParam.I_ELEVATION"
-              />
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外海拔：</label>
-            <div class="pull-left w-145">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text" class="form-control"
-                     ng-model="data.dataParam.O_ELEVATION"
-              />
-            </div>
-          </div>
-        </div>
-
 
         <h4 class="with-border"><span>概况</span> </h4>
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内总盖度：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text"
-                     class="form-control"
-                     ng-model="data.dataParam.I_TOTAL_VEGETATION"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外总盖度：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                     type="text"
-                     class="form-control"
-                     ng-model="data.dataParam.O_TOTAL_VEGETATION"/>
-            </div>
-          </div>
+
+        <div class="form-group-sm margin-t-10 clearfix">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th width="30%">&nbsp;</th>
+                <th>工程区域内</th>
+                <th>工程区域外</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <label class="pull-left control-label">总盖度：</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_TOTAL_VEGETATION"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_TOTAL_VEGETATION"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">平均高度：<br/>(100平米内草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_AVG_WEEDHTIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_AVG_WEEDHTIGHT "/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">灌丛平均高度：<br/>(100平米内灌木)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_AVG_BUSHHEIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_AVG_BUSHHEIGHT "/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">总覆盖面积：<br/>(100平米内灌木)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_SUM_BUSHAREA"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_SUM_BUSHAREA"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">枯落物情况：</label>
+                </td>
+                <td>
+                  <input
+                    to-number
+                    ng-disabled="state.workState === STATES.VIEW_DATA"
+                    type="text" class="form-control w-145"
+                    ng-model="data.dataParam.I_WEIGHT_LITTER"/>
+                </td>
+                <td>
+                  <input
+                    to-number
+                    ng-disabled="state.workState === STATES.VIEW_DATA"
+                    type="text" class="form-control w-145"
+                    ng-model="data.dataParam.O_WEIGHT_LITTER"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">植物种数：<br/>(100平米内灌木及高大草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_NUM_TYPE_BUSH"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_NUM_TYPE_BUSH"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">植物种数：<br/>(100平米内草本及矮小灌木)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_NUM_TYPE_WEED"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_NUM_TYPE_WEED"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">主要植物：<br/>(100平米内灌木及高大草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_MAIN_BUSH"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_MAIN_BUSH"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">主要植物：<br/>(100平米内草本及矮小灌木)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_MAIN_WEED"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_MAIN_WEED"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">平均产草量折算鲜重：<br/>(100平米内草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_AVG_WEEDFWIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_AVG_WEEDFWIGHT"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">平均产草量折算风干重：<br/>(100平米内草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_AVG_WEEDDWIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_AVG_WEEDDWIGHT"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">平均可食产草量折算鲜重：<br/>(100平米内草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_AVG_EATWEEDFWIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_AVG_EATWEEDFWIGHT"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">平均可食产草量折算风干重：<br/>(100平米内草本)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_AVG_EATWEEDDWIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_AVG_EATWEEDDWIGHT"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">产草量折算鲜重：<br/>(100平米内灌木)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_BUSHFWEIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_BUSHFWEIGHT"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">产草量折算风干重：<br/>(100平米内灌木)</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_BUSHDWEIGHT"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_BUSHDWEIGHT"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">总产草量鲜重：</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_FWEIGHT_TOTALGRASS"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_FWEIGHT_TOTALGRASS"/>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label class="pull-left control-label">总产草量风干重：</label>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.I_DWEIGHT_TOTALGRASS"/>
+                </td>
+                <td>
+                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                         type="text"
+                         class="form-control w-145"
+                         ng-model="data.dataParam.O_DWEIGHT_TOTALGRASS"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内平均高度（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVG_WEEDHTIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外平均高度（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVG_WEEDHTIGHT "/>
-            </div>
+            <label class="pull-left control-label margin-r-10">备注：</label>
+            <textarea
+              style="width: 400px;"
+              rows="3"
+              ng-disabled="state.workState === STATES.VIEW_DATA"
+              type="text" class="form-control w-145"
+              ng-model="data.dataParam.REMARK">
+            </textarea>
           </div>
         </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内灌丛平均高度（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVG_BUSHHEIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外灌丛平均高度（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVG_BUSHHEIGHT "/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内总覆盖面积（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_SUM_BUSHAREA"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外总覆盖面积（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_SUM_BUSHAREA"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内枯落物情况：</label>
-            <div class="pull-left">
-              <input
-                to-number
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                type="text" class="form-control"
-                ng-model="data.dataParam.I_WEIGHT_LITTER"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外枯落物情况：</label>
-            <div class="pull-left">
-              <input
-                to-number
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                type="text" class="form-control"
-                ng-model="data.dataParam.O_WEIGHT_LITTER"/>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内植物种数（100平米内灌木及高大草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_NUM_TYPE_BUSH"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外植物种数（100平米内灌木及高大草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_NUM_TYPE_BUSH"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内植物种数（100平米内草本及矮小灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_NUM_TYPE_WEED"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外植物种数（100平米内草本及矮小灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_NUM_TYPE_WEED"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内主要植物（100平米内灌木及高大草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_MAIN_BUSH"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外主要植物（100平米内灌木及高大草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_MAIN_BUSH"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内主要植物（100平米内草本及矮小灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_MAIN_WEED"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区外主要植物（100平米内草本及矮小灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_MAIN_WEED"/>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内平均产草量折算鲜重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVG_WEEDFWIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外平均产草量折算鲜重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVG_WEEDFWIGHT"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内平均产草量折算风干重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVG_WEEDDWIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外平均产草量折算风干重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVG_WEEDDWIGHT"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内平均可食产草量折算鲜重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVG_EATWEEDFWIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外平均可食产草量折算鲜重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVG_EATWEEDFWIGHT"/>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内平均可食产草量折算风干重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_AVG_EATWEEDDWIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外平均可食产草量折算风干重（100平米内草本）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_AVG_EATWEEDDWIGHT"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内产草量折算鲜重（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_BUSHFWEIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外产草量折算鲜重（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_BUSHFWEIGHT"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内产草量折算风干重（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_BUSHDWEIGHT"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外产草量折算风干重（100平米内灌木）：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_BUSHDWEIGHT"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内总产草量鲜重：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_FWEIGHT_TOTALGRASS"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外总产草量鲜重：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_FWEIGHT_TOTALGRASS"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">工程区内总产草量风干重：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.I_DWEIGHT_TOTALGRASS"/>
-            </div>
-          </div>
-          <div class="clearfix pull-left">
-            <label class="pull-left control-label">工程区外总产草量风干重：</label>
-            <div class="pull-left w-130">
-              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.O_DWEIGHT_TOTALGRASS"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-sm clearfix margin-t-10">
-          <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">备注：</label>
-            <div class="pull-left w-145">
-              <textarea
-                style="width: 400px;"
-                rows="3"
-                ng-disabled="state.workState === STATES.VIEW_DATA"
-                type="text" class="form-control"
-                ng-model="data.dataParam.REMARK">
-              </textarea>
-            </div>
-          </div>
-        </div>
+      </form>
 
       </div>
       <div class="box-footer">
