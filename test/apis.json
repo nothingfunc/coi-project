@@ -441,6 +441,25 @@
       }
     },
     {
+      "url": "/data/QueryGreenqudBySmpId.action",
+      "desc": "根据返青春样地获取样方信息",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-10":[{
+          "SIMP_ID": "@id()",
+          "MISSION_ID": 123,
+          "NAME": "zhangsa DF",
+          "LONGITUDE": "@word(5)",
+          "LATITUDE": "@word(5)",
+          "ELEVATION": "@word(5)",
+          "NAME_MAINGRASS": "@word(5)",
+          "GREEN_TIME": "2015-10-14 00:00:00",
+          "CHECK_STU": "@integer(0, 5)"
+        }]
+      }
+    },
+    {
       "url": "/data/AddData.action",
       "desc": "所有数据添加通用接口，通用字段+各类型数据字段+图片",
       "mock": true,

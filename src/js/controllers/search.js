@@ -189,7 +189,7 @@ module.exports = myApp =>
         }
       ],
       //工程end
-      //返青春样地 start
+      //返青春 start
       '9': [
         {
           "title": "调查时间",
@@ -220,7 +220,33 @@ module.exports = myApp =>
           "relatedField": "ck_true"
         }
       ],
-      //返青春样地 end
+      '10': [
+        {
+          "title": "返青期",
+          "relatedField": "GREEN_TIME"
+        },
+        {
+          "title": "样方编号",
+          "relatedField": "NAME"
+        },
+        {
+          "title": "东经",
+          "relatedField": "LONGITUDE"
+        },
+        {
+          "title": "北纬",
+          "relatedField": "LATITUDE"
+        },
+        {
+          "title": "海拔",
+          "relatedField": "ELEVATION"
+        },
+        {
+          "title": "主要牧草名称",
+          "relatedField": "NAME_MAINGRASS"
+        }
+      ],
+      //返青春 end
       //分县牧户补饲调查 start
       '11': [
         {
@@ -417,6 +443,7 @@ module.exports = myApp =>
     services['6'] = 'QueryPwqudByCondition';
     services['7'] = 'QueryPbqudByCondition';
     services['9'] = 'QueryGreenSampleByCondition';
+    services['10'] = 'QueryGreenqudBySmpId';
     services['11'] = 'QuerySupfeedCouByCondition';
     services['12'] = 'QuerySupfeedPerByCondition';
     services['13'] = 'QueryEnvsurvByCondition';
@@ -599,12 +626,20 @@ module.exports = myApp =>
         dataRelatedType = item.HAS_BUSH === '无' ? '4' : '5';
       } else if (selectedDataTypeId == '3') {
         dataRelatedType = item.HAS_BUSH === '无' ? '6' : '7';
+      } else if (selectedDataTypeId == '9') {
+        dataRelatedType = '10';
       }
       $scope.setDataRelatedType(dataRelatedType);
       if (selectedDataTypeId == '2') {
         apiService.queryFqudBySmpId({
           HAS_BUSH: item.HAS_BUSH,
           DATA_ID: item.DATA_ID
+        }).success(res => {
+          $scope.data.dataRelatedList = res.data;
+        });
+      } else if (selectedDataTypeId == '9') {
+        apiService.QueryGreenqudBySmpId({
+          SIMP_ID: item.DATA_ID
         }).success(res => {
           $scope.data.dataRelatedList = res.data;
         });

@@ -105,6 +105,9 @@ module.exports = myApp =>
       //获取返青春样地
       services.QueryGreenSampleByCondition = makeService({method: 'POST', url: '/data/QueryGreenSampleByCondition.action'});
 
+      //根据返青春样地获取返青春样方
+      services.QueryGreenqudBySmpId = makeService({method: 'POST', url: '/data/QueryGreenqudBySmpId.action'});
+
       //获取行政区------
       services.regionAutoComp = makeService({method: 'POST', url: '/util/RegionAutoComp.action'});
 
