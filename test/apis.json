@@ -404,6 +404,24 @@
       }
     },
     {
+      "url": "/data/QueryEnvsurvByCondition.action",
+      "desc": "草原生态环境调查数据返回",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-10":[{
+          "DATA_ID": "@id()",
+          "MISSION_ID": 123,
+          "COUNTY_NAME": "zhangsa DF",
+          "REGION_DEGRA": "@word(5)",
+          "REGION_DESERT": "@word(5)",
+          "REGION_SALIN": "@word(5)",
+          "REGION_ROCK": "@word(5)",
+          "SURVEY_TIME": "2015-10-14 00:00:00"
+        }]
+      }
+    },
+    {
       "url": "/data/AddData.action",
       "desc": "所有数据添加通用接口，通用字段+各类型数据字段+图片",
       "mock": true,

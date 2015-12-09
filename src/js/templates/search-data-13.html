@@ -1,0 +1,397 @@
+<div class="box box-success">
+    <div class="box-header with-border">
+      <h3 class="box-title">{{data.datatype}}查询</h3>
+    </div>
+    <div class="box-body no-padding">
+      <form class="form-horizontal" name="searchData" ng-submit="onSearchDataClick()" novalidate>
+        <div class="box-body">
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-6">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.year">年份
+              </label>
+              <div class="pull-left w-130">
+                <input type="text"
+                       ng-model="data.searchParamData.year"
+                       ng-disabled="!state.checked.year"
+                       ng-blur="onYearBlur()"
+                       uib-typeahead="year for year in CONST.YEARS | filter:$viewValue"
+                       class="form-control"
+                    >
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.regioncode">所在地区</label>
+              <div class="pull-left">
+                <input type="text"
+                       ng-model="tmp.region"
+                       ng-disabled="!state.checked.regioncode"
+                       ng-blur="onRegionBlur()"
+                       uib-typeahead="address as address.name for address in getLocation($viewValue, true)"
+                       class="form-control"
+                       typeahead-min-length="0"
+                    >
+              </div>
+            </div>
+
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.degra">草原退化
+              </label>
+              <div class="pull-left w-130">
+                <div ui-select ng-model="data.searchParamData.degra" ng-disabled="!state.checked.degra" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="cyth.value as cyth in CONST.DATA_CYSTHJ_TH">
+                    <span>{{cyth.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label class="pull-left control-label margin-r-10">筛选方式
+              </label>
+              <div class="pull-left margin-r-20 radio">
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="degrafilType"
+                      ng-disabled="!state.checked.degra"
+                      ng-model="data.searchParamData.degrafilType"
+                      value="1"
+                      />
+                  <span>等于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="degrafilType"
+                      ng-disabled="!state.checked.degra"
+                      ng-model="data.searchParamData.degrafilType"
+                      value="2"
+                      />
+                  <span>大于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="degrafilType"
+                      ng-disabled="!state.checked.degra"
+                      ng-model="data.searchParamData.degrafilType"
+                      value="3"
+                      />
+                  <span>小于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="degrafilType"
+                      ng-disabled="!state.checked.degra"
+                      ng-model="data.searchParamData.degrafilType"
+                      value="5"
+                      />
+                  <span>在区域内</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="degrafilType"
+                      ng-disabled="!state.checked.degra"
+                      ng-model="data.searchParamData.degrafilType"
+                      value="6"
+                      />
+                  <span>在区域外</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10">筛选值
+              </label>
+              <span ng-show="data.searchParamData.degrafilType <= 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.degrafilValue" type="text" class="form-control" style="width: 75px" ng-disabled="!state.checked.degra">
+                </div>
+              </span>
+              <span ng-show="data.searchParamData.degrafilType > 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.degrafilMinval" type="text" class="form-control margin-r-10" style="display:inline;width:75px;" ng-disabled="!state.checked.degra">到
+                </div>
+                <div class="pull-left">
+                  <input ng-model="data.searchParamData.degrafilMaxval" type="text" class="form-control" style="width:75px" ng-disabled="!state.checked.degra">
+                </div>
+              </span>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.desert">草原沙化
+              </label>
+              <div class="pull-left w-130">
+                <div ui-select ng-model="data.searchParamData.desert" ng-disabled="!state.checked.desert" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="cysh.value as cysh in CONST.DATA_CYSTHJ_SH">
+                    <span>{{cysh.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label class="pull-left control-label margin-r-10">筛选方式
+              </label>
+              <div class="pull-left margin-r-20 radio">
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="desertfilType"
+                      ng-disabled="!state.checked.desert"
+                      ng-model="data.searchParamData.desertfilType"
+                      value="1"
+                      />
+                  <span>等于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="desertfilType"
+                      ng-disabled="!state.checked.desert"
+                      ng-model="data.searchParamData.desertfilType"
+                      value="2"
+                      />
+                  <span>大于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="desertfilType"
+                      ng-disabled="!state.checked.desert"
+                      ng-model="data.searchParamData.desertfilType"
+                      value="3"
+                      />
+                  <span>小于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="desertfilType"
+                      ng-disabled="!state.checked.desert"
+                      ng-model="data.searchParamData.desertfilType"
+                      value="5"
+                      />
+                  <span>在区域内</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="desertfilType"
+                      ng-disabled="!state.checked.desert"
+                      ng-model="data.searchParamData.desertfilType"
+                      value="6"
+                      />
+                  <span>在区域外</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10">筛选值
+              </label>
+              <span ng-show="data.searchParamData.desertfilType <= 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.desertfilValue" type="text" class="form-control" style="width: 75px" ng-disabled="!state.checked.desert">
+                </div>
+              </span>
+              <span ng-show="data.searchParamData.desertfilType > 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.desertfilMinval" type="text" class="form-control margin-r-10" style="display:inline;width:75px;" ng-disabled="!state.checked.desert">到
+                </div>
+                <div class="pull-left">
+                  <input ng-model="data.searchParamData.desertfilMaxval" type="text" class="form-control" style="width:75px" ng-disabled="!state.checked.desert">
+                </div>
+              </span>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.salin">草原盐渍化
+              </label>
+              <div class="pull-left w-130">
+                <div ui-select ng-model="data.searchParamData.salin" ng-disabled="!state.checked.salin" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="cyyjh.value as cyyjh in CONST.DATA_CYSTHJ_YZH">
+                    <span>{{cyyjh.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label class="pull-left control-label margin-r-10">筛选方式
+              </label>
+              <div class="pull-left margin-r-20 radio">
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="salinfilType"
+                      ng-disabled="!state.checked.salin"
+                      ng-model="data.searchParamData.salinfilType"
+                      value="1"
+                      />
+                  <span>等于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="salinfilType"
+                      ng-disabled="!state.checked.salin"
+                      ng-model="data.searchParamData.salinfilType"
+                      value="2"
+                      />
+                  <span>大于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="salinfilType"
+                      ng-disabled="!state.checked.salin"
+                      ng-model="data.searchParamData.salinfilType"
+                      value="3"
+                      />
+                  <span>小于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="salinfilType"
+                      ng-disabled="!state.checked.salin"
+                      ng-model="data.searchParamData.salinfilType"
+                      value="5"
+                      />
+                  <span>在区域内</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="salinfilType"
+                      ng-disabled="!state.checked.salin"
+                      ng-model="data.searchParamData.salinfilType"
+                      value="6"
+                      />
+                  <span>在区域外</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10">筛选值
+              </label>
+              <span ng-show="data.searchParamData.salinfilType <= 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.salinfilValue" type="text" class="form-control" style="width: 75px" ng-disabled="!state.checked.salin">
+                </div>
+              </span>
+              <span ng-show="data.searchParamData.salinfilType > 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.salinfilMinval" type="text" class="form-control margin-r-10" style="display:inline;width:75px;" ng-disabled="!state.checked.salin">到
+                </div>
+                <div class="pull-left">
+                  <input ng-model="data.searchParamData.salinfilMaxval" type="text" class="form-control" style="width:75px" ng-disabled="!state.checked.salin">
+                </div>
+              </span>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+          <div class="form-group-sm clearfix">
+            <div class="col-sm-3">
+              <label class="pull-left control-label margin-r-10"><input type="checkbox" icheck ng-model="state.checked.rock">草原石漠化
+              </label>
+              <div class="pull-left w-130">
+                <div ui-select ng-model="data.searchParamData.rock" ng-disabled="!state.checked.rock" theme="bootstrap">
+                  <div ui-select-match>{{$select.selected.name}}</div>
+                  <div ui-select-choices repeat="cysmh.value as cysmh in CONST.DATA_CYSTHJ_SMH">
+                    <span>{{cysmh.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <label class="pull-left control-label margin-r-10">筛选方式
+              </label>
+              <div class="pull-left margin-r-20 radio">
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="rockfilType"
+                      ng-disabled="!state.checked.rock"
+                      ng-model="data.searchParamData.rockfilType"
+                      value="1"
+                      />
+                  <span>等于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="rockfilType"
+                      ng-disabled="!state.checked.rock"
+                      ng-model="data.searchParamData.rockfilType"
+                      value="2"
+                      />
+                  <span>大于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="rockfilType"
+                      ng-disabled="!state.checked.rock"
+                      ng-model="data.searchParamData.rockfilType"
+                      value="3"
+                      />
+                  <span>小于</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="rockfilType"
+                      ng-disabled="!state.checked.rock"
+                      ng-model="data.searchParamData.rockfilType"
+                      value="5"
+                      />
+                  <span>在区域内</span>
+                </label>
+                <label class="margin-r-5">
+                  <input
+                      icheck type="radio" name="rockfilType"
+                      ng-disabled="!state.checked.rock"
+                      ng-model="data.searchParamData.rockfilType"
+                      value="6"
+                      />
+                  <span>在区域外</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label class="pull-left control-label margin-r-10">筛选值
+              </label>
+              <span ng-show="data.searchParamData.rockfilType <= 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.rockfilValue" type="text" class="form-control" style="width: 75px" ng-disabled="!state.checked.rock">
+                </div>
+              </span>
+              <span ng-show="data.searchParamData.rockfilType > 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.rockfilMinval" type="text" class="form-control margin-r-10" style="display:inline;width:75px;" ng-disabled="!state.checked.rock">到
+                </div>
+                <div class="pull-left">
+                  <input ng-model="data.searchParamData.rockfilMaxval" type="text" class="form-control" style="width:75px" ng-disabled="!state.checked.rock">
+                </div>
+              </span>
+            </div>
+          </div>
+          <!--end form-group-sm-->
+        </div>
+        <div class="box-footer">
+          <div class="text-center">
+            <button type="submit" class="btn btn-success margin-r-20" ng-disabled="(state.checked.degra && (
+             (!data.searchParamData.degra || !data.searchParamData.degrafilType) ||
+              (data.searchParamData.degrafilType <=3  && !data.searchParamData.degrafilValue) ||
+              (data.searchParamData.degrafilType >=5  && (!data.searchParamData.degrafilMinval || !data.searchParamData.degrafilMaxval))))
+              || (state.checked.desert && (
+              (!data.searchParamData.desert || !data.searchParamData.desertfilType) ||
+              (data.searchParamData.desertfilType <=3  && !data.searchParamData.desertfilValue) ||
+              (data.searchParamData.desertfilType >=5  && (!data.searchParamData.desertfilMinval || !data.searchParamData.desertfilMaxval))))
+              || (state.checked.salin && (
+              (!data.searchParamData.salin || !data.searchParamData.salinfilType) ||
+              (data.searchParamData.salinfilType <=3  && !data.searchParamData.salinfilValue) ||
+              (data.searchParamData.salinfilType >=5  && (!data.searchParamData.salinfilMinval || !data.searchParamData.salinfilMaxval))))
+              || (state.checked.rock && (
+              (!data.searchParamData.rock || !data.searchParamData.rockfilType) ||
+              (data.searchParamData.rockfilType <=3  && !data.searchParamData.rockfilValue) ||
+              (data.searchParamData.rockfilType >=5  && (!data.searchParamData.rockfilMinval || !data.searchParamData.rockfilMaxval))))">查询</button>
+            <button class="btn btn-default" ng-click="onResetClick();$event.preventDefault();">重置</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!--end box-success-->
+
+<div ng-include="'search-data-list.html'"></div>

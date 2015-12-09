@@ -213,7 +213,7 @@ module.exports = myApp =>
         }
       ],
       //分县牧户补饲调查 end
-      //分县牧户补饲调查 start
+      //分户牧户补饲调查 start
       '12': [
         {
           "title": "年份",
@@ -239,8 +239,40 @@ module.exports = myApp =>
           "title": "详细",
           "relatedField": "xx_true"
         }
+      ],
+      //分户牧户补饲调查 end
+      //生态环境调查 start
+      '13': [
+        {
+          "title": "调查时间",
+          "relatedField": "SURVEY_TIME"
+        },
+        {
+          "title": "县名称",
+          "relatedField": "COUNTY_NAME"
+        },
+        {
+          "title": "草原退化区域",
+          "relatedField": "REGION_DEGRA"
+        },
+        {
+          "title": "草原沙化区域",
+          "relatedField": "REGION_DESERT"
+        },
+        {
+          "title": "草原盐渍化区域",
+          "relatedField": "REGION_SALIN"
+        },
+        {
+          "title": "草原石漠化区域",
+          "relatedField": "REGION_ROCK"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
       ]
-      //分县牧户补饲调查 end
+      //生态环境调查 end
     };
     $scope.data.titles = titlesArr['2'];
     $scope.state = {
@@ -264,6 +296,30 @@ module.exports = myApp =>
         $scope.state.checked.filValue = !!value;
         $scope.state.checked.filMinval = !!value;
         $scope.state.checked.filMaxval = !!value;
+    });
+    $scope.$watch('state.checked.degra', value => {
+      $scope.state.checked.degrafilType = !!value;
+      $scope.state.checked.degrafilValue = !!value;
+      $scope.state.checked.degrafilMinval = !!value;
+      $scope.state.checked.degrafilMaxval = !!value;
+    });
+    $scope.$watch('state.checked.desert', value => {
+      $scope.state.checked.desertfilType = !!value;
+      $scope.state.checked.desertfilValue = !!value;
+      $scope.state.checked.desertfilMinval = !!value;
+      $scope.state.checked.desertfilMaxval = !!value;
+    });
+    $scope.$watch('state.checked.salin', value => {
+      $scope.state.checked.salinfilType = !!value;
+      $scope.state.checked.salinfilValue = !!value;
+      $scope.state.checked.salinfilMinval = !!value;
+      $scope.state.checked.salinfilMaxval = !!value;
+    });
+    $scope.$watch('state.checked.rock', value => {
+      $scope.state.checked.rockfilType = !!value;
+      $scope.state.checked.rockfilValue = !!value;
+      $scope.state.checked.rockfilMinval = !!value;
+      $scope.state.checked.rockfilMaxval = !!value;
     });
     $scope.onResetClick = () => {
       $scope.state.checked = {};
@@ -330,6 +386,7 @@ module.exports = myApp =>
     services['7'] = 'QueryPbqudByCondition';
     services['11'] = 'QuerySupfeedCouByCondition';
     services['12'] = 'QuerySupfeedPerByCondition';
+    services['13'] = 'QueryEnvsurvByCondition';
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
         $scope.data.pageNo = 1;
