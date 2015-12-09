@@ -81,7 +81,7 @@ const CONSTANT = {
     '10': '返青期样方',
     '11': '分县牧户调查',
     '12': '分户牧户调查',
-    '13': '自然生态调查'
+    '13': '生态环境调查'
   },
 
   DATA_ZXD: objKeyValue({
@@ -101,6 +101,42 @@ const CONSTANT = {
     'NUM_MULE' : '骡数量',
     'NUM_DONKEY' : '驴数量',
     'NUM_ELSEANIMAL' : '其它草食家畜数量'
+  }),
+
+  //草原退化
+  DATA_CYSTHJ_TH: objKeyValue({
+    'REGION_DEGRA': '主要分布区域',
+    'AREA_DEGRA': '分布面积',
+    'AREA_DEGRA_L': '轻度分级面积',
+    'AREA_DEGRA_M': '中度分级面积',
+    'AREA_DEGRA_H': '重度分级面积'
+  }),
+
+  //草原盐渍化
+  DATA_CYSTHJ_YZH: objKeyValue({
+    'REGION_SALIN': '主要分布区域',
+    'AREA_SALIN': '分布面积',
+    'AREA_SALIN_L': '轻度分级面积',
+    'AREA_SALIN_M': '中度分级面积',
+    'AREA_SALIN_H': '重度分级面积'
+  }),
+
+  //草原沙化
+  DATA_CYSTHJ_SH: objKeyValue({
+    'REGION_DESERT': '主要分布区域',
+    'AREA_DESERT': '分布面积',
+    'AREA_DESERT_L': '轻度分级面积',
+    'AREA_DESERT_M': '中度分级面积',
+    'AREA_DESERT_H': '重度分级面积'
+  }),
+
+  //草原石漠化
+  DATA_CYSTHJ_SMH: objKeyValue({
+    'REGION_ROCK': '主要分布区域',
+    'AREA_ROCK': '分布面积',
+    'AREA_ROCK_L': '轻度分级面积',
+    'AREA_ROCK_M': '中度分级面积',
+    'AREA_ROCK_H': '重度度分级面积'
   }),
 
   PAGE_SIZE: 20,

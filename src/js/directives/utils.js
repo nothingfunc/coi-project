@@ -68,7 +68,8 @@ module.exports = myApp => {
             overflowY: 'auto',
             minHeight: minHeight
           }).perfectScrollbar({
-            suppressScrollX: true
+            suppressScrollX: true,
+            wheelPropagation: true
           });
         });
       }

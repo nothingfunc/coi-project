@@ -1,9 +1,9 @@
 <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
   <div class="box-header with-border">
     <h3 class="box-title">
-      {{state.workState === STATES.EDIT_DATA ? '编辑分县牧户调查' : ''}}
-      {{state.workState === STATES.CREATE_DATA ? '添加分县牧户调查' : ''}}
-      {{state.workState === STATES.VIEW_DATA ? '查看分县牧户调查' : ''}}
+      {{state.workState === STATES.EDIT_DATA ? '编辑生态环境调查' : ''}}
+      {{state.workState === STATES.CREATE_DATA ? '添加生态环境调查' : ''}}
+      {{state.workState === STATES.VIEW_DATA ? '查看生态环境调查' : ''}}
       <small ng-if="state.workState === STATES.EDIT_DATA || state.workState === STATES.VIEW_DATA">
         数据编号：{{state.currentData}}
       </small>
@@ -36,7 +36,7 @@
           </div>
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">调查人：</label>
-            <div class="pull-left w-145">
+            <div class="pull-left w-130">
               <input type="text" class="form-control"
                      ng-disabled="state.workState === STATES.VIEW_DATA"
                      ng-model="data.dataParam.SURVEY_PERSON"
@@ -59,15 +59,13 @@
           </div>
         </div>
 
-        <h4 class="with-border" style="margin-bottom: 0"><span>概况</span> </h4>
-
-        <div style="max-width: 600px;">
-          <div ng-repeat="item in CONST.DATA_ZXD"
+        <h4 class="with-border" style="margin-bottom: 0"><span>草原退化</span> </h4>
+        <div style="max-width: 600px;" class="clearfix">
+          <div ng-repeat="item in CONST.DATA_CYSTHJ_TH"
                class="pull-left form-group-sm margin-r-20 margin-t-10">
             <label class="pull-left control-label" style="width: 110px; text-align: left;">{{item.name}}：</label>
             <div class="pull-left w-145">
               <input
-                to-number
                 type="text" class="form-control w-145"
                 ng-disabled="state.workState === STATES.VIEW_DATA"
                 ng-model="data.dataParam[item.value]"
@@ -76,6 +74,50 @@
           </div>
         </div>
 
+        <h4 class="with-border" style="margin-bottom: 0"><span>草原盐渍化</span> </h4>
+        <div style="max-width: 600px;" class="clearfix">
+          <div ng-repeat="item in CONST.DATA_CYSTHJ_YZH"
+               class="pull-left form-group-sm margin-r-20 margin-t-10">
+            <label class="pull-left control-label" style="width: 110px; text-align: left;">{{item.name}}：</label>
+            <div class="pull-left w-145">
+              <input
+                type="text" class="form-control w-145"
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                ng-model="data.dataParam[item.value]"
+              />
+            </div>
+          </div>
+        </div>
+
+        <h4 class="with-border" style="margin-bottom: 0"><span>草原沙化</span> </h4>
+        <div style="max-width: 600px;" class="clearfix">
+          <div ng-repeat="item in CONST.DATA_CYSTHJ_SH"
+               class="pull-left form-group-sm margin-r-20 margin-t-10">
+            <label class="pull-left control-label" style="width: 110px; text-align: left;">{{item.name}}：</label>
+            <div class="pull-left w-145">
+              <input
+                type="text" class="form-control w-145"
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                ng-model="data.dataParam[item.value]"
+              />
+            </div>
+          </div>
+        </div>
+
+        <h4 class="with-border" style="margin-bottom: 0"><span>草原石漠化</span> </h4>
+        <div style="max-width: 600px;" class="clearfix">
+          <div ng-repeat="item in CONST.DATA_CYSTHJ_SMH"
+               class="pull-left form-group-sm margin-r-20 margin-t-10">
+            <label class="pull-left control-label" style="width: 110px; text-align: left;">{{item.name}}：</label>
+            <div class="pull-left w-145">
+              <input
+                type="text" class="form-control w-145"
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                ng-model="data.dataParam[item.value]"
+              />
+            </div>
+          </div>
+        </div>
 
       </div>
       <div class="box-footer">

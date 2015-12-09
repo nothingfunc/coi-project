@@ -157,7 +157,7 @@
           <div class="form-group-sm clearfix">
             <div class="clearfix pull-left margin-r-20">
               <label class="pull-left control-label">调查时间：</label>
-              <div class="input-group" style="width: 133px;">
+              <div class="input-group w-130">
                 <input ng-disabled="state.workState === STATES.VIEW_DATA"
                        type="text" class="form-control datepicker-bootstrap"
                        uib-datepicker-popup
@@ -847,13 +847,15 @@
 
         <span ng-include="'check-form.html'"></span>
 
-        <div class="pull-right dropup" uib-dropdown
+        <div class="pull-right"
              ng-hide="state.workState === STATES.EDIT_DATA ||
                       state.workState === STATES.CREATE_DATA ||
                       state.workStateSuper === STATES.CHECK_DATA"
              ng-click="onCreateDataClick(data.dataParam.HAS_BUSH === CONST.OPT_HAS[0].value ? '7' : '6')"
         >
-          <button type="button" class="btn btn-default">
+          <button type="button"
+                  ng-disabled="!canEdit()"
+                  class="btn btn-default">
             {{data.dataParam.HAS_BUSH === CONST.OPT_HAS[0].value ? '添加灌木样方' : '添加草本样方'}}
           </button>
           <!--预留给上拉列表-->

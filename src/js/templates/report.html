@@ -110,9 +110,9 @@
                   <li class="divider"></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('11')">{{CONST.DATA_TYPE['11']}}</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('12')">{{CONST.DATA_TYPE['12']}}</a></li>
-                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['13']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('13')">{{CONST.DATA_TYPE['13']}}</a></li>
                   <li class="divider"></li>
-                  <li role="menuitem"><a href="javascript:;">{{CONST.DATA_TYPE['9']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('9')">{{CONST.DATA_TYPE['9']}}</a></li>
                 </ul>
               </div>
             </div>
@@ -138,7 +138,7 @@
               <tr style="cursor: pointer;"
                   ng-repeat="item in data.dataList"
                   class="{{state.currentData===item.DATA_ID?'active':''}}"
-                  ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
+                  ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE, item.CHECK_STU)"
               >
                 <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID}}</span></td>
                 <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
@@ -205,7 +205,7 @@
         </div>
       </div>
       <!--创建数据或查看数据时显示-->
-      <div class="col-md-7"
+      <div class="col-md-7 work-data"
            ng-hide="state.workState !== STATES.VIEW_DATA &&
             state.workState !== STATES.EDIT_DATA &&
             state.workState !== STATES.CREATE_DATA"

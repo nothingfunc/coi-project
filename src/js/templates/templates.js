@@ -16,8 +16,11 @@ module.exports = myApp => {
     $templateCache.put("create-data-5.html", __inline('./create-data-5.html'));
     $templateCache.put("create-data-6.html", __inline('./create-data-6.html'));
     $templateCache.put("create-data-7.html", __inline('./create-data-7.html'));
+    $templateCache.put("create-data-9.html", __inline('./create-data-9.html'));
+    $templateCache.put("create-data-10.html", __inline('./create-data-10.html'));
     $templateCache.put("create-data-11.html", __inline('./create-data-11.html'));
     $templateCache.put("create-data-12.html", __inline('./create-data-12.html'));
+    $templateCache.put("create-data-13.html", __inline('./create-data-13.html'));
 
     $templateCache.put("data-detail-dialog.html", __inline('./data-detail-dialog.html'));
 

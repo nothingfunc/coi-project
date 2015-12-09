@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "5",
+        "userRole": "3",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -128,8 +128,8 @@
           {
           "MISSION_ID": "@id()",
           "DATA_ID": "@id()",
-          "DATA_TYPE": "@integer(2,12)",
-          "CHECK_STU": "待市审核",
+          "DATA_TYPE": "@integer(1,13)",
+          "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
           "CHECK_MSG": "@word(5,100)",
           "CHECK_MAN": "@first()"
           }
@@ -180,7 +180,8 @@
       "res": {
         "success": "1",
         "ErrMsg": "xxxx",
-        "Data": {
+        "Data": {},
+        "Data3": {
           "SAMPLE_PLOT_ID": "888168",
           "COUNTY_CODE":123,
           "COUNTY_NAME":"Hello",

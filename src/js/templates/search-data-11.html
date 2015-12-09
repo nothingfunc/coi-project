@@ -114,15 +114,19 @@
             <div class="col-sm-4">
               <label class="pull-left control-label margin-r-10">限定值
               </label>
-              <div class="pull-left margin-r-10">
-                <input ng-model="data.searchParamData.filValue" type="text" class="form-control" style="width: 75px" ng-disabled="!state.checked.filFieldName">
-              </div>
-              <div class="pull-left margin-r-10">
-                <input ng-model="data.searchParamData.filMinval" type="text" class="form-control margin-r-10" style="display:inline;width:75px;" ng-disabled="!state.checked.filFieldName">到
-              </div>
-              <div class="pull-left">
-                <input ng-model="data.searchParamData.filMaxval" type="text" class="form-control" style="width:75px" ng-disabled="!state.checked.filFieldName">
-              </div>
+              <span ng-show="data.searchParamData.filType <= 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.filValue" type="text" class="form-control" style="width: 75px" ng-disabled="!state.checked.filFieldName">
+                </div>
+              </span>
+              <span ng-show="data.searchParamData.filType > 3">
+                <div class="pull-left margin-r-10">
+                  <input ng-model="data.searchParamData.filMinval" type="text" class="form-control margin-r-10" style="display:inline;width:75px;" ng-disabled="!state.checked.filFieldName">到
+                </div>
+                <div class="pull-left">
+                  <input ng-model="data.searchParamData.filMaxval" type="text" class="form-control" style="width:75px" ng-disabled="!state.checked.filFieldName">
+                </div>
+              </span>
             </div>
           </div>
           <!--end form-group-sm-->

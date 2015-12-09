@@ -1,14 +1,10 @@
 <style>
-  .data-4 .control-label{
-    width: 60px;
-    text-align: left;
-  }
   .data-4 .data-4-gk .control-label{
     width: 110px;
   }
 </style>
 <div class="box box-success data-4" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
-  <div class="box-header with-border">
+    <div class="box-header with-border">
     <h3 class="box-title">
       {{state.workState === STATES.EDIT_DATA ? '编辑非工程草本样方' : ''}}
       {{state.workState === STATES.CREATE_DATA ? '添加非工程草本样方' : ''}}
@@ -18,14 +14,14 @@
       </small>
     </h3>
   </div>
-  <div class="box-body no-padding">
+    <div class="box-body no-padding">
     <form class="form-horizontal" novalidate>
       <div class="box-body scroll-content">
         <h4 class="with-border"><span>基本信息</span></h4>
         <div class="form-group-sm clearfix">
           <div class="clearfix pull-left margin-r-20">
             <label class="pull-left control-label">调查时间：</label>
-            <div class="input-group" style="width: 133px;">
+            <div class="input-group w-130">
               <input ng-disabled="state.workState === STATES.VIEW_DATA"
                      type="text" class="form-control datepicker-bootstrap"
                      uib-datepicker-popup

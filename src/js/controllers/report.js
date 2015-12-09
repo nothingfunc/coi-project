@@ -226,8 +226,13 @@ module.exports = myApp => {
         if('4,5,6,7'.indexOf(type) !== -1) {
           var samplePlotId = $scope.state.currentData;
         }
+        //子类返青期样方需要设置SIMP_ID，标识父级
+        if(type === '10') {
+          var simpId = $scope.state.currentData;
+        }
         $scope.data.dataParam = {
-          SAMPLE_PLOT_ID: samplePlotId
+          SAMPLE_PLOT_ID: samplePlotId,
+          SIMP_ID: simpId
         };
         $scope.state.workState = STATES.CREATE_DATA;
         $scope.state.currentDataType = type;
@@ -242,8 +247,8 @@ module.exports = myApp => {
         });
       }
 
-      $scope.onShowDataClick = (dataId, type) => {
-        $scope.tmp = {};
+      $scope.onShowDataClick = (dataId, type, checkStu) => {
+        $scope.tmp = {checkStu: checkStu};
         apiService.getDataDetail({
           DATA_ID: dataId,
           DATA_TYPE: type
@@ -316,6 +321,9 @@ module.exports = myApp => {
           if($scope.state.currentDataType == '5' || $scope.state.currentDataType == '4') {
             $scope.state.currentDataType = '2';
           }
+          if($scope.state.currentDataType == '10') {
+            $scope.state.currentDataType = '9';
+          }
         }
         $scope.showCurrentData();
       };
@@ -326,6 +334,16 @@ module.exports = myApp => {
             $rootScope.showTips({
               type: 'error',
               msg: '调查时间为空或格式错误'
+            });
+            return false;
+          }
+          return true;
+        };
+        var checkGreenTime = () => {
+          if(!$scope.data.dataParam.GREEN_TIME) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: '返青期为空或格式错误'
             });
             return false;
           }
@@ -363,6 +381,10 @@ module.exports = myApp => {
         };
         switch(parseInt(type)) {
           case 2:
+          case 9:
+          case 11:
+          case 12:
+          case 13:
             return checkSurveyTime() && checkRegion();
           case 3:
             return checkProject() && checkSurveyTime();
@@ -370,20 +392,28 @@ module.exports = myApp => {
           case 5:
           case 6:
           case 7:
-          case 11:
-          case 12:
             return checkSurveyTime();
           case 8:
             return checkProjectRegion();
+          case 10:
+            return checkGreenTime();
           default:
             return true;
         }
+      };
+
+      $scope.canEdit = () => {
+        return $scope.tmp.checkStu == undefined ||
+               $scope.tmp.checkStu == '未上报' ||
+               $scope.tmp.checkStu == '市审核驳回' ||
+               $scope.tmp.checkStu == '省审核驳回';
       };
 
       $scope.onSaveDataClick = () => {
         //格式化时间
         $scope.data.dataParam.SURVEY_TIME = $rootScope.formatTime($scope.data.dataParam.SURVEY_TIME);
         $scope.data.dataParam.COMPLETE_TIME = $rootScope.formatTime($scope.data.dataParam.COMPLETE_TIME);
+        $scope.data.dataParam.GREEN_TIME = $rootScope.formatTime($scope.data.dataParam.GREEN_TIME);
         var isEditing = $scope.state.workState === STATES.EDIT_DATA;
 
         if(!$scope.validateData()) {
