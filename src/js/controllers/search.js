@@ -189,6 +189,38 @@ module.exports = myApp =>
         }
       ],
       //工程end
+      //返青春样地 start
+      '9': [
+        {
+          "title": "调查时间",
+          "relatedField": "SURVEY_TIME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "SURVEY_PERSON"
+        },
+        {
+          "title": "样地编号",
+          "relatedField": "SIMP_NAME"
+        },
+        {
+          "title": "草地类",
+          "relatedField": "GRASS_TYPE"
+        },
+        {
+          "title": "审核结果",
+          "relatedField": "CHECK_STU"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        },
+        {
+          "title": "关联样方",
+          "relatedField": "ck_true"
+        }
+      ],
+      //返青春样地 end
       //分县牧户补饲调查 start
       '11': [
         {
@@ -384,6 +416,7 @@ module.exports = myApp =>
     services['5'] = 'queryFbqudByCondition';
     services['6'] = 'QueryPwqudByCondition';
     services['7'] = 'QueryPbqudByCondition';
+    services['9'] = 'QueryGreenSampleByCondition';
     services['11'] = 'QuerySupfeedCouByCondition';
     services['12'] = 'QuerySupfeedPerByCondition';
     services['13'] = 'QueryEnvsurvByCondition';
