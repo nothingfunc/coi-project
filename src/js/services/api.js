@@ -99,6 +99,12 @@ module.exports = myApp =>
       //获取分户牧户补饲调查数据
       services.QuerySupfeedPerByCondition = makeService({method: 'POST', url: '/data/QuerySupfeedPerByCondition.action'});
 
+      //获取生态环境调查数据
+      services.QueryEnvsurvByCondition = makeService({method: 'POST', url: '/data/QueryEnvsurvByCondition.action'});
+
+      //获取返青春样地
+      services.QueryGreenSampleByCondition = makeService({method: 'POST', url: '/data/QueryGreenSampleByCondition.action'});
+
       //获取行政区------
       services.regionAutoComp = makeService({method: 'POST', url: '/util/RegionAutoComp.action'});
 
