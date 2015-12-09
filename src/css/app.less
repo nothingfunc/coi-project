@@ -307,6 +307,40 @@ html.loginPage {
   text-align: left;
 }
 
+.table.table-condensed .tr-child {
+  &.tr-child-last {
+    > td {
+      &:before {
+        height: 65% !important;
+      }
+    }
+  }
+  > td {
+    &:first-child {
+      padding-left: 20px;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        height: 0;
+        width: 8px;
+        border-bottom: solid 1px #ccc;
+        left: 7px;
+        top: 50%;
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        height: 115%;
+        width: 0;
+        border-left: solid 1px #ccc;
+        left: 7px;
+        top: -15%;
+      }
+    }
+  }
+}
+
 .form-group-sm {
   .table {
     .control-label {

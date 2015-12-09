@@ -52,7 +52,7 @@ module.exports = myApp => {
         MISSION_ID: missionId
       }).success(data => {
         if(data.success === CONST.API_SUCCESS) {
-          $scope.data.dataList = data.rows;
+          $scope.data.dataList = $rootScope.sortDataListByParentId(data.rows);
         } else {
           $scope.data.dataList = [];
         }
@@ -83,7 +83,7 @@ module.exports = myApp => {
       });
       //行政区部分事件
       $scope.$watch('projectTmp.region', region => {
-        console.log(region);
+        if(region == undefined) return;
         if(typeof region === 'object') {
           $scope.data.projectParam.COUNTY_CODE = region.code;
           $scope.data.projectParam.COUNTY_NAME = region.name;
@@ -265,35 +265,38 @@ module.exports = myApp => {
             $scope.tmp._img1 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '01');
             $scope.tmp._img2 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '02');
 
-            $scope.tmp.region = data.Data.COUNTY_CODE ? {
+            data.Data.COUNTY_CODE && ($scope.tmp.region = {
               code: data.Data.COUNTY_CODE,
               name: data.Data.COUNTY_NAME
-            } : '';
-
-            $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
+            });
+            data.Data.GRASS_BG_TYPE && ($scope.tmp.grassBType = {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
               TYPE_ID: data.Data.GRASS_BG_TYPE_ID
-            } : '';
-            $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
+            });
+            data.Data.GRASS_SM_TYPE && ($scope.tmp.grassSType = {
               TYPE_NAME: data.Data.GRASS_SM_TYPE,
               TYPE_ID: data.Data.GRASS_SM_TYPE_ID
-            } : '';
-            $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+            });
+            data.Data.GRASS_TYPE && ($scope.tmp.grassBTypeFqq = {
+              TYPE_NAME: data.Data.GRASS_TYPE,
+              TYPE_ID: data.Data.GRASS_TYPE_ID
+            });
+            data.Data.I_GRASS_BG_TYPE && ($scope.tmp.grassBType1 = {
               TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
               TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
-            } : '';
-            $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+            });
+            data.Data.I_GRASS_SM_TYPE && ($scope.tmp.grassSType1 = {
               TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
               TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
-            } : '';
-            $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+            });
+            data.Data.O_GRASS_BG_TYPE && ($scope.tmp.grassBType2 = {
               TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
               TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
-            } : '';
-            $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+            });
+            data.Data.O_GRASS_SM_TYPE && ($scope.tmp.grassSType2 = {
               TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
               TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
-            } : '';
+            });
 
 
             //如果type是3，就设置他的工程信息
@@ -487,6 +490,7 @@ module.exports = myApp => {
 
       //行政区部分事件
       $scope.$watch('tmp.region', region => {
+        if(region == undefined) return;
         if(typeof region === 'object') {
           $scope.data.dataParam.COUNTY_CODE = region.code;
           $scope.data.dataParam.COUNTY_NAME = region.name;
@@ -505,6 +509,7 @@ module.exports = myApp => {
 
       //草地类事件
       $scope.$watch('tmp.grassBType', type => {
+        if(type == undefined) return;
         if(typeof type === 'object') {
           $scope.data.dataParam.GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.GRASS_BG_TYPE_ID = type.TYPE_ID;
@@ -513,8 +518,20 @@ module.exports = myApp => {
           $scope.data.dataParam.GRASS_BG_TYPE_ID = '';
         }
       });
+      //草地类事件（返青期样地）
+      $scope.$watch('tmp.grassBTypeFqq', type => {
+        if(type == undefined) return;
+        if(typeof type === 'object') {
+          $scope.data.dataParam.GRASS_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.GRASS_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.GRASS_TYPE = type;
+          $scope.data.dataParam.GRASS_TYPE_ID = '';
+        }
+      });
       //草地类事件（工程区内）
       $scope.$watch('tmp.grassBType1', type => {
+        if(type == undefined) return;
         if(typeof type === 'object') {
           $scope.data.dataParam.I_GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.I_GRASS_BG_TYPE_ID = type.TYPE_ID;
@@ -525,6 +542,7 @@ module.exports = myApp => {
       });
       //草地类事件（工程区外）
       $scope.$watch('tmp.grassBType2', type => {
+        if(type == undefined) return;
         if(typeof type === 'object') {
           $scope.data.dataParam.O_GRASS_BG_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.O_GRASS_BG_TYPE_ID = type.TYPE_ID;
@@ -537,6 +555,7 @@ module.exports = myApp => {
 
       //草地型事件
       $scope.$watch('tmp.grassSType', type => {
+        if(type == undefined) return;
         if(typeof type === 'object') {
           $scope.data.dataParam.GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.GRASS_SM_TYPE_ID = type.TYPE_ID;
@@ -547,6 +566,7 @@ module.exports = myApp => {
       });
       //草地型事件（工程区内）
       $scope.$watch('tmp.grassSType1', type => {
+        if(type == undefined) return;
         if(typeof type === 'object') {
           $scope.data.dataParam.I_GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.I_GRASS_SM_TYPE_ID = type.TYPE_ID;
@@ -557,6 +577,7 @@ module.exports = myApp => {
       });
       //草地型事件（工程区外）
       $scope.$watch('tmp.grassSType2', type => {
+        if(type == undefined) return;
         if(typeof type === 'object') {
           $scope.data.dataParam.O_GRASS_SM_TYPE = type.TYPE_NAME;
           $scope.data.dataParam.O_GRASS_SM_TYPE_ID = type.TYPE_ID;

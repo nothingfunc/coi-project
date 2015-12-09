@@ -290,7 +290,36 @@ module.exports = myApp =>
           DATA_TAG: type,
           TIMES: new Date().getTime()
         })
-    }
+    };
+
+    $rootScope.sortDataListByParentId = dataList => {
+      var sortStack = {};
+      dataList.forEach(data => {
+        var pId = data.PARENT_DATA_ID;
+        var id = data.DATA_ID;
+        if(pId) {
+          sortStack[pId] = sortStack[pId] || [];
+          sortStack[pId].push(data);
+        } else {
+          sortStack[id] = sortStack[id] || [];
+          sortStack[id].unshift(data);
+        }
+      });
+      var list = [];
+      for(var i in sortStack) {
+        var listGroup = sortStack[i];
+        listGroup.forEach((item, i) => {
+          if(i > 0) {
+            item._isChild = true;
+            if(i == listGroup.length - 1) {
+              item._isLastChild = true;
+            }
+          }
+          list.push(item);
+        });
+      }
+      return list;
+    };
 
 
   }]);

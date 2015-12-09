@@ -86,9 +86,9 @@ module.exports = myApp => {
         }).success(data => {
           if(data.success === CONST.API_SUCCESS) {
             deferred.resolve();
-            $scope.data.dataList = data.rows;
-            if(autoClickFirst && data.rows.length) {
-              $scope.onShowDataClick(data.rows[0].DATA_ID, data.rows[0].DATA_TYPE);
+            $scope.data.dataList = $rootScope.sortDataListByParentId(data.rows);
+            if(autoClickFirst && $scope.data.dataList.length) {
+              $scope.onShowDataClick($scope.data.dataList[0].DATA_ID, $scope.data.dataList[0].DATA_TYPE);
             }
           } else {
             $scope.data.dataList = [];
@@ -225,36 +225,39 @@ module.exports = myApp => {
             $scope.tmp._img = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '00');
             $scope.tmp._img1 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '01');
             $scope.tmp._img2 = $rootScope.getDataImg($scope.state.currentTask, $scope.state.currentData, '02');
-            
-            $scope.tmp.region = data.Data.COUNTY_CODE ? {
+
+            data.Data.COUNTY_CODE && ($scope.tmp.region = {
               code: data.Data.COUNTY_CODE,
               name: data.Data.COUNTY_NAME
-            } : '';
-
-            $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
+            });
+            data.Data.GRASS_BG_TYPE && ($scope.tmp.grassBType = {
               TYPE_NAME: data.Data.GRASS_BG_TYPE,
               TYPE_ID: data.Data.GRASS_BG_TYPE_ID
-            } : '';
-            $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
+            });
+            data.Data.GRASS_SM_TYPE && ($scope.tmp.grassSType = {
               TYPE_NAME: data.Data.GRASS_SM_TYPE,
               TYPE_ID: data.Data.GRASS_SM_TYPE_ID
-            } : '';
-            $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+            });
+            data.Data.GRASS_TYPE && ($scope.tmp.grassBTypeFqq = {
+              TYPE_NAME: data.Data.GRASS_TYPE,
+              TYPE_ID: data.Data.GRASS_TYPE_ID
+            });
+            data.Data.I_GRASS_BG_TYPE && ($scope.tmp.grassBType1 = {
               TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
               TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
-            } : '';
-            $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+            });
+            data.Data.I_GRASS_SM_TYPE && ($scope.tmp.grassSType1 = {
               TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
               TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
-            } : '';
-            $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+            });
+            data.Data.O_GRASS_BG_TYPE && ($scope.tmp.grassBType2 = {
               TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
               TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
-            } : '';
-            $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+            });
+            data.Data.O_GRASS_SM_TYPE && ($scope.tmp.grassSType2 = {
               TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
               TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
-            } : '';
+            });
 
             //如果type是3，就设置他的工程信息
             if(type == '3') {

@@ -124,14 +124,91 @@
       "mock": true,
       "res": {
         "success": "1",
-        "rows|0-20": [
+        "rows": [
           {
-          "MISSION_ID": "@id()",
-          "DATA_ID": "@id()",
-          "DATA_TYPE": "@integer(1,13)",
-          "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
-          "CHECK_MSG": "@word(5,100)",
-          "CHECK_MAN": "@first()"
+            "MISSION_ID": "@id()",
+            "DATA_ID": "1",
+            "DATA_TYPE": "9",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "2",
+            "DATA_TYPE": "3",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "3",
+            "PARENT_DATA_ID": "2",
+            "DATA_TYPE": "6",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "4",
+            "PARENT_DATA_ID": "2",
+            "DATA_TYPE": "7",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "5",
+            "PARENT_DATA_ID": "7",
+            "DATA_TYPE": "4",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "6",
+            "PARENT_DATA_ID": "7",
+            "DATA_TYPE": "5",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "7",
+            "DATA_TYPE": "2",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "8",
+            "DATA_TYPE": "@integer(11,13)",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "9",
+            "PARENT_DATA_ID": "1",
+            "DATA_TYPE": "10",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_ID": "10",
+            "DATA_TYPE": "11",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
           }
         ]
       }
@@ -180,7 +257,9 @@
       "res": {
         "success": "1",
         "ErrMsg": "xxxx",
-        "Data": {},
+        "Data": {
+          "GRASS_TYPE": "czg"
+        },
         "Data3": {
           "SAMPLE_PLOT_ID": "888168",
           "COUNTY_CODE":123,
