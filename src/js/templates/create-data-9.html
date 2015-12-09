@@ -62,45 +62,61 @@
           </div>
         </div>
         <div class="form-group-sm clearfix margin-t-10">
-              <div class="clearfix pull-left margin-r-10">
-                <label class="pull-left control-label">所在地区：</label>
-                <div class="pull-left" style="width: 210px;">
-                  <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
-                         uib-typeahead="address as address.name for address in getLocation($viewValue)"
-                         class="form-control"
-                         ng-model="tmp.region"
-                         ng-blur="onRegionBlur()"
-                         typeahead-min-length="0"
-                  >
-                </div>
-              </div>
-              <div class="clearfix pull-left">
-                <label class="pull-left control-label" style="min-width: 45px;">乡镇：</label>
-                <div class="pull-left" style="width: 90px;">
-                  <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                         type="text" class="form-control"
-                         ng-model="data.dataParam.TOWN_NAME"
-                  />
-                </div>
-              </div>
-
+          <div class="clearfix pull-left margin-r-10">
+            <label class="pull-left control-label">所在地区：</label>
+            <div class="pull-left" style="width: 210px;">
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
+                     uib-typeahead="address as address.name for address in getLocation($viewValue)"
+                     class="form-control"
+                     ng-model="tmp.region"
+                     ng-blur="onRegionBlur()"
+                     typeahead-min-length="0"
+              >
             </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label" style="min-width: 45px;">乡镇：</label>
+            <div class="pull-left" style="width: 90px;">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control"
+                     ng-model="data.dataParam.TOWN_NAME"
+              />
+            </div>
+          </div>
+
+          <div class="pull-left">
+            <div class="image-wrapper">
+              <span class="image-tooltip text-gray">
+                <i class="fa fa-file-image-o"></i><br/>
+                <small>请选择景观照片文件</small>
+              </span>
+              <a ng-click="$parent.showLightBox(tmp.file.$ngfBlobUrl || tmp.file.$ngfDataUrl || tmp._img)" href="javascript:;">
+                <img uib-tooltip="点击查看原图"
+                     style="width:100%; height: 100%;"
+                     ngf-src="tmp.file || tmp._img"
+                >
+              </a>
+              <span class="image-control"
+                    ngf-select ng-model="tmp.file" name="file" ngf-pattern="'image/*'"
+                    accept="image/*" ngf-max-size="20MB"
+                    ng-hide="state.workState === STATES.VIEW_DATA"
+              >
+                选择文件
+              </span>
+            </div>
+          </div>
+        </div>
 
         <h4 class="with-border"><span>概况</span> </h4>
         <div class="form-group-sm clearfix">
-          <label class="pull-left control-label">草地型：</label>
+          <label class="pull-left control-label">草地类型：</label>
           <div class="pull-left" style="width: 250px;">
-            <input ng-disabled="state.workState === STATES.VIEW_DATA"
-                   type="text" class="form-control"
-                   ng-model="data.dataParam.GRASS_TYPE"
-            />
-            <!--<input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.GRASS_BG_TYPE_ID"-->
-                   <!--ng-model="tmp.grassSType"-->
-                   <!--uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"-->
-                   <!--class="form-control"-->
-                   <!--ng-blur="onTypeSBlur()"-->
-                   <!--typeahead-min-length="0"-->
-            <!--&gt;-->
+            <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
+                   ng-model="tmp.grassBTypeFqq"
+                   uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
+                   class="form-control"
+                   typeahead-min-length="0"
+            >
           </div>
         </div>
 

@@ -83,6 +83,7 @@
         </div>
       </div>
       <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
+           style="{{state.workState === STATES.VIEW_DATA_LIST ? 'padding-left:0': ''}}"
            ng-hide="state.workState === STATES.CREATE_TASK"
       >
         <div class="box box-success" box-auto-scroll>
@@ -137,7 +138,11 @@
               </tr>
               <tr style="cursor: pointer;"
                   ng-repeat="item in data.dataList"
-                  class="{{state.currentData===item.DATA_ID?'active':''}}"
+                  ng-class="{
+                    'active': state.currentData===item.DATA_ID,
+                    'tr-child': item._isChild,
+                    'tr-child-last': item._isLastChild
+                  }"
                   ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE, item.CHECK_STU)"
               >
                 <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID}}</span></td>
@@ -152,6 +157,7 @@
         </div>
       </div>
       <div class="col-md-{{state.createTaskFull ? 12 : 7}}"
+           style="padding-left:0"
            ng-hide="state.workState !== STATES.CREATE_TASK"
       >
         <div class="box box-success">
@@ -206,6 +212,7 @@
       </div>
       <!--创建数据或查看数据时显示-->
       <div class="col-md-7 work-data"
+           style="padding-left:0"
            ng-hide="state.workState !== STATES.VIEW_DATA &&
             state.workState !== STATES.EDIT_DATA &&
             state.workState !== STATES.CREATE_DATA"
