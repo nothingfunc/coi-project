@@ -27,6 +27,8 @@ require('./templates/templates')(myApp);
 require('./routers/routers')(myApp);
 //directives
 require('./directives/utils')(myApp);
+//filters
+require('./filters/utils')(myApp);
 //controllers
 require('./controllers/root')(myApp);
 require('./controllers/login')(myApp);

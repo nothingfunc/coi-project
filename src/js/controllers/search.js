@@ -557,35 +557,38 @@ module.exports = myApp =>
               $scope.tmp._img1 = $rootScope.getDataImg(missionId, dataId, '01');
               $scope.tmp._img2 = $rootScope.getDataImg(missionId, dataId, '02');
 
-              $scope.tmp.region = data.Data.COUNTY_CODE ? {
+              data.Data.COUNTY_CODE && ($scope.tmp.region = {
                 code: data.Data.COUNTY_CODE,
                 name: data.Data.COUNTY_NAME
-              } : '';
-
-              $scope.tmp.grassBType = data.Data.GRASS_BG_TYPE ? {
+              });
+              data.Data.GRASS_BG_TYPE && ($scope.tmp.grassBType = {
                 TYPE_NAME: data.Data.GRASS_BG_TYPE,
                 TYPE_ID: data.Data.GRASS_BG_TYPE_ID
-              } : '';
-              $scope.tmp.grassSType = data.Data.GRASS_SM_TYPE ? {
+              });
+              data.Data.GRASS_SM_TYPE && ($scope.tmp.grassSType = {
                 TYPE_NAME: data.Data.GRASS_SM_TYPE,
                 TYPE_ID: data.Data.GRASS_SM_TYPE_ID
-              } : '';
-              $scope.tmp.grassBType1 = data.Data.I_GRASS_BG_TYPE ? {
+              });
+              data.Data.GRASS_TYPE && ($scope.tmp.grassBTypeFqq = {
+                TYPE_NAME: data.Data.GRASS_TYPE,
+                TYPE_ID: data.Data.GRASS_TYPE_ID
+              });
+              data.Data.I_GRASS_BG_TYPE && ($scope.tmp.grassBType1 = {
                 TYPE_NAME: data.Data.I_GRASS_BG_TYPE,
                 TYPE_ID: data.Data.I_GRASS_BG_TYPE_ID
-              } : '';
-              $scope.tmp.grassSType1 = data.Data.I_GRASS_SM_TYPE ? {
+              });
+              data.Data.I_GRASS_SM_TYPE && ($scope.tmp.grassSType1 = {
                 TYPE_NAME: data.Data.I_GRASS_SM_TYPE,
                 TYPE_ID: data.Data.I_GRASS_SM_TYPE_ID
-              } : '';
-              $scope.tmp.grassBType2 = data.Data.O_GRASS_BG_TYPE ? {
+              });
+              data.Data.O_GRASS_BG_TYPE && ($scope.tmp.grassBType2 = {
                 TYPE_NAME: data.Data.O_GRASS_BG_TYPE,
                 TYPE_ID: data.Data.O_GRASS_BG_TYPE_ID
-              } : '';
-              $scope.tmp.grassSType2 = data.Data.O_GRASS_SM_TYPE ? {
+              });
+              data.Data.O_GRASS_SM_TYPE && ($scope.tmp.grassSType2 = {
                 TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
                 TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
-              } : '';
+              });
 
               $scope.state = {
                 currentDataType: dataType,

@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "3",
+        "userRole": "5",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -28,6 +28,15 @@
             "deptName": "吉州区草原站点单位"
           }
         ]
+      }
+    },
+    {
+      "url": "/util/ChangePwd.action",
+      "desc": "修改密码",
+      "mock": true,
+      "res": {
+        "success": "0",
+        "ErrMsg": "XX"
       }
     },
     {
@@ -88,7 +97,7 @@
         "rows|0-20": [{
           "MISSION_ID": "@id()",
           "MISSION_CODE": "@integer(10000,99999)",
-          "MISSION_CHECK": "待审核",
+          "MISSION_CHECK": "审核驳回，请重新编辑",
           "MISSION_CHEMSG": "@word(4,300)",
           "MISSION_NOTE": "@word(4,40)",
           "MISSION_NAME": "@word(4)"
@@ -135,7 +144,7 @@
           },
           {
             "MISSION_ID": "@id()",
-            "DATA_ID": "2",
+            "DATA_ID": "x12344449abcdef333333333333333xxx33333333333333333",
             "DATA_TYPE": "3",
             "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
             "CHECK_MSG": "@word(5,100)",
@@ -143,8 +152,8 @@
           },
           {
             "MISSION_ID": "@id()",
-            "DATA_ID": "3",
-            "PARENT_DATA_ID": "2",
+            "DATA_ID": "x123456789abcdef333333333333333xxx33333333333333333",
+            "PARENT_DATA_ID": "x12344449abcdef333333333333333xxx33333333333333333",
             "DATA_TYPE": "6",
             "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
             "CHECK_MSG": "@word(5,100)",
@@ -258,7 +267,10 @@
         "success": "1",
         "ErrMsg": "xxxx",
         "Data": {
-          "GRASS_TYPE": "czg"
+          "DATA_ID": "x12344449abcdef333333333333333xxx33333333333333333",
+          "GRASS_TYPE": "czg",
+          "PROJECT_ID": "x12344449abcdef333333333333333xxx33333333333333333",
+          "P_NAME": "HHH"
         },
         "Data3": {
           "SAMPLE_PLOT_ID": "888168",
@@ -307,6 +319,7 @@
         "success": "1",
         "count": "2000",
         "data|0-10":[{
+          "MISSION_ID": "24",
           "CHECK_STU": "1",
           "SUVEY_PERSON": "@last()、@last()",
           "SUVEY_TIME": "2015-10-14 00:00:00",
@@ -325,6 +338,7 @@
         "success": "1",
         "count": "integer(0,100)",
         "data|0-20":[{
+          "MISSION_ID": "24",
           "DATA_ID": "@id()",
           "QUADRAT_NAME": "@word(5)",
           "SURVER_TIME": "2015-10-14 00:00:00",
@@ -346,6 +360,7 @@
         "success": "1",
         "count": "integer(0,100)",
         "data|0-20":[{
+          "MISSION_ID": "24",
           "DATA_ID": "@id()",
           "QUADRAT_NAME": "@word(5)",
           "SURVER_TIME": "2015-10-14 00:00:00",
@@ -365,6 +380,7 @@
       "res": {
         "success": "1",
         "data|0-10":[{
+          "MISSION_ID": "24",
           "DATA_ID": "@id()",
           "QUADRAT_NAME": "@word(5)",
           "SUVEY_TIME": "2015-10-14 00:00:00",
@@ -385,6 +401,7 @@
         "success": "1",
         "count": "2000",
         "data|0-10":[{
+          "MISSION_ID": "24",
           "DATA_ID": "@id()",
           "CHECKSTU": "1",
           "YDH": "@id()",
@@ -403,6 +420,7 @@
         "success": "1",
         "count": "integer(0,100)",
         "data|0-20":[{
+          "MISSION_ID": "24",
           "DATA_ID": "@id()",
           "PROJECTNAME": "@word(5)",
           "PROJECTTIME": "2015-10-14 00:00:00",
@@ -421,6 +439,7 @@
         "success": "1",
         "count": "integer(0,100)",
         "data|0-20":[{
+          "MISSION_ID": "24",
           "PROJECTNAME": "@word(5)",
           "PROJECTTIME": "2015-10-14 00:00:00",
           "PROJECTAREA": "@id()",
@@ -438,6 +457,7 @@
       "res": {
         "success": "1",
         "data|0-10":[{
+          "MISSION_ID": "24",
           "YFH": "@id()",
           "YFNAME": "@word(5)",
           "PROJECTNAME": "@word(5)",
@@ -456,6 +476,7 @@
       "res": {
         "success": "1",
         "data|0-10":[{
+          "MISSION_ID": "24",
           "DATA_ID": "@id()",
           "MISSION_ID": 123,
           "AREA_FAMILYHOLD": "123",

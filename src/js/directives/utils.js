@@ -59,7 +59,7 @@ module.exports = myApp => {
         var $ele = $(element);
         var offset = attrs['boxAutoOffset'] ? parseInt(attrs['boxAutoOffset']) : 0;
         var $scrollContent = $ele.find(attrs['boxAutoChild'] || '> .box-body');
-        var height = $(window).height() - 132 - 52 + offset;
+        var height = $(window).height() - 117 - 52 + offset;
         var minHeight = 400 + offset;
 
         $timeout(function() {

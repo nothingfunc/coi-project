@@ -115,6 +115,8 @@ module.exports = myApp =>
       services.getGrassBType = makeService({method: 'POST', url: '/util/GetGrassBType.action'});
       services.getGrassSType = makeService({method: 'POST', url: '/util/GetGrassSType.action'});
 
+      services.changePwd = makeService({method: 'POST', url: '/util/ChangePwd.action'});
+
 
       return services;
     }

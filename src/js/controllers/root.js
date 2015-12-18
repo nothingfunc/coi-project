@@ -139,7 +139,29 @@ module.exports = myApp =>
         $rootScope.loading(false);
         $state.go('login');
       }, 100);
-    }
+    };
+    $scope.onModifyPassword = () => {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'modify-password.html',
+        controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
+          $scope.paramData = {};
+          $scope.isValid = () => {
+            return $scope.paramData.NEW_PWD === $scope.paramData.NEW_PWD2;
+          }
+          $scope.onChangePassword = function() {
+            apiService.changePwd($scope.paramData).success(res => {
+              if(res.success == 1) {
+                $rootScope.showMes('修改密码成功');
+                $scope.cancel();
+              }
+            });
+          };
+          $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+          };
+        }]
+      });
+    };
 
     //路由改变时修改activeNav
     $scope.$on("$stateChangeStart", function(event, toState, toStateParam, fromState) {

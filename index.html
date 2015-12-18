@@ -17,10 +17,10 @@
 </head>
 <body>
   <div class="skin-green-light sidebar-mini {{state.sidebarCollapse?'sidebar-collapse':'sidebar-open'}}">
-    <header class="main-header">
+    <header class="main-header" ng-hide="state.isLoginPage">
       <!--style="visibility: hidden"-->
       <nav class="navbar navbar-static-top" role="navigation">
-        <a href="javascript:;" ng-click="onSidebarCollapseClick()" class="sidebar-toggle" ng-hide="state.isLoginPage">
+        <a href="javascript:;" ng-click="onSidebarCollapseClick()" class="sidebar-toggle">
           <span class="sr-only">Toggle navigation</span>
         </a>
         <span class="logo">
@@ -43,7 +43,7 @@
                 </li>
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                    <a href="javascript:;" ng-click="onModifyPassword()"  class="btn btn-default btn-flat">修改密码</a>
                   </div>
                   <div class="pull-right">
                     <a href="javascript:;" ng-click="onLogoutClick()" class="btn btn-default btn-flat">退出登录</a>
@@ -84,10 +84,20 @@
           <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>添加非工程样地</span></a></li>
           -->
         </ul>
+        <ul class="sidebar-menu" style="position: absolute;bottom: 16px;width: 100%;">
+          <li>
+            <a id="udesk-im-10" href="javascript:;">
+              <i class="fa fa-comments-o"></i>
+              <span>联系客服</span>
+            </a>
+            <script>var imEle = document.getElementById("udesk-im-10");imEle.onclick = function(){window.open("http://www.bjtcservice.udesk.cn/im_client?cur_url="+escape(location.href)+"&pre_url="+escape(document.referrer),"udesk_im","width=780,height=560,top=200,left=350,resizable=yes");};</script>
+          </li>
+        </ul>
       </section>
     </aside>
     <ui-view></ui-view>
   </div>
+
 
   <i class="pageLoading"
      ng-class="{'blur':$parent.state.isPageLoaded}"

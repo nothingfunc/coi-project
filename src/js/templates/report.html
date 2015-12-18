@@ -22,7 +22,7 @@
   </section>
   <section class="content">
     <div class="row">
-      <div class="col-md-5"
+      <div style="margin-bottom: -20px;" class="col-md-5"
            ng-hide="(state.workState === STATES.VIEW_DATA) ||
            (state.workState === STATES.CREATE_DATA) ||
            (state.workState === STATES.EDIT_DATA)"
@@ -43,8 +43,8 @@
               <thead>
               <tr>
                 <th width="25%">任务名称</th>
-                <th width="25%">审核状态</th>
-                <th width="35%">任务备注</th>
+                <th width="30%">审核状态</th>
+                <th width="25%">任务备注</th>
                 <th width="50">操作</th>
               </tr>
               </thead>
@@ -82,7 +82,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
+      <div style="margin-bottom: -20px;" class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
            style="{{state.workState === STATES.VIEW_DATA_LIST ? 'padding-left:0': ''}}"
            ng-hide="state.workState === STATES.CREATE_TASK"
       >
@@ -122,7 +122,7 @@
             <table class="table table-condensed table-hover">
               <thead>
               <tr>
-                <th width="15%">数据编号</th>
+                <th width="120">数据编号</th>
                 <th width="25%">数据类型</th>
                 <th width="20%">审核状态</th>
                 <th>审核意见</th>
@@ -145,7 +145,7 @@
                   }"
                   ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE, item.CHECK_STU)"
               >
-                <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID}}</span></td>
+                <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID | eclipseId}}</span></td>
                 <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
                 <td><span class="">{{item.CHECK_STU}}</span></td>
                 <td><span class="word-keep-line" title="{{item.CHECK_MSG}}">{{item.CHECK_MSG}}</span></td>
@@ -156,7 +156,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-{{state.createTaskFull ? 12 : 7}}"
+      <div style="margin-bottom: -20px;" class="col-md-{{state.createTaskFull ? 12 : 7}}"
            style="padding-left:0"
            ng-hide="state.workState !== STATES.CREATE_TASK"
       >
@@ -211,7 +211,7 @@
         </div>
       </div>
       <!--创建数据或查看数据时显示-->
-      <div class="col-md-7 work-data"
+      <div style="margin-bottom: -20px;" class="col-md-7 work-data"
            style="padding-left:0"
            ng-hide="state.workState !== STATES.VIEW_DATA &&
             state.workState !== STATES.EDIT_DATA &&

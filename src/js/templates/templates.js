@@ -37,11 +37,11 @@ module.exports = myApp => {
     $templateCache.put("search-data-12.html", __inline('./search-data-12.html'));
     $templateCache.put("search-data-13.html", __inline('./search-data-13.html'));
 
-
     $templateCache.put("check-form.html", __inline('./check-form.html'));
     $templateCache.put("save-edit-buttons.html", __inline('./save-edit-buttons.html'));
 
     $templateCache.put("none.html", __inline('./none.html'));
+    $templateCache.put("modify-password.html", __inline('./modify-password.html'));
 
   }]);
 };

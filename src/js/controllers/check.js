@@ -115,12 +115,15 @@ module.exports = myApp => {
         });
         return deferred.promise;
       };
+      /**
+       * 审核状态下不获取列表，而是单独获取工程信息 @汪洋
       $scope.$watch('state.currentDataType', type => {
         console.log(type);
         if(type == 3) {
           getProjectList();
         }
       });
+      */
       $scope.onSelectProjectClick = project => {
         $scope.state.projectState = STATES.VIEW_PROJECT;
         $scope.data.projectParam = project;
@@ -261,13 +264,13 @@ module.exports = myApp => {
 
             //如果type是3，就设置他的工程信息
             if(type == '3') {
-              if(!$scope.data.projectList) {
-                $scope.$watch('data.projectList', () => {
-                  $scope.data.projectList && setCurrentProject(data.Data.PROJECT_ID);
-                })
-              } else {
+              apiService.getDataDetail({
+                DATA_ID: data.Data.PROJECT_ID,
+                DATA_TYPE: '8'
+              }).success(function(res) {
+                $scope.data.projectList = [res.Data];
                 setCurrentProject(data.Data.PROJECT_ID);
-              }
+              });
             }
 
             //获取子列表
