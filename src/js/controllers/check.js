@@ -39,6 +39,7 @@ module.exports = myApp => {
           PAGEINDEX: $scope.state.pageIndex,
           PAGECOUNT: CONST.PAGE_SIZE
         }
+        $.extend(postData, $scope.tmp.filter);
         apiService.getAllUnCheMission(postData).success(data => {
           if(data.success === CONST.API_SUCCESS) {
             $scope.data.missions = data.rows;
@@ -185,6 +186,7 @@ module.exports = myApp => {
       }
 
       $scope.onShowDataListClick = (missionId, missionName) => {
+        $scope.state.fullDataView = true;
         $scope.state.workState = STATES.VIEW_DATA_LIST;
         $scope.state.currentTask = missionId;
         $scope.state.currentTaskName = missionName;
@@ -278,6 +280,35 @@ module.exports = myApp => {
           }
         })
       };
+
+      $scope.tmp.filter = {};
+
+      $scope.filterTaskByType = type => {
+        $scope.tmp.filter.MISSION_TYPE = type;
+        $scope.state.pageIndex = 0;
+        refreshMissions();
+      };
+
+      //行政区部分事件
+      $scope.$watch('tmp.region', region => {
+        if(region == undefined) return;
+        if(typeof region === 'object') {
+          $scope.tmp.filter.regioncode= region.code;
+          $timeout.cancel(regionTimer);
+        } else if($scope.data.dataParam) {
+          $scope.tmp.filter.regioncode= undefined;
+        }
+      });
+
+
+      var regionTimer ;
+      $scope.onRegionBlur = () => {
+        if(!$scope.tmp.filter.regioncode) {
+          regionTimer = $timeout(() => $scope.tmp.region = "", 100);
+        }
+        $scope.state.pageIndex = 0;
+        refreshMissions();
+      }
 
       $scope.onCancelDataClick = () => {
         if($scope.state.currentDataType == '7' || $scope.state.currentDataType == '6') {

@@ -24,9 +24,42 @@
            ng-hide="state.workState === STATES.VIEW_DATA">
         <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-55">
           <div class="box-header">
-            <h3 class="box-title">未提交的审核任务</h3>
-            <div class="box-tools pull-right" ng-hide="isCityUser()">
-              <button class="btn btn-box-tool text-red" ng-click="onSubmitOnceClick()"
+            <h3 class="box-title">审核任务</h3>
+            <div class="box-tools pull-right">
+              <span class="btn btn-box-tool" style="cursor: default;margin-right: -10px;color: #777">
+                <i class="fa fa-filter"></i> 筛选：
+              </span>
+              <div class="btn-group" uib-dropdown>
+                <button type="button" class="btn btn-box-tool text-green"
+                        uib-dropdown-toggle>
+                  {{tmp.filter.MISSION_TYPE ? CONST.MISSION_TYPE[tmp.filter.MISSION_TYPE] : '所有任务类型'}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType()">所有任务类型</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('104')">{{CONST.MISSION_TYPE['104']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('105')">{{CONST.MISSION_TYPE['105']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106']}}</a></li>
+                </ul>
+              </div>
+
+              <label class="btn btn-box-tool text-green">地区</label>
+              <div style="width: 120px;display: inline-block">
+                <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
+                       uib-typeahead="address as address.name for address in getLocation($viewValue)"
+                       class="form-control input-sm"
+                       ng-model="tmp.region"
+                       ng-blur="onRegionBlur()"
+                       typeahead-min-length="0"
+                    >
+              </div>
+
+              <button class="btn btn-box-tool text-red"
+                      ng-hide="isCityUser()"
+                      ng-click="onSubmitOnceClick()"
               >
                 <i class="fa fa-send"></i> <span>批量提交任务</span>
               </button>
@@ -41,7 +74,7 @@
                   </th>
                   <th width="25%">任务名称</th>
                   <th width="30%">审核状态</th>
-                  <th width="25%">任务备注</th>
+                  <!--<th width="25%">任务备注</th>-->
                   <th width="50">操作</th>
                 </tr>
               </thead>
@@ -62,10 +95,10 @@
                   </td>
                   <td>{{item.MISSION_NAME}}</td>
                   <td><span class="">{{item.MISSION_CHECK}}</span></td>
-                  <td><span class="word-keep-line"
-                            title="{{item.MISSION_NOTE}}">
-                  {{item.MISSION_NOTE}}
-                  </span></td>
+                  <!--<td><span class="word-keep-line"-->
+                            <!--title="{{item.MISSION_NOTE}}">-->
+                  <!--{{item.MISSION_NOTE}}-->
+                  <!--</span></td>-->
                   <td>
                     <button
                       ng-click="onSubmitTaskClick(item.MISSION_ID, item.MISSION_NAME);$event.stopPropagation();"
@@ -88,10 +121,10 @@
           </div>
         </div>
       </div>
-      <div style="margin-bottom: -20px;" class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
-           style="{{state.workState === STATES.VIEW_DATA_LIST ? 'padding-left:0': ''}}"
-           ng-hide="state.workState === STATES.CREATE_TASK"
-      >
+      <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
+           style="margin-bottom: -20px; {{state.workState === STATES.VIEW_DATA_LIST ? 'padding-left:0': ''}}"
+           ng-hide="state.workState !== STATES.VIEW_DATA_LIST && state.fullDataView"
+          >
         <div class="box box-success" box-auto-scroll>
           <div class="box-header">
             <h3 class="box-title">数据列表
@@ -110,7 +143,7 @@
             <table class="table table-condensed table-hover">
               <thead>
                 <tr>
-                  <th width="120">数据编号</th>
+                  <th width="120">数据名称</th>
                   <th width="25%">数据类型</th>
                   <th width="20%">审核状态</th>
                   <th>审核意见</th>
@@ -133,7 +166,7 @@
                     }"
                     ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE)"
                 >
-                  <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID | eclipseId}}</span></td>
+                  <td><span>{{item.DATA_NAME}}</span></td>
                   <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
                   <td><span class="">{{item.CHECK_STU}}</span></td>
                   <td><span class="word-keep-line" title="{{item.CHECK_MSG}}">{{item.CHECK_MSG}}</span></td>
@@ -145,10 +178,19 @@
         </div>
       </div>
       <!--创建数据或查看数据时显示-->
-      <div style="margin-bottom: -20px;" class="col-md-7 work-data"
-           style="padding-left:0"
+      <div class="col-md-{{state.fullDataView ? 12 : 7}} work-data"
+           style="margin-bottom: -20px; {{state.fullDataView ? '' : 'padding-left:0'}}"
            ng-hide="state.workState !== STATES.VIEW_DATA">
-        <div ng-include="state.workTemplate"></div>
+        <div style="position: relative">
+          <button class="btn btn-box-tool text-green full-data-view-bar"
+                  ng-hide="state.workState === STATES.VIEW_DATA_LIST || state.workTemplate == 'none.html'"
+                  uib-tooltip="{{state.fullDataView ? '显示数据列表' : '隐藏数据列表'}}"
+                  tooltip-append-to-body="true"
+                  ng-click="state.fullDataView = !state.fullDataView">
+            <i class="fa fa-bars"></i>
+          </button>
+          <div ng-include="state.workTemplate"></div>
+        </div>
       </div>
     </div>
   </section>

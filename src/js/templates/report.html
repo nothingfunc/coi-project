@@ -29,13 +29,49 @@
       >
         <div class="box box-success" box-auto-scroll>
           <div class="box-header">
-            <h3 class="box-title">未上报任务</h3>
+            <h3 class="box-title">任务列表</h3>
             <div class="box-tools pull-right">
+              <div class="btn-group" uib-dropdown>
+                <span class="btn btn-box-tool" style="cursor: default;margin-right: -10px;color: #777">
+                  <i class="fa fa-filter"></i> 筛选：
+                </span>
+                <button type="button" class="btn btn-box-tool text-green"
+                        uib-dropdown-toggle>
+                  {{state.currentTaskFilterType ? CONST.MISSION_TYPE[state.currentTaskFilterType] : '所有任务类型'}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType(null)">所有任务类型</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('104')">{{CONST.MISSION_TYPE['104']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('105')">{{CONST.MISSION_TYPE['105']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106']}}</a></li>
+                </ul>
+              </div>
+              <!-- 1.原数据上报模块去掉添加任务按钮和添加数据按钮
               <button class="btn btn-box-tool text-green" ng-click="onCreateTaskClick()"
                       ng-disabled="state.workState === STATES.CREATE_TASK"
               >
                 <i class="fa fa-plus-circle"></i> <span>创建任务</span>
               </button>
+              -->
+
+              <div class="btn-group" uib-dropdown>
+                <button type="button" class="btn btn-box-tool text-green"
+                        uib-dropdown-toggle>
+                  <i class="fa fa-plus-circle"></i> 创建任务 <span class="caret"></span>
+                </button>
+                <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('101')">{{CONST.MISSION_TYPE['101']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('102')">{{CONST.MISSION_TYPE['102']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('103')">{{CONST.MISSION_TYPE['103']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('104')">{{CONST.MISSION_TYPE['104']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('105')">{{CONST.MISSION_TYPE['105']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('106')">{{CONST.MISSION_TYPE['106']}}</a></li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="box-body no-padding">
@@ -44,28 +80,28 @@
               <tr>
                 <th width="25%">任务名称</th>
                 <th width="30%">审核状态</th>
-                <th width="25%">任务备注</th>
+                <!--<th width="25%">任务备注</th>-->
                 <th width="50">操作</th>
               </tr>
               </thead>
               <tbody>
-              <tr ng-if="!data.missions.length">
-                <td colspan="4" class="text-center text-muted">
-                  <br/>没有未上报的任务<br/><br/>
+              <tr ng-if="!data.missions.length || !(data.missions | filterByMissionType:state.currentTaskFilterType).length">
+                <td colspan="3" class="text-center text-muted">
+                  <br/>没有查询到任务<br/><br/>
                 </td>
               </tr>
               <tr
                 ng-click="onShowDataListClick(item.MISSION_ID, item.MISSION_NAME)"
                 style="cursor: pointer"
-                ng-repeat="item in data.missions"
+                ng-repeat="item in data.missions | filterByMissionType:state.currentTaskFilterType"
                 class="{{item.MISSION_ID === state.currentTask ? 'active' : ''}}"
               >
                 <td>{{item.MISSION_NAME}}</td>
                 <td><span class="">{{item.MISSION_CHECK}}</span></td>
-                <td><span class="word-keep-line"
-                          title="{{item.MISSION_NOTE}}">
-                  {{item.MISSION_NOTE}}
-                </span></td>
+                <!--<td><span class="word-keep-line"-->
+                          <!--title="{{item.MISSION_NOTE}}">-->
+                  <!--{{item.MISSION_NOTE}}-->
+                <!--</span></td>-->
                 <td>
                   <button
                     ng-click="onSubmitTaskClick(item.MISSION_ID, item.MISSION_NAME);$event.stopPropagation();"
@@ -75,6 +111,22 @@
                   >
                     <i class="fa fa-paper-plane"></i>
                   </button>
+
+                  <div class="btn-group" uib-dropdown>
+                    <button
+                        class="btn btn-xs btn-link text-red"
+                        uib-tooltip="添加数据"
+                        tooltip-append-to-body="true"
+                        uib-dropdown-toggle>
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <ul class="uib-dropdown-menu uib-dropdown-menu-right" role="menu" aria-labelledby="single-button">
+                      <li role="menuitem" ng-repeat="dataType in CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(item.MISSION_ID | getMissionTypeById)]">
+                        <a href="javascript:;" ng-click="onCreateDataClick(dataType);$event.stopPropagation()">{{CONST.DATA_TYPE[dataType]}}</a>
+                      </li>
+                    </ul>
+                  </div>
+
                 </td>
               </tr>
               </tbody>
@@ -82,9 +134,9 @@
           </div>
         </div>
       </div>
-      <div style="margin-bottom: -20px;" class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
-           style="{{state.workState === STATES.VIEW_DATA_LIST ? 'padding-left:0': ''}}"
-           ng-hide="state.workState === STATES.CREATE_TASK"
+      <div class="col-md-{{state.workState === STATES.VIEW_DATA_LIST?7:5}}"
+           style="margin-bottom: -20px; {{state.workState === STATES.VIEW_DATA_LIST ? 'padding-left:0': ''}}"
+           ng-hide="state.workState === STATES.CREATE_TASK || (state.workState !== STATES.VIEW_DATA_LIST && state.fullDataView)"
       >
         <div class="box box-success" box-auto-scroll>
           <div class="box-header">
@@ -98,7 +150,7 @@
                       ng-click="onShowTaskClick()">
                 <i class="fa fa-reply"></i> 任务列表
               </button>
-
+              <!-- 1.原数据上报模块去掉添加任务按钮和添加数据按钮
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
                         ng-disabled="!state.currentTask"
@@ -116,13 +168,15 @@
                   <li role="menuitem"><a href="javascript:;" ng-click="onCreateDataClick('9')">{{CONST.DATA_TYPE['9']}}</a></li>
                 </ul>
               </div>
+              -->
+
             </div>
           </div>
           <div class="box-body no-padding">
             <table class="table table-condensed table-hover">
               <thead>
               <tr>
-                <th width="120">数据编号</th>
+                <th width="120">数据名称</th>
                 <th width="25%">数据类型</th>
                 <th width="20%">审核状态</th>
                 <th>审核意见</th>
@@ -145,7 +199,7 @@
                   }"
                   ng-click="onShowDataClick(item.DATA_ID, item.DATA_TYPE, item.CHECK_STU)"
               >
-                <td><span class="word-keep-line" title="{{item.DATA_ID}}">{{item.DATA_ID | eclipseId}}</span></td>
+                <td><span>{{item.DATA_NAME}}</span></td>
                 <td>{{CONST.DATA_TYPE[''+item.DATA_TYPE]}}</td>
                 <td><span class="">{{item.CHECK_STU}}</span></td>
                 <td><span class="word-keep-line" title="{{item.CHECK_MSG}}">{{item.CHECK_MSG}}</span></td>
@@ -156,8 +210,8 @@
           </div>
         </div>
       </div>
-      <div style="margin-bottom: -20px;" class="col-md-{{state.createTaskFull ? 12 : 7}}"
-           style="padding-left:0"
+      <div class="col-md-{{state.createTaskFull ? 12 : 7}}"
+           style="margin-bottom: -20px; padding-left:0"
            ng-hide="state.workState !== STATES.CREATE_TASK"
       >
         <div class="box box-success">
@@ -211,13 +265,22 @@
         </div>
       </div>
       <!--创建数据或查看数据时显示-->
-      <div style="margin-bottom: -20px;" class="col-md-7 work-data"
-           style="padding-left:0"
+      <div class="col-md-{{state.fullDataView ? 12 : 7}} work-data"
+           style="margin-bottom: -20px; {{state.fullDataView ? '' : 'padding-left:0'}}"
            ng-hide="state.workState !== STATES.VIEW_DATA &&
             state.workState !== STATES.EDIT_DATA &&
             state.workState !== STATES.CREATE_DATA"
       >
-        <div ng-include="state.workTemplate"></div>
+        <div style="position: relative">
+          <button class="btn btn-box-tool text-green full-data-view-bar"
+                  ng-hide="state.workState === STATES.VIEW_DATA_LIST || state.workTemplate == 'none.html'"
+                  uib-tooltip="{{state.fullDataView ? '显示数据列表' : '隐藏数据列表'}}"
+                  tooltip-append-to-body="true"
+                  ng-click="state.fullDataView = !state.fullDataView">
+            <i class="fa fa-bars"></i>
+          </button>
+          <div ng-include="state.workTemplate"></div>
+        </div>
       </div>
     </div>
   </section>

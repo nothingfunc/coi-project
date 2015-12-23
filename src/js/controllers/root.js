@@ -191,7 +191,7 @@ module.exports = myApp =>
     };
 
     $rootScope.isCityUser = () => {
-      return $rootScope.data.user ? $rootScope.data.user.userRole == '4' : false;
+      return $rootScope.data.user ? $rootScope.data.user.userRole == '4' || $rootScope.data.user.userRole == '3' : false;
     }
 
     //通用时间配置

@@ -187,6 +187,7 @@ module.exports = myApp => {
       };
 
       $scope.onShowDataListClick = (missionId, missionName) => {
+        $scope.state.fullDataView = true;
         $scope.state.workState = STATES.VIEW_DATA_LIST;
         $scope.state.currentTask = missionId;
         $scope.state.currentTaskName = missionName;
@@ -195,6 +196,10 @@ module.exports = myApp => {
 
       $scope.cancelCreateTask = () => {
         $scope.state.workState = STATES.VIEW_DATA_LIST;
+      };
+
+      $scope.filterTaskByType = type => {
+        $scope.state.currentTaskFilterType = type;
       };
 
       $scope.createTask = () => {
@@ -207,6 +212,27 @@ module.exports = myApp => {
         })
       };
 
+      $scope.createTaskByType = type => {
+        if(type == '102' || type == '103') {
+          $rootScope.showTips({
+            type: 'error',
+            msg: '维护中，暂时不能创建该类型任务。'
+          });
+          return;
+        }
+        $rootScope.showTips({
+          type: 'confirm',
+          msg: '确定创建 <strong>' + CONST.MISSION_TYPE[type] + '</strong> 任务？'
+        }).then(function() {
+          apiService.createNewMission({MISSION_TYPE: type}).success(data => {
+            if(data.success = CONST.API_SUCCESS) {
+              getMissions();
+              $scope.state.currentTask && getDataList($scope.state.currentTask);
+            }
+          })
+        });
+      };
+
       $scope.createTaskFull = () => {
         $scope.state.createTaskFull = !$scope.state.createTaskFull;
       };
@@ -217,6 +243,8 @@ module.exports = myApp => {
       };
 
       $scope.onCreateDataClick = type => {
+        $scope.state.fullDataView = true;
+        console.log($scope.state.fullDataView)
         $scope.data.projectParam = null;
         $scope.state.projectState = STATES.NO_PROJECT;
 
@@ -317,6 +345,8 @@ module.exports = myApp => {
       };
 
       $scope.onCancelDataClick = () => {
+        $scope.state.fullDataView = false;
+
         if($scope.state.workState === STATES.CREATE_DATA) {
           if($scope.state.currentDataType == '7' || $scope.state.currentDataType == '6') {
             $scope.state.currentDataType = '3';
