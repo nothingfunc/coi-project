@@ -292,22 +292,26 @@ module.exports = myApp => {
       //行政区部分事件
       $scope.$watch('tmp.region', region => {
         if(region == undefined) return;
+        $timeout.cancel(refreshMissionsTimer);
         if(typeof region === 'object') {
           $scope.tmp.filter.regioncode= region.code;
           $timeout.cancel(regionTimer);
-        } else if($scope.data.dataParam) {
+        } else {
           $scope.tmp.filter.regioncode= undefined;
         }
+        refreshMissionsTimer = $timeout(() => {
+          $scope.state.pageIndex = 0;
+          refreshMissions();
+        }, 500);
       });
 
+      var refreshMissionsTimer;
 
       var regionTimer ;
       $scope.onRegionBlur = () => {
         if(!$scope.tmp.filter.regioncode) {
           regionTimer = $timeout(() => $scope.tmp.region = "", 100);
         }
-        $scope.state.pageIndex = 0;
-        refreshMissions();
       }
 
       $scope.onCancelDataClick = () => {
