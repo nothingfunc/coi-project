@@ -280,7 +280,9 @@
           "DATA_ID": "x12344449abcdef333333333333333xxx33333333333333333",
           "GRASS_TYPE": "czg",
           "PROJECT_ID": "x12344449abcdef333333333333333xxx33333333333333333",
-          "P_NAME": "HHH"
+          "P_NAME": "HHH",
+          "COUNTY_CODE":123,
+          "COUNTY_NAME":"Hello"
         },
         "Data3": {
           "SAMPLE_PLOT_ID": "888168",

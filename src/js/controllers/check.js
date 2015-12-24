@@ -290,7 +290,7 @@ module.exports = myApp => {
       };
 
       //行政区部分事件
-      $scope.$watch('tmp.region', region => {
+      $scope.$watch('tmp.regionFilter', region => {
         if(region == undefined) return;
         $timeout.cancel(refreshMissionsTimer);
         if(typeof region === 'object') {
@@ -308,8 +308,28 @@ module.exports = myApp => {
       var refreshMissionsTimer;
 
       var regionTimer ;
-      $scope.onRegionBlur = () => {
+      $scope.onRegionFilterBlur = () => {
         if(!$scope.tmp.filter.regioncode) {
+          regionTimer = $timeout(() => $scope.tmp.regionFilter = "", 100);
+        }
+      }
+
+
+      //行政区部分事件
+      $scope.$watch('tmp.region', region => {
+        if(region == undefined) return;
+        if(typeof region === 'object') {
+          $scope.data.dataParam.COUNTY_CODE = region.code;
+          $scope.data.dataParam.COUNTY_NAME = region.name;
+          $timeout.cancel(regionTimer);
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.COUNTY_CODE = '';
+          $scope.data.dataParam.COUNTY_NAME = '';
+        }
+      });
+      var regionTimer ;
+      $scope.onRegionBlur = () => {
+        if(!$scope.data.dataParam.COUNTY_CODE) {
           regionTimer = $timeout(() => $scope.tmp.region = "", 100);
         }
       }

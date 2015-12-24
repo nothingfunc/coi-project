@@ -1,6 +1,31 @@
 <div class="content-wrapper" style="overflow: hidden;">
   <section class="content-header">
-    <h1> 数据审核 <small>还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未提交的审核任务</small> </h1>
+    <h1> 数据审核
+      <small class="margin-r-10">查询到 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条任务</small>
+      <small>
+        <i class="fa fa-filter"></i> 筛选任务：
+        <div class="btn-group btn-group-xs" role="group">
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == undefined ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType()">所有类型</button>
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '101' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '102' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</button>
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '103' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</button>
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '104' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('104')">{{CONST.MISSION_TYPE['104'] | shortTaskType}}</button>
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '105' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('105')">{{CONST.MISSION_TYPE['105'] | shortTaskType}}</button>
+          <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '106' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</button>
+        </div>
+        <label class="btn btn-box-tool text-green"></label>
+        <div style="width: 140px;display: inline-block">
+          <input type="text"
+                 placeholder="按地区"
+                 uib-typeahead="address as address.name for address in getLocation($viewValue)"
+                 class="form-control input-sm"
+                 ng-model="tmp.regionFilter"
+                 ng-blur="onRegionFilterBlur()"
+                 typeahead-min-length="0"
+              >
+        </div>
+      </small>
+    </h1>
     <ol class="breadcrumb">
       <li>
         <a href="javascript:;" ng-click="onShowTaskClick()">
@@ -24,8 +49,9 @@
            ng-hide="state.workState === STATES.VIEW_DATA">
         <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-55">
           <div class="box-header">
-            <h3 class="box-title">审核任务</h3>
+            <h3 class="box-title">待审核任务列表</h3>
             <div class="box-tools pull-right">
+              <!--
               <span class="btn btn-box-tool" style="cursor: default;margin-right: -10px;color: #777">
                 <i class="fa fa-filter"></i> 筛选：
               </span>
@@ -37,12 +63,12 @@
                 </button>
                 <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType()">所有任务类型</a></li>
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101']}}</a></li>
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102']}}</a></li>
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103']}}</a></li>
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('104')">{{CONST.MISSION_TYPE['104']}}</a></li>
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('105')">{{CONST.MISSION_TYPE['105']}}</a></li>
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106']}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('104')">{{CONST.MISSION_TYPE['104'] | shortTaskType}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('105')">{{CONST.MISSION_TYPE['105'] | shortTaskType}}</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</a></li>
                 </ul>
               </div>
 
@@ -56,6 +82,7 @@
                        typeahead-min-length="0"
                     >
               </div>
+              -->
 
               <button class="btn btn-box-tool text-red"
                       ng-hide="isCityUser()"

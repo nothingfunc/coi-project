@@ -20,4 +20,9 @@ module.exports = myApp => {
   );
 
   myApp.filter('getMissionTypeById', () => getMissionTypeById);
+
+  myApp.filter('shortTaskType', () =>
+    name => name.slice(2, -2)
+  );
+
 }

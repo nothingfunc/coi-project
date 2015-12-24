@@ -1,6 +1,23 @@
 <div class="content-wrapper" style="overflow: hidden;">
   <section class="content-header">
-    <h1> 数据上报 <small>还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报任务</small> </h1>
+    <h1> 数据上报
+      <small class="margin-r-10">还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报任务</small>
+      <small>
+        <i class="fa fa-filter"></i> 筛选任务：
+        <div class="btn-group btn-group-xs" role="group">
+          <button type="button" class="btn {{state.currentTaskFilterType == undefined ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType()">所有类型</button>
+          <button type="button" class="btn {{state.currentTaskFilterType == '101' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
+          <button type="button" class="btn {{state.currentTaskFilterType == '102' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</button>
+          <button type="button" class="btn {{state.currentTaskFilterType == '103' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</button>
+          <button type="button" class="btn {{state.currentTaskFilterType == '104' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('104')">{{CONST.MISSION_TYPE['104'] | shortTaskType}}</button>
+          <button type="button" class="btn {{state.currentTaskFilterType == '105' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('105')">{{CONST.MISSION_TYPE['105'] | shortTaskType}}</button>
+          <button type="button" class="btn {{state.currentTaskFilterType == '106' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</button>
+        </div>
+      </small>
+    </h1>
+
+
+
     <ol class="breadcrumb">
       <li>
         <a href="javascript:;" ng-click="onShowTaskClick()">
@@ -31,6 +48,7 @@
           <div class="box-header">
             <h3 class="box-title">任务列表</h3>
             <div class="box-tools pull-right">
+              <!--
               <div class="btn-group" uib-dropdown>
                 <span class="btn btn-box-tool" style="cursor: default;margin-right: -10px;color: #777">
                   <i class="fa fa-filter"></i> 筛选：
@@ -50,6 +68,7 @@
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106']}}</a></li>
                 </ul>
               </div>
+              -->
               <!-- 1.原数据上报模块去掉添加任务按钮和添加数据按钮
               <button class="btn btn-box-tool text-green" ng-click="onCreateTaskClick()"
                       ng-disabled="state.workState === STATES.CREATE_TASK"
@@ -111,22 +130,6 @@
                   >
                     <i class="fa fa-paper-plane"></i>
                   </button>
-
-                  <div class="btn-group" uib-dropdown>
-                    <button
-                        class="btn btn-xs btn-link text-red"
-                        uib-tooltip="添加数据"
-                        tooltip-append-to-body="true"
-                        uib-dropdown-toggle>
-                      <i class="fa fa-plus"></i>
-                    </button>
-                    <ul class="uib-dropdown-menu uib-dropdown-menu-right" role="menu" aria-labelledby="single-button">
-                      <li role="menuitem" ng-repeat="dataType in CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(item.MISSION_ID | getMissionTypeById)]">
-                        <a href="javascript:;" ng-click="onCreateDataClick(dataType);$event.stopPropagation()">{{CONST.DATA_TYPE[dataType]}}</a>
-                      </li>
-                    </ul>
-                  </div>
-
                 </td>
               </tr>
               </tbody>
@@ -150,6 +153,36 @@
                       ng-click="onShowTaskClick()">
                 <i class="fa fa-reply"></i> 任务列表
               </button>
+
+
+              <span ng-if="state.currentTask && CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(state.currentTask | getMissionTypeById)].length">
+                <button type="button" class="btn btn-box-tool text-green"
+                        ng-repeat="dataType in CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(state.currentTask | getMissionTypeById)]"
+                        ng-click="onCreateDataClick(dataType);"
+                        uib-tooltip="添加{{CONST.DATA_TYPE[dataType]}}数据"
+                        tooltip-append-to-body="true"
+                    >
+                  <i class="fa fa-plus-circle"></i>
+                  {{CONST.DATA_TYPE[dataType]}}
+                </button>
+              </span>
+
+              <!--<div class="btn-group" uib-dropdown>-->
+
+                <!--<button-->
+                    <!--class="btn btn-xs btn-link text-red"-->
+                    <!--uib-tooltip="添加数据"-->
+                    <!--tooltip-append-to-body="true"-->
+                    <!--uib-dropdown-toggle>-->
+                  <!--<i class="fa fa-plus"></i>-->
+                <!--</button>-->
+                <!--<ul class="uib-dropdown-menu uib-dropdown-menu-right" role="menu" aria-labelledby="single-button">-->
+                  <!--<li role="menuitem" ng-repeat="dataType in CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(state.currentTask | getMissionTypeById)]">-->
+                    <!--<a href="javascript:;" ng-click="onCreateDataClick(dataType);">{{CONST.DATA_TYPE[dataType]}}</a>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</div>-->
+
               <!-- 1.原数据上报模块去掉添加任务按钮和添加数据按钮
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
