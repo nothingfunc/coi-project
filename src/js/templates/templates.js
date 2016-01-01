@@ -22,6 +22,8 @@ module.exports = myApp => {
     $templateCache.put("create-data-12.html", __inline('./create-data-12.html'));
     $templateCache.put("create-data-13.html", __inline('./create-data-13.html'));
     $templateCache.put("create-data-14.html", __inline('./create-data-14.html'));
+    $templateCache.put("create-data-15.html", __inline('./create-data-15.html'));
+    $templateCache.put("create-data-16.html", __inline('./create-data-16.html'));
 
     $templateCache.put("data-detail-dialog.html", __inline('./data-detail-dialog.html'));
 
@@ -38,6 +40,8 @@ module.exports = myApp => {
     $templateCache.put("search-data-12.html", __inline('./search-data-12.html'));
     $templateCache.put("search-data-13.html", __inline('./search-data-13.html'));
     $templateCache.put("search-data-14.html", __inline('./search-data-14.html'));
+    $templateCache.put("search-data-15.html", __inline('./search-data-15.html'));
+    $templateCache.put("search-data-16.html", __inline('./search-data-16.html'));
 
     $templateCache.put("check-form.html", __inline('./check-form.html'));
     $templateCache.put("save-edit-buttons.html", __inline('./save-edit-buttons.html'));

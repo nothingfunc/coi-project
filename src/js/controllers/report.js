@@ -255,7 +255,7 @@ module.exports = myApp => {
           var samplePlotId = $scope.state.currentData;
         }
         //子类返青期样方需要设置SIMP_ID，标识父级
-        if(type === '10') {
+        if(type === '10' || type === '16') {
           var simpId = $scope.state.currentData;
         }
         $scope.data.dataParam = {
@@ -325,7 +325,14 @@ module.exports = myApp => {
               TYPE_NAME: data.Data.O_GRASS_SM_TYPE,
               TYPE_ID: data.Data.O_GRASS_SM_TYPE_ID
             });
-
+            data.Data.S_GRS_B_TYPE && ($scope.tmp.grassBTypeWK = {
+              TYPE_NAME: data.Data.S_GRS_B_TYPE,
+              TYPE_ID: data.Data.S_GRS_B_TYPE_ID
+            });
+            data.Data.S_GRS_S_TYPE && ($scope.tmp.grassSTypeWK = {
+              TYPE_NAME: data.Data.S_GRS_S_TYPE,
+              TYPE_ID: data.Data.S_GRS_S_TYPE_ID
+            });
 
             //如果type是3，就设置他的工程信息
             if(type == '3') {
@@ -371,6 +378,9 @@ module.exports = myApp => {
           }
           if($scope.state.currentDataType == '10') {
             $scope.state.currentDataType = '9';
+          }
+          if($scope.state.currentDataType == '16') {
+            $scope.state.currentDataType = '15';
           }
         }
         $scope.showCurrentData();
@@ -456,9 +466,12 @@ module.exports = myApp => {
           case 10:
             return checkGreenTime();
           case 14:
+          case 15:
             return checkSurveyTime('S_TIME') &&
                    checkRequire('S_PERSON', '调查人不能为空') &&
-                   checkRequire('S_NAME', '数据编号不能为空')
+                   checkRequire('S_NAME', '数据编号不能为空');
+          case 16:
+            return checkRequire('S_NAME', '样方编号不能为空');
           default:
             return true;
         }
@@ -566,6 +579,18 @@ module.exports = myApp => {
         }
       }
 
+
+      //草地类事件(物候期，枯黄期)
+      $scope.$watch('tmp.grassBTypeWK', type => {
+        if(type == undefined) return;
+        if(typeof type === 'object') {
+          $scope.data.dataParam.S_GRS_B_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.S_GRS_B_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.S_GRS_B_TYPE = type;
+          $scope.data.dataParam.S_GRS_B_TYPE_ID = '';
+        }
+      });
       //草地类事件
       $scope.$watch('tmp.grassBType', type => {
         if(type == undefined) return;
@@ -621,6 +646,17 @@ module.exports = myApp => {
         } else if($scope.data.dataParam) {
           $scope.data.dataParam.GRASS_SM_TYPE = type;
           $scope.data.dataParam.GRASS_SM_TYPE_ID = '';
+        }
+      });
+      //草地类事件(物候期，枯黄期)
+      $scope.$watch('tmp.grassSTypeWK', type => {
+        if(type == undefined) return;
+        if(typeof type === 'object') {
+          $scope.data.dataParam.S_GRS_S_TYPE = type.TYPE_NAME;
+          $scope.data.dataParam.S_GRS_S_TYPE_ID = type.TYPE_ID;
+        } else if($scope.data.dataParam) {
+          $scope.data.dataParam.S_GRS_S_TYPE = type;
+          $scope.data.dataParam.S_GRS_S_TYPE_ID = '';
         }
       });
       //草地型事件（工程区内）

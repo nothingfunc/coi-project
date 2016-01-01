@@ -95,7 +95,7 @@
         "success": "1",
         "msg": "Not logined",
         "rows|0-20": [{
-          "MISSION_ID": "MS0@integer(2, 2)--@integer(10000,99999)",
+          "MISSION_ID": "MS0@integer(3, 3)--@integer(10000,99999)",
           "MISSION_CODE": "@integer(10000,99999)",
           "MISSION_CHECK": "审核驳回，请重新编辑",
           "MISSION_CHEMSG": "@word(4,300)",
@@ -234,6 +234,25 @@
             "DATA_NAME": "@word(10)",
             "DATA_ID": "19",
             "DATA_TYPE": "14",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_NAME": "@word(10)",
+            "DATA_ID": "20",
+            "DATA_TYPE": "15",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_NAME": "@word(10)",
+            "DATA_ID": "21",
+            "PARENT_DATA_ID": "20",
+            "DATA_TYPE": "16",
             "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
             "CHECK_MSG": "@word(5,100)",
             "CHECK_MAN": "@first()"

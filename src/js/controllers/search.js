@@ -343,6 +343,38 @@ module.exports = myApp =>
           "title": "详细",
           "relatedField": "xx_true"
         }
+      ],
+      '15': [
+        {
+          "title": "调查时间",
+          "relatedField": "S_TIME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "S_PERSON"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        },
+        {
+          "title": "关联样方",
+          "relatedField": "ck_true"
+        }
+      ],
+      '16': [
+        {
+          "title": "调查时间",
+          "relatedField": "S_TIME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "S_PERSON"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
       ]
       //生态环境调查 end
     };
@@ -479,6 +511,8 @@ module.exports = myApp =>
     services['13'] = 'QueryEnvsurvByCondition';
 
     services['14'] = 'QueryEnvsurvByCondition'; //todo
+    services['15'] = 'QueryEnvsurvByCondition'; //todo
+    services['16'] = 'QueryEnvsurvByCondition'; //todo
 
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
@@ -664,6 +698,8 @@ module.exports = myApp =>
         dataRelatedType = item.HAS_BUSH === '无' ? '6' : '7';
       } else if (selectedDataTypeId == '9') {
         dataRelatedType = '10';
+      } else if (selectedDataTypeId == '15') {
+        dataRelatedType = '16';
       }
       $scope.setDataRelatedType(dataRelatedType);
       if (selectedDataTypeId == '2') {
