@@ -315,6 +315,22 @@ module.exports = myApp => {
       }
 
 
+      //墒情情况逻辑
+      $scope.$watch('data.dataParam.S_SOIL_WT', value => {
+        console.log(value);
+        if(['好','中','差'].indexOf(value) != -1) {
+          $scope.tmp.S_SOIL_WT = '';
+        } else {
+          $scope.tmp.S_SOIL_WT = 'else';
+        }
+      });
+      $scope.$watch('tmp.S_SOIL_WT', value => {
+        if($scope.data.dataParam && value == 'else' && ['好','中','差'].indexOf($scope.data.dataParam.S_SOIL_WT) != -1) {
+          $scope.data.dataParam.S_SOIL_WT = '';
+        }
+      });
+
+
       //行政区部分事件
       $scope.$watch('tmp.region', region => {
         if(region == undefined) return;

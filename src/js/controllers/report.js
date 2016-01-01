@@ -213,13 +213,13 @@ module.exports = myApp => {
       };
 
       $scope.createTaskByType = type => {
-        if(type == '102' || type == '103') {
-          $rootScope.showTips({
-            type: 'error',
-            msg: '维护中，暂时不能创建该类型任务。'
-          });
-          return;
-        }
+        //if(type == '102' || type == '103') {
+        //  $rootScope.showTips({
+        //    type: 'error',
+        //    msg: '维护中，暂时不能创建该类型任务。'
+        //  });
+        //  return;
+        //}
         $rootScope.showTips({
           type: 'confirm',
           msg: '确定创建 <strong>' + CONST.MISSION_TYPE[type] + '</strong> 任务？'
@@ -344,6 +344,21 @@ module.exports = myApp => {
         })
       };
 
+      //墒情情况逻辑
+      $scope.$watch('data.dataParam.S_SOIL_WT', value => {
+        console.log(value);
+        if(['好','中','差'].indexOf(value) != -1) {
+          $scope.tmp.S_SOIL_WT = '';
+        } else {
+          $scope.tmp.S_SOIL_WT = 'else';
+        }
+      });
+      $scope.$watch('tmp.S_SOIL_WT', value => {
+        if($scope.data.dataParam && value == 'else' && ['好','中','差'].indexOf($scope.data.dataParam.S_SOIL_WT) != -1) {
+          $scope.data.dataParam.S_SOIL_WT = '';
+        }
+      });
+
       $scope.onCancelDataClick = () => {
         $scope.state.fullDataView = false;
 
@@ -362,8 +377,8 @@ module.exports = myApp => {
       };
 
       $scope.validateData = (type = $scope.state.currentDataType) => {
-        var checkSurveyTime = () => {
-          if(!$scope.data.dataParam.SURVEY_TIME) {
+        var checkSurveyTime = (keyName = 'SURVEY_TIME') => {
+          if(!$scope.data.dataParam[keyName]) {
             $rootScope.showTips({
               type: 'error',
               msg: '调查时间为空或格式错误'
@@ -412,6 +427,16 @@ module.exports = myApp => {
           }
           return true;
         };
+        var checkRequire = (keyName, errorMsg) => {
+          if(!$scope.data.dataParam[keyName]) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: errorMsg
+            });
+            return false;
+          }
+          return true;
+        }
         switch(parseInt(type)) {
           case 2:
           case 9:
@@ -430,6 +455,10 @@ module.exports = myApp => {
             return checkProjectRegion();
           case 10:
             return checkGreenTime();
+          case 14:
+            return checkSurveyTime('S_TIME') &&
+                   checkRequire('S_PERSON', '调查人不能为空') &&
+                   checkRequire('S_NAME', '数据编号不能为空')
           default:
             return true;
         }

@@ -2,6 +2,7 @@
   <section class="content-header">
     <h1> 数据上报
       <small class="margin-r-10">还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报任务</small>
+      <!--
       <small>
         <i class="fa fa-filter"></i> 筛选任务：
         <div class="btn-group btn-group-xs" role="group">
@@ -14,6 +15,18 @@
           <button type="button" class="btn {{state.currentTaskFilterType == '106' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</button>
         </div>
       </small>
+      -->
+
+      <small>
+        <i class="fa fa-plus"></i> 创建任务：
+        <button type="button" class="btn btn-default default" ng-click="createTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
+        <button type="button" class="btn btn-default default" ng-click="createTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</button>
+        <button type="button" class="btn btn-default default" ng-click="createTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</button>
+        <button type="button" class="btn btn-default default" ng-click="createTaskByType('104')">{{CONST.MISSION_TYPE['104'] | shortTaskType}}</button>
+        <button type="button" class="btn btn-default default" ng-click="createTaskByType('105')">{{CONST.MISSION_TYPE['105'] | shortTaskType}}</button>
+        <button type="button" class="btn btn-default default" ng-click="createTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</button>
+      </small>
+
     </h1>
 
 
@@ -75,7 +88,6 @@
               >
                 <i class="fa fa-plus-circle"></i> <span>创建任务</span>
               </button>
-              -->
 
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
@@ -91,6 +103,7 @@
                   <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('106')">{{CONST.MISSION_TYPE['106']}}</a></li>
                 </ul>
               </div>
+              -->
             </div>
           </div>
           <div class="box-body no-padding">

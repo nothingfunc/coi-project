@@ -1,0 +1,373 @@
+<style>
+  .data-2 .control-label{
+    text-align: left;
+  }
+  .data-2 .data-2-dbtz .control-label{
+    width: 85px;
+  }
+</style>
+<div class="box box-success data-2" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      {{state.workState === STATES.EDIT_DATA ? '编辑物候期数据' : ''}}
+      {{state.workState === STATES.CREATE_DATA ? '添加物候期数据' : ''}}
+      {{state.workState === STATES.VIEW_DATA ? '查看物候期数据' : ''}}
+      <small ng-if="state.workState === STATES.EDIT_DATA || state.workState === STATES.VIEW_DATA">
+        编号：{{state.currentData}}
+      </small>
+    </h3>
+  </div>
+  <div class="box-body no-padding">
+    <form class="form-horizontal" novalidate>
+      <div class="box-body scroll-content">
+        <h4 class="with-border"><span>基本信息</span></h4>
+        <div class="form-group-sm clearfix">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">调查时间：</label>
+            <div class="input-group w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control datepicker-bootstrap"
+                     uib-datepicker-popup
+                     ng-model="data.dataParam.S_TIME"
+                     is-open="__dateIsOpen0"
+                     datepicker-options="dateOptions"
+                     show-button-bar="false"
+                     required
+                  />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default"
+                        ng-click="__dateIsOpen0=!__dateIsOpen0"
+                        ng-disabled="state.workState === STATES.VIEW_DATA"
+                    ><i class="fa fa-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">调查人：</label>
+            <div class="pull-left w-130">
+              <input type="text" class="form-control"
+                     ng-disabled="state.workState === STATES.VIEW_DATA"
+                     ng-model="data.dataParam.S_PERSON"
+                  />
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">数据编号：</label>
+            <div class="pull-left w-130">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control"
+                     ng-model="data.dataParam.S_NAME"
+                  />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-10">
+            <label class="pull-left control-label">所在地区：</label>
+            <div class="pull-left" style="width: 195px;">
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
+                     uib-typeahead="address as address.name for address in getLocation($viewValue)"
+                     class="form-control"
+                     ng-model="tmp.region"
+                     ng-blur="onRegionBlur()"
+                     typeahead-min-length="0"
+                  >
+            </div>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label" style="min-width: 45px;">乡镇：</label>
+            <div class="pull-left" style="width: 90px;">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                     type="text" class="form-control"
+                     ng-model="data.dataParam.TOWN_NAME"
+                  />
+            </div>
+          </div>
+        </div>
+
+          <div class="form-group-sm clearfix margin-t-10">
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">东经：</label>
+              <div class="pull-left w-130">
+                <input type="text" class="form-control"
+                       ng-disabled="state.workState === STATES.VIEW_DATA"
+                       ng-model="data.dataParam.S_LON"
+                    />
+              </div>
+            </div>
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">北纬：</label>
+              <div class="pull-left w-130">
+                <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                       type="text" class="form-control"
+                       ng-model="data.dataParam.S_LAT"
+                    />
+              </div>
+            </div>
+            <div class="clearfix pull-left">
+              <label class="pull-left control-label">海拔：</label>
+              <div class="pull-left w-130">
+                <input ng-disabled="state.workState === STATES.VIEW_DATA"
+                       type="text" class="form-control"
+                       ng-model="data.dataParam.S_HEIGHT"
+                    />
+              </div>
+            </div>
+          </div>
+
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="pull-left margin-r-20">
+            <div class="image-wrapper">
+              <span class="image-tooltip text-gray">
+                <i class="fa fa-file-image-o"></i><br/>
+                <small>请选择定点景观照片文件</small>
+              </span>
+              <a ng-click="$parent.showLightBox(tmp.file1.$ngfBlobUrl || tmp.file1.$ngfDataUrl || tmp._img1)" href="javascript:;">
+                <img uib-tooltip="点击查看原图"
+                     style="width:100%; height: 100%;"
+                     ngf-src="tmp.file1 || tmp._img1"
+                    >
+              </a>
+              <span class="image-control"
+                    ngf-select ng-model="tmp.file1" name="file" ngf-pattern="'image/*'"
+                    accept="image/*" ngf-max-size="20MB"
+                    ng-hide="state.workState === STATES.VIEW_DATA"
+                  >
+                选择文件
+              </span>
+            </div>
+          </div>
+
+          <div class="pull-left">
+            <div class="image-wrapper">
+              <span class="image-tooltip text-gray">
+                <i class="fa fa-file-image-o"></i><br/>
+                <small>请选择俯视照片文件</small>
+              </span>
+              <a ng-click="$parent.showLightBox(tmp.file2.$ngfBlobUrl || tmp.file2.$ngfDataUrl || tmp._img2)" href="javascript:;">
+                <img uib-tooltip="点击查看原图"
+                     style="width:100%; height: 100%;"
+                     ngf-src="tmp.file2 || tmp._img2"
+                    >
+              </a>
+              <span class="image-control"
+                    ngf-select ng-model="tmp.file2" name="file" ngf-pattern="'image/*'"
+                    accept="image/*" ngf-max-size="20MB"
+                    ng-hide="state.workState === STATES.VIEW_DATA"
+                  >
+                选择文件
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="with-border"><span>类型</span> </h4>
+
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">草地类：</label>
+            <div class="pull-left">
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA"
+                     ng-model="tmp.grassBType"
+                     uib-typeahead="type as type.TYPE_NAME for type in getGrassBType($viewValue)"
+                     class="form-control"
+                     ng-blur="onTypeBBlur()"
+                     typeahead-min-length="0"
+                  >
+            </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">草地型：</label>
+            <div class="pull-left" style="width: 250px;">
+              <input type="text" ng-disabled="state.workState === STATES.VIEW_DATA || !data.dataParam.GRASS_BG_TYPE_ID"
+                     ng-model="tmp.grassSType"
+                     uib-typeahead="type as type.TYPE_NAME for type in getGrassSType($viewValue, data.dataParam.GRASS_BG_TYPE_ID)"
+                     class="form-control"
+                     ng-blur="onTypeSBlur()"
+                     typeahead-min-length="0"
+                  >
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">地形地貌：</label>
+            <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_DXDM" class="margin-r-5">
+                <input
+                    icheck type="radio" name="dxdm"
+                    ng-disabled="state.workState === STATES.VIEW_DATA"
+                    ng-model="data.dataParam.S_GEOM"
+                    value="{{opt.value}}"
+                    />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <label class="pull-left control-label">坡向：</label>
+          <div class="pull-left margin-r-20 radio">
+            <label ng-repeat="opt in CONST.OPT_PX" class="margin-r-5">
+              <input
+                  icheck type="radio" name="px"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.S_EXPOS"
+                  value="{{opt.value}}"
+                  />
+              <span>{{opt.name}}</span>
+            </label>
+          </div>
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label" style="min-width: auto">坡位：</label>
+            <div class="pull-left radio">
+              <label ng-repeat="opt in CONST.OPT_PW" class="margin-r-5">
+                <input
+                    icheck type="radio" name="pw"
+                    ng-disabled="state.workState === STATES.VIEW_DATA"
+                    ng-model="data.dataParam.S_SLOPE"
+                    value="{{opt.value}}"
+                    />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="with-border"><span>概况</span> </h4>
+        <span class="data-2-dbtz">
+          <div class="form-group-sm clearfix margin-t-10">
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">平均盖度：</label>
+              <div class="pull-left w-145">
+                <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.S_PLANT_AREAP"/>
+              </div>
+            </div>
+            <div class="clearfix pull-left margin-r-20">
+              <label class="pull-left control-label">平均高度：</label>
+              <div class="pull-left w-145">
+                <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.S_PLANT_HEIGHT"/>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">产草量鲜重：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.S_PLANT_F_WEIGHT"/>
+            </div>
+          </div>
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">总产草量：</label>
+            <div class="pull-left w-145">
+              <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.S_PLANT_T_WEIGHT"/>
+            </div>
+          </div>
+        </div>
+        </span>
+
+
+        <h4 class="with-border"><span>利用</span> </h4>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">利用方式：</label>
+            <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_LYFS" class="margin-r-5">
+                <input
+                    icheck type="radio" name="lyfs"
+                    ng-disabled="state.workState === STATES.VIEW_DATA"
+                    ng-model="data.dataParam.S_USE_TYPE"
+                    value="{{opt.value}}"
+                    />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left">
+            <label class="pull-left control-label">利用状况：</label>
+            <div class="pull-left margin-r-20 radio">
+              <label ng-repeat="opt in CONST.OPT_LYZK" class="margin-r-5">
+                <input
+                    icheck type="radio" name="lyzc"
+                    ng-disabled="state.workState === STATES.VIEW_DATA"
+                    ng-model="data.dataParam.S_USE_STAU"
+                    value="{{opt.value}}"
+                    />
+                <span>{{opt.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="with-border"><span>评价</span> </h4>
+        <div class="form-group-sm clearfix margin-t-10">
+          <label class="pull-left control-label">墒情情况：</label>
+          <div class="pull-left margin-r-10 radio">
+            <label ng-repeat="opt in CONST.OPT_ZHPJ" class="margin-r-5">
+              <input
+                  icheck type="radio" name="dsqk"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.S_SOIL_WT"
+                  value="{{opt.value}}"
+                  />
+              <span>{{opt.name}}</span>
+            </label>
+            <label class="margin-r-5">
+              <input
+                  icheck type="radio" name="dsqk"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="tmp.S_SOIL_WT"
+                  value="else"
+                  />
+              <span>其他</span>
+            </label>
+          </div>
+          <div ng-hide="tmp.S_SOIL_WT != 'else'"
+               class="pull-left">
+            <input
+                class="form-control"
+                type="text"
+                ng-disabled="state.workState === STATES.VIEW_DATA"
+                ng-model="data.dataParam.S_SOIL_WT"
+                />
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <label class="pull-left control-label">综合评价：</label>
+          <div class="pull-left margin-r-20 radio">
+            <label ng-repeat="opt in CONST.OPT_ZHPJ" class="margin-r-5">
+              <input
+                  icheck type="radio" name="zhpj"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  ng-model="data.dataParam.S_EVALUTE"
+                  value="{{opt.value}}"
+                  />
+              <span>{{opt.name}}</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group-sm clearfix margin-t-10">
+          <div class="clearfix pull-left margin-r-20">
+            <label class="pull-left control-label">备注：</label>
+            <div class="pull-left w-145">
+              <textarea
+                  style="width: 400px;"
+                  rows="3"
+                  ng-disabled="state.workState === STATES.VIEW_DATA"
+                  type="text" class="form-control"
+                  ng-model="data.dataParam.S_REMARK">
+              </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <span ng-include="'save-edit-buttons.html'"></span>
+        <span ng-include="'check-form.html'"></span>
+      </div>
+    </form>
+  </div>
+</div>

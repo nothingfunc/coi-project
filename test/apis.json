@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "3",
+        "userRole": "5",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -95,7 +95,7 @@
         "success": "1",
         "msg": "Not logined",
         "rows|0-20": [{
-          "MISSION_ID": "MS0@integer(1, 6)--@integer(10000,99999)",
+          "MISSION_ID": "MS0@integer(2, 2)--@integer(10000,99999)",
           "MISSION_CODE": "@integer(10000,99999)",
           "MISSION_CHECK": "审核驳回，请重新编辑",
           "MISSION_CHEMSG": "@word(4,300)",
@@ -228,6 +228,15 @@
             "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
             "CHECK_MSG": "@word(5,100)",
             "CHECK_MAN": "@first()"
+          },
+          {
+            "MISSION_ID": "@id()",
+            "DATA_NAME": "@word(10)",
+            "DATA_ID": "19",
+            "DATA_TYPE": "14",
+            "CHECK_STU": "@pick(['未上报', '待市审核', '市审核驳回', '省审核驳回'])",
+            "CHECK_MSG": "@word(5,100)",
+            "CHECK_MAN": "@first()"
           }
         ]
       }
@@ -282,7 +291,8 @@
           "PROJECT_ID": "x12344449abcdef333333333333333xxx33333333333333333",
           "P_NAME": "HHH",
           "COUNTY_CODE":123,
-          "COUNTY_NAME":"Hello"
+          "COUNTY_NAME":"Hello",
+          "S_SOIL_WT": "差"
         },
         "Data3": {
           "SAMPLE_PLOT_ID": "888168",

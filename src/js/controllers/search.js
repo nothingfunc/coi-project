@@ -329,6 +329,20 @@ module.exports = myApp =>
           "title": "详细",
           "relatedField": "xx_true"
         }
+      ],
+      '14': [
+        {
+          "title": "调查时间",
+          "relatedField": "S_TIME"
+        },
+        {
+          "title": "调查人",
+          "relatedField": "S_PERSON"
+        },
+        {
+          "title": "详细",
+          "relatedField": "xx_true"
+        }
       ]
       //生态环境调查 end
     };
@@ -434,6 +448,22 @@ module.exports = myApp =>
         $scope.data.searchParamData.GRASS_BG_TYPE = grassBType.TYPE_NAME;
       }
     });
+
+    //墒情情况逻辑
+    $scope.$watch('data.dataParam.S_SOIL_WT', value => {
+      console.log(value);
+      if(['好','中','差'].indexOf(value) != -1) {
+        $scope.tmp.S_SOIL_WT = '';
+      } else {
+        $scope.tmp.S_SOIL_WT = 'else';
+      }
+    });
+    $scope.$watch('tmp.S_SOIL_WT', value => {
+      if($scope.data.dataParam && value == 'else' && ['好','中','差'].indexOf($scope.data.dataParam.S_SOIL_WT) != -1) {
+        $scope.data.dataParam.S_SOIL_WT = '';
+      }
+    });
+
     $scope.data.dataList = [];
     var services = {};
     services['2'] = 'queryFpjByCondition';
@@ -447,6 +477,9 @@ module.exports = myApp =>
     services['11'] = 'QuerySupfeedCouByCondition';
     services['12'] = 'QuerySupfeedPerByCondition';
     services['13'] = 'QueryEnvsurvByCondition';
+
+    services['14'] = 'QueryEnvsurvByCondition'; //todo
+
     $scope.onSearchDataClick = notNewSearch => {
       if (!notNewSearch) {
         $scope.data.pageNo = 1;
