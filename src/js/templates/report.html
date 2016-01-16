@@ -1,10 +1,10 @@
 <div class="content-wrapper" style="overflow: hidden;">
   <section class="content-header">
     <h1> 数据上报
-      <small class="margin-r-10">还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报任务</small>
+      <small class="margin-r-10">还有 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条未上报数据包</small>
       <!--
       <small>
-        <i class="fa fa-filter"></i> 筛选任务：
+        <i class="fa fa-filter"></i> 筛选数据包：
         <div class="btn-group btn-group-xs" role="group">
           <button type="button" class="btn {{state.currentTaskFilterType == undefined ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType()">所有类型</button>
           <button type="button" class="btn {{state.currentTaskFilterType == '101' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
@@ -18,13 +18,13 @@
       -->
 
       <small>
-        <i class="fa fa-plus"></i> 创建任务：
-        <button type="button" class="btn btn-default default" ng-click="createTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
-        <button type="button" class="btn btn-default default" ng-click="createTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</button>
-        <button type="button" class="btn btn-default default" ng-click="createTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</button>
-        <button type="button" class="btn btn-default default" ng-click="createTaskByType('104')">{{CONST.MISSION_TYPE['104'] | shortTaskType}}</button>
-        <button type="button" class="btn btn-default default" ng-click="createTaskByType('105')">{{CONST.MISSION_TYPE['105'] | shortTaskType}}</button>
-        <button type="button" class="btn btn-default default" ng-click="createTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</button>
+        创建数据包：
+        <button type="button" class="{{CONST.MISSION_TYPE_BTN_CLASS['101']}}" ng-click="createTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
+        <button type="button" class="{{CONST.MISSION_TYPE_BTN_CLASS['102']}}" ng-click="createTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</button>
+        <button type="button" class="{{CONST.MISSION_TYPE_BTN_CLASS['103']}}" ng-click="createTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</button>
+        <button type="button" class="{{CONST.MISSION_TYPE_BTN_CLASS['104']}}" ng-click="createTaskByType('104')">{{CONST.MISSION_TYPE['104'] | shortTaskType}}</button>
+        <button type="button" class="{{CONST.MISSION_TYPE_BTN_CLASS['105']}}" ng-click="createTaskByType('105')">{{CONST.MISSION_TYPE['105'] | shortTaskType}}</button>
+        <button type="button" class="{{CONST.MISSION_TYPE_BTN_CLASS['106']}}" ng-click="createTaskByType('106')">{{CONST.MISSION_TYPE['106'] | shortTaskType}}</button>
       </small>
 
     </h1>
@@ -40,12 +40,12 @@
       <li>
         {{
         state.workState === STATES.CREATE_DATA ? "添加数据":
-        (state.workState === STATES.CREATE_TASK ? "创建任务":
+        (state.workState === STATES.CREATE_TASK ? "创建数据包":
         (state.workState === STATES.VIEW_DATA_LIST  ? "数据列表":
         (state.workState === STATES.VIEW_DATA  ? "查看数据":
         (state.workState === STATES.EDIT_DATA  ? "编辑数据":
         (state.workState === STATES.CREATE_DATA  ? "添加数据":
-        "未上报任务")))))
+        "未上报数据包")))))
         }}
       </li>
     </ol>
@@ -59,7 +59,7 @@
       >
         <div class="box box-success" box-auto-scroll>
           <div class="box-header">
-            <h3 class="box-title">任务列表</h3>
+            <h3 class="box-title">数据包列表</h3>
             <div class="box-tools pull-right">
               <!--
               <div class="btn-group" uib-dropdown>
@@ -68,11 +68,11 @@
                 </span>
                 <button type="button" class="btn btn-box-tool text-green"
                         uib-dropdown-toggle>
-                  {{state.currentTaskFilterType ? CONST.MISSION_TYPE[state.currentTaskFilterType] : '所有任务类型'}}
+                  {{state.currentTaskFilterType ? CONST.MISSION_TYPE[state.currentTaskFilterType] : '所有数据包类型'}}
                   <span class="caret"></span>
                 </button>
                 <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType(null)">所有任务类型</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType(null)">所有数据包类型</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101']}}</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102']}}</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103']}}</a></li>
@@ -82,17 +82,17 @@
                 </ul>
               </div>
               -->
-              <!-- 1.原数据上报模块去掉添加任务按钮和添加数据按钮
+              <!-- 1.原数据上报模块去掉添加数据包按钮和添加数据按钮
               <button class="btn btn-box-tool text-green" ng-click="onCreateTaskClick()"
                       ng-disabled="state.workState === STATES.CREATE_TASK"
               >
-                <i class="fa fa-plus-circle"></i> <span>创建任务</span>
+                <i class="fa fa-plus-circle"></i> <span>创建数据包</span>
               </button>
 
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
                         uib-dropdown-toggle>
-                  <i class="fa fa-plus-circle"></i> 创建任务 <span class="caret"></span>
+                  <i class="fa fa-plus-circle"></i> 创建数据包 <span class="caret"></span>
                 </button>
                 <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
                   <li role="menuitem"><a href="javascript:;" ng-click="createTaskByType('101')">{{CONST.MISSION_TYPE['101']}}</a></li>
@@ -110,25 +110,37 @@
             <table class="table table-condensed table-hover">
               <thead>
               <tr>
-                <th width="25%">任务名称</th>
-                <th width="30%">审核状态</th>
-                <!--<th width="25%">任务备注</th>-->
+                <th width="25%"
+                    class="list-sortable"
+                    ng-click="tmp.missionOrderBy='MISSION_NAME';tmp.missionOrderBySort=!tmp.missionOrderBySort">数据包名称
+                  <i ng-if="tmp.missionOrderBy=='MISSION_NAME'"
+                     ng-class="{'list-sortable-icon fa': true, 'fa-sort-asc':!tmp.missionOrderBySort, 'fa-sort-desc':tmp.missionOrderBySort}">
+                  </i>
+                </th>
+                <th width="30%"
+                    class="list-sortable"
+                    ng-click="tmp.missionOrderBy='MISSION_CHECK';tmp.missionOrderBySort=!tmp.missionOrderBySort">审核状态
+                  <i ng-if="tmp.missionOrderBy=='MISSION_CHECK'"
+                     ng-class="{'list-sortable-icon fa': true, 'fa-sort-asc':!tmp.missionOrderBySort, 'fa-sort-desc':tmp.missionOrderBySort}">
+                  </i>
+                </th>
+                <!--<th width="25%">数据包备注</th>-->
                 <th width="50">操作</th>
               </tr>
               </thead>
               <tbody>
-              <tr ng-if="!data.missions.length || !(data.missions | filterByMissionType:state.currentTaskFilterType).length">
+              <tr ng-if="!data.missions.length">
                 <td colspan="3" class="text-center text-muted">
-                  <br/>没有查询到任务<br/><br/>
+                  <br/>没有查询到数据包<br/><br/>
                 </td>
               </tr>
               <tr
                 ng-click="onShowDataListClick(item.MISSION_ID, item.MISSION_NAME)"
-                style="cursor: pointer"
-                ng-repeat="item in data.missions | filterByMissionType:state.currentTaskFilterType"
+                ng-style="{cursor: 'pointer', color: CONST.MISSION_TYPE_COLOR[item.__MISSION_TYPE]}"
+                ng-repeat="item in data.missions | orderBy: tmp.missionOrderBy: tmp.missionOrderBySort"
                 class="{{item.MISSION_ID === state.currentTask ? 'active' : ''}}"
               >
-                <td>{{item.MISSION_NAME}}</td>
+                <td>{{state.missionOrderBySort}}{{item.MISSION_NAME}}</td>
                 <td><span class="">{{item.MISSION_CHECK}}</span></td>
                 <!--<td><span class="word-keep-line"-->
                           <!--title="{{item.MISSION_NOTE}}">-->
@@ -138,7 +150,7 @@
                   <button
                     ng-click="onSubmitTaskClick(item.MISSION_ID, item.MISSION_NAME);$event.stopPropagation();"
                     class="btn btn-xs btn-link text-red"
-                    uib-tooltip="提交任务"
+                    uib-tooltip="提交数据包"
                     tooltip-append-to-body="true"
                   >
                     <i class="fa fa-paper-plane"></i>
@@ -157,26 +169,26 @@
         <div class="box box-success" box-auto-scroll>
           <div class="box-header">
             <h3 class="box-title">数据列表
-              <small ng-if="state.currentTask">任务名称：{{state.currentTaskName}} </small>
-              <small ng-if="!state.currentTask">请先在左侧选择一项任务</small>
+              <small ng-if="state.currentTask"
+                     class="word-keep-line"
+                     title={{state.currentTaskName}}
+                     style="width: {{state.workState === STATES.VIEW_DATA_LIST ? '200px' : '55px'}}; display: inline-block">{{state.currentTaskName}} </small>
+              <small ng-if="!state.currentTask">请先在左侧选择一项数据包</small>
             </h3>
             <div class="box-tools pull-right">
               <button class="btn btn-box-tool text-green"
                       ng-hide="state.workState === STATES.VIEW_DATA_LIST"
                       ng-click="onShowTaskClick()">
-                <i class="fa fa-reply"></i> 任务列表
+                <i class="fa fa-reply"></i> 返回列表
               </button>
-
-
               <span ng-if="state.currentTask && CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(state.currentTask | getMissionTypeById)].length">
-                <button type="button" class="btn btn-box-tool text-green"
+                <button type="button" class="btn btn-danger btn-xs margin-l-5"
                         ng-repeat="dataType in CONST.MISSION_TYPE_INCLUDE_DATA_TYPE[(state.currentTask | getMissionTypeById)]"
                         ng-click="onCreateDataClick(dataType);"
-                        uib-tooltip="添加{{CONST.DATA_TYPE[dataType]}}数据"
-                        tooltip-append-to-body="true"
                     >
-                  <i class="fa fa-plus-circle"></i>
-                  {{CONST.DATA_TYPE[dataType]}}
+                  <!--uib-tooltip="添加{{CONST.DATA_TYPE[dataType]}}数据"-->
+                  <!--tooltip-append-to-body="true"-->
+                  添加{{CONST.DATA_TYPE[dataType]}}
                 </button>
               </span>
 
@@ -196,7 +208,7 @@
                 <!--</ul>-->
               <!--</div>-->
 
-              <!-- 1.原数据上报模块去掉添加任务按钮和添加数据按钮
+              <!-- 1.原数据上报模块去掉添加数据包按钮和添加数据按钮
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
                         ng-disabled="!state.currentTask"
@@ -222,7 +234,13 @@
             <table class="table table-condensed table-hover">
               <thead>
               <tr>
-                <th width="120">数据名称</th>
+                <th width="120">数据名称
+                  <!--class="list-sortable"-->
+                  <!--ng-click="tmp.dataOrderBy='DATA_NAME';tmp.dataOrderBySort=!tmp.dataOrderBySort"-->
+                  <!--<i ng-if="tmp.dataOrderBy=='DATA_NAME'"-->
+                     <!--ng-class="{'list-sortable-icon fa': true, 'fa-sort-asc':!tmp.dataOrderBySort, 'fa-sort-desc':tmp.dataOrderBySort}">-->
+                  <!--</i>-->
+                </th>
                 <th width="25%">数据类型</th>
                 <th width="20%">审核状态</th>
                 <th>审核意见</th>
@@ -232,12 +250,12 @@
               <tbody>
               <tr ng-if="!data.dataList.length">
                 <td colspan="4" class="text-center text-muted">
-                  <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项任务 </span>
+                  <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项数据包 </span>
                   <br/><br/>
                 </td>
               </tr>
               <tr style="cursor: pointer;"
-                  ng-repeat="item in data.dataList"
+                  ng-repeat="item in data.dataList | orderBy: tmp.dataOrderBy: tmp.dataOrderBySort"
                   ng-class="{
                     'active': state.currentData===item.DATA_ID,
                     'tr-child': item._isChild,
@@ -262,7 +280,7 @@
       >
         <div class="box box-success">
           <div class="box-header with-border">
-            <h3 class="box-title">创建任务</h3>
+            <h3 class="box-title">创建数据包</h3>
             <div class="box-tools pull-right hidden" ng-click="createTaskFull()">
               <button class="btn btn-box-tool"><i class="fa fa-{{state.createTaskFull? 'compress':'expand'}}"></i> </button>
             </div>
@@ -284,7 +302,7 @@
                     </div>
                   </div>
                   <div class="clearfix pull-left margin-r-20">
-                    <label class="pull-left control-label">任务名称：</label>
+                    <label class="pull-left control-label">数据包名称：</label>
                     <div class="pull-left">
                       <input ng-model="data.taskParamData.MISSION_NAME" type="text" class="form-control" required/>
                     </div>
@@ -292,7 +310,7 @@
                 </div>
                 <div class="form-group-sm clearfix margin-t-10">
                   <div class="clearfix pull-left">
-                    <label class="pull-left control-label">任务备注：</label>
+                    <label class="pull-left control-label">数据包备注：</label>
                     <div class="pull-left">
                       <textarea ng-model="data.taskParamData.MISSION_NOTE" type="text" class="form-control" rows="3" style="width: 413px;">
                       </textarea>

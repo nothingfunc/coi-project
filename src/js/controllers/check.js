@@ -146,9 +146,9 @@ module.exports = myApp => {
         $rootScope.showTips({
           type: 'confirm',
           msg:
-          '任务名称：' + missionName +
-          '<br/>任务编号：' + missionId +
-          '<br/>确定提交该任务？'
+          '数据包名称：' + missionName +
+          '<br/>数据包编号：' + missionId +
+          '<br/>确定提交该数据包？'
         }).then(() => {
           apiService.checkMission(
             {MISSION_ID: missionId}
@@ -167,17 +167,17 @@ module.exports = myApp => {
         if(!submitMissionIds.length) {
           $rootScope.showTips({
             type: 'error',
-            msg: '请至少选择一条审核任务。'
+            msg: '请至少选择一条审核数据包。'
           });
         } else {
           var postData = {MISSION_IDS: submitMissionIds.join(',')};
           $rootScope.showTips({
             type: 'confirm',
-            msg: '确定要提交所勾选的 ' + submitMissionIds.length + ' 条审核任务？'
+            msg: '确定要提交所勾选的 ' + submitMissionIds.length + ' 条审核数据包？'
           }).then(function() {
             apiService.checkMissionOnce(postData).success(res => {
               if(res.success === CONST.API_SUCCESS) {
-                $rootScope.showTips({msg: '提交审核任务成功'});
+                $rootScope.showTips({msg: '提交审核数据包成功'});
                 refreshMissions();
               }
             });
@@ -407,7 +407,7 @@ module.exports = myApp => {
         if(allChecked) {
           $rootScope.showTips({
             type: 'confirm',
-            msg: '该任务的所有数据都已完成审核，是否提交该任务？'
+            msg: '该数据包的所有数据都已完成审核，是否提交该数据包？'
           }).then(() => {
             apiService.checkMission(
               {MISSION_ID: $scope.state.currentTask}

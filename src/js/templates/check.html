@@ -1,9 +1,9 @@
 <div class="content-wrapper" style="overflow: hidden;">
   <section class="content-header">
     <h1> 数据审核
-      <small class="margin-r-10">查询到 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条任务</small>
+      <small class="margin-r-10">查询到 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条数据包</small>
       <small>
-        <i class="fa fa-filter"></i> 筛选任务：
+        <i class="fa fa-filter"></i> 筛选数据包：
         <div class="btn-group btn-group-xs" role="group">
           <button type="button" class="btn {{tmp.filter.MISSION_TYPE == undefined ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType()">所有类型</button>
           <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '101' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
@@ -35,10 +35,10 @@
       <li>
         {{
         state.workState === STATES.CREATE_DATA ? "添加数据":
-        (state.workState === STATES.CREATE_TASK ? "创建任务":
+        (state.workState === STATES.CREATE_TASK ? "创建数据包":
         (state.workState === STATES.VIEW_DATA_LIST  ? "数据列表":
         (state.workState === STATES.VIEW_DATA  ? "审核数据":
-        "未提交的审核任务")))
+        "未提交的审核数据包")))
         }}
       </li>
     </ol>
@@ -49,7 +49,7 @@
            ng-hide="state.workState === STATES.VIEW_DATA">
         <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-55">
           <div class="box-header">
-            <h3 class="box-title">待审核任务列表</h3>
+            <h3 class="box-title">待审核数据包列表</h3>
             <div class="box-tools pull-right">
               <!--
               <span class="btn btn-box-tool" style="cursor: default;margin-right: -10px;color: #777">
@@ -58,11 +58,11 @@
               <div class="btn-group" uib-dropdown>
                 <button type="button" class="btn btn-box-tool text-green"
                         uib-dropdown-toggle>
-                  {{tmp.filter.MISSION_TYPE ? CONST.MISSION_TYPE[tmp.filter.MISSION_TYPE] : '所有任务类型'}}
+                  {{tmp.filter.MISSION_TYPE ? CONST.MISSION_TYPE[tmp.filter.MISSION_TYPE] : '所有数据包类型'}}
                   <span class="caret"></span>
                 </button>
                 <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType()">所有任务类型</a></li>
+                  <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType()">所有数据包类型</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('102')">{{CONST.MISSION_TYPE['102'] | shortTaskType}}</a></li>
                   <li role="menuitem"><a href="javascript:;" ng-click="filterTaskByType('103')">{{CONST.MISSION_TYPE['103'] | shortTaskType}}</a></li>
@@ -88,7 +88,7 @@
                       ng-hide="isCityUser()"
                       ng-click="onSubmitOnceClick()"
               >
-                <i class="fa fa-send"></i> <span>批量提交任务</span>
+                <i class="fa fa-send"></i> <span>批量提交数据包</span>
               </button>
             </div>
           </div>
@@ -99,9 +99,21 @@
                   <th width="40" class="text-center" ng-hide="isCityUser()">
                     <input type="checkbox" icheck ng-model="tmp.selectAll" ng-change="onSelectAllChanged(tmp.selectAll)" />
                   </th>
-                  <th width="25%">任务名称</th>
-                  <th width="30%">审核状态</th>
-                  <!--<th width="25%">任务备注</th>-->
+                  <th width="25%"
+                      class="list-sortable"
+                      ng-click="tmp.missionOrderBy='MISSION_NAME';tmp.missionOrderBySort=!tmp.missionOrderBySort">数据包名称
+                    <i ng-if="tmp.missionOrderBy=='MISSION_NAME'"
+                       ng-class="{'list-sortable-icon fa': true, 'fa-sort-asc':!tmp.missionOrderBySort, 'fa-sort-desc':tmp.missionOrderBySort}">
+                    </i>
+                  </th>
+                  <th width="30%"
+                      class="list-sortable"
+                      ng-click="tmp.missionOrderBy='MISSION_CHECK';tmp.missionOrderBySort=!tmp.missionOrderBySort">审核状态
+                    <i ng-if="tmp.missionOrderBy=='MISSION_CHECK'"
+                       ng-class="{'list-sortable-icon fa': true, 'fa-sort-asc':!tmp.missionOrderBySort, 'fa-sort-desc':tmp.missionOrderBySort}">
+                    </i>
+                  </th>
+                  <!--<th width="25%">数据包备注</th>-->
                   <th width="50">操作</th>
                 </tr>
               </thead>
@@ -114,7 +126,7 @@
                 <tr
                   ng-click="onShowDataListClick(item.MISSION_ID, item.MISSION_NAME)"
                   style="cursor: pointer"
-                  ng-repeat="item in data.missions"
+                  ng-repeat="item in data.missions | orderBy: tmp.missionOrderBy: tmp.missionOrderBySort"
                   class="{{item.MISSION_ID === state.currentTask ? 'active' : ''}}"
                 >
                   <td class="text-center" ng-hide="isCityUser()">
@@ -130,7 +142,7 @@
                     <button
                       ng-click="onSubmitTaskClick(item.MISSION_ID, item.MISSION_NAME);$event.stopPropagation();"
                       class="btn btn-xs btn-link text-red"
-                      uib-tooltip="提交任务"
+                      uib-tooltip="提交数据包"
                       tooltip-append-to-body="true">
                       <i class="fa fa-paper-plane"></i>
                     </button>
@@ -155,14 +167,14 @@
         <div class="box box-success" box-auto-scroll>
           <div class="box-header">
             <h3 class="box-title">数据列表
-              <small ng-if="state.currentTask">任务名称：{{state.currentTaskName}} </small>
-              <small ng-if="!state.currentTask">请先在左侧选择一项任务</small>
+              <small ng-if="state.currentTask">数据包名称：{{state.currentTaskName}} </small>
+              <small ng-if="!state.currentTask">请先在左侧选择一项数据包</small>
             </h3>
             <div class="box-tools pull-right">
               <button class="btn btn-box-tool text-green"
                       ng-hide="state.workState === STATES.VIEW_DATA_LIST"
                       ng-click="onShowTaskClick()">
-                <i class="fa fa-reply"></i> 任务列表
+                <i class="fa fa-reply"></i> 数据包列表
               </button>
             </div>
           </div>
@@ -180,7 +192,7 @@
               <tbody>
                 <tr ng-if="!data.dataList.length">
                   <td colspan="4" class="text-center text-muted">
-                    <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项任务 </span>
+                    <br/>没有数据<span ng-if="!state.currentTask">，请先在左侧选择一项数据包 </span>
                     <br/><br/>
                   </td>
                 </tr>

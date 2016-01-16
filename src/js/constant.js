@@ -69,6 +69,26 @@ const CONSTANT = {
   },
   YEARS: years,
 
+  //数据包颜色区分
+  MISSION_TYPE_BTN_CLASS: {
+    '101': 'btn btn-xs btn-info',
+    '102': 'btn btn-xs btn-success',
+    '103': 'btn btn-xs btn-tumblr',
+    '104': 'btn btn-xs btn-warning',
+    '105': 'btn btn-xs btn-flickr',
+    '106': 'btn btn-xs btn-danger'
+  },
+
+  //数据包颜色区分
+  MISSION_TYPE_COLOR: {
+    '101': '#00c0ef',
+    '102': '#008d4c',
+    '103': '#01376d',
+    '104': '#e08e0b',
+    '105': '#ff0084',
+    '106': '#d73925'
+  },
+
   MISSION_TYPE: {
     '101': '报送盛期地面调查数据',
     '102': '报送物候调查数据',

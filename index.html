@@ -41,15 +41,13 @@
                     <small>{{$parent.data.role.roleName}}</small>
                   </p>
                 </li>
-                <li class="user-footer">
-                  <div class="pull-left">
-                    <a href="javascript:;" ng-click="onModifyPassword()"  class="btn btn-default btn-flat">修改密码</a>
-                  </div>
-                  <div class="pull-right">
-                    <a href="javascript:;" ng-click="onLogoutClick()" class="btn btn-default btn-flat">退出登录</a>
-                  </div>
-                </li>
               </ul>
+            </li>
+            <li>
+              <a href="javascript:;" ng-click="onModifyPassword()"><i class="fa fa-password"></i>修改密码</a>
+            </li>
+            <li>
+              <a href="javascript:;" ng-click="onLogoutClick()">退出登录</a>
             </li>
             <!--<li>-->
               <!--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>-->

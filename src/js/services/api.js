@@ -49,7 +49,7 @@ module.exports = myApp =>
       services.login = makeService({method: 'POST', url: '/util/Login.action'});
       services.getSessionInfo = makeService({method: 'POST', url: '/util/GetSessionInfo.action'});
 
-      //任务------
+      //数据包------
       services.getAllUnSubMission = makeService({method: 'POST', url: '/mission/GetAllUnSubMission.action'});
       services.getAllUnCheMission = makeService({method: 'POST', url: '/mission/GetAllUnCheMission.action'});
       services.createNewMission = makeService({method: 'POST', url: '/mission/CreateNewMission.action'});

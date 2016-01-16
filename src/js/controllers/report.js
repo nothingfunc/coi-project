@@ -38,6 +38,9 @@ module.exports = myApp => {
         var deferred = $q.defer();
         apiService.getAllUnSubMission().success(data => {
           if(data.success === CONST.API_SUCCESS) {
+            data.rows.map(row => {
+              row.__MISSION_TYPE = '1' + row.MISSION_ID.slice(2, 4);
+            });
             $scope.data.missions = data.rows;
           } else {
             $scope.data.missions = [];
@@ -152,9 +155,9 @@ module.exports = myApp => {
         $rootScope.showTips({
           type: 'confirm',
           msg:
-          '任务名称：' + missionName +
-          '<br/>任务编号：' + missionId +
-          '<br/>确定提交该任务？'
+          '数据包名称：' + missionName +
+          '<br/>数据包编号：' + missionId +
+          '<br/>确定提交该数据包？'
         }).then(() => {
           apiService.submitMission({MISSION_ID: missionId}).success(res => {
             if(res.success === CONST.API_SUCCESS) {
@@ -216,13 +219,24 @@ module.exports = myApp => {
         //if(type == '102' || type == '103') {
         //  $rootScope.showTips({
         //    type: 'error',
-        //    msg: '维护中，暂时不能创建该类型任务。'
+        //    msg: '维护中，暂时不能创建该类型数据包。'
         //  });
         //  return;
         //}
+
+        var index = $scope.data.missions.find(mission => {
+          return mission.__MISSION_TYPE == type;
+        });
+        if(index !== undefined) {
+          $rootScope.showTips({
+            type: 'error',
+            msg: '您的数据包列表中已存在该类型，无法重复创建相同类型的数据包，请先完成并提交。'
+          });
+          return;
+        }
         $rootScope.showTips({
           type: 'confirm',
-          msg: '确定创建 <strong>' + CONST.MISSION_TYPE[type] + '</strong> 任务？'
+          msg: '确定创建 <strong>' + CONST.MISSION_TYPE[type] + '</strong> 数据包？'
         }).then(function() {
           apiService.createNewMission({MISSION_TYPE: type}).success(data => {
             if(data.success = CONST.API_SUCCESS) {

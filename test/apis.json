@@ -17,7 +17,7 @@
         "success": "1",
         "username": "36080201",
         "userRealName": "吉州区系统管理员",
-        "userRole": "5",
+        "userRole": "3",
         "userdept": [
           {
             "deptCode": "34292101",
@@ -95,12 +95,12 @@
         "success": "1",
         "msg": "Not logined",
         "rows|0-20": [{
-          "MISSION_ID": "MS0@integer(3, 3)--@integer(10000,99999)",
+          "MISSION_ID": "MS0@integer(1, 6)--@integer(10000,99999)",
           "MISSION_CODE": "@integer(10000,99999)",
-          "MISSION_CHECK": "审核驳回，请重新编辑",
+          "MISSION_CHECK": "审核驳回，@word(5,5)",
           "MISSION_CHEMSG": "@word(4,300)",
           "MISSION_NOTE": "@word(4,40)",
-          "MISSION_NAME": "@word(4)"
+          "MISSION_NAME": "@word(4,100)"
         }]
       }
     },
