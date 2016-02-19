@@ -49,6 +49,9 @@ module.exports = myApp => {
 
     $templateCache.put("none.html", __inline('./none.html'));
     $templateCache.put("modify-password.html", __inline('./modify-password.html'));
+    $templateCache.put("modify-sub-user-password.html", __inline('./modify-sub-user-password.html'));
+
+    $templateCache.put("sub-user-list.html", __inline('./sub-user-list.html'));
 
   }]);
 };

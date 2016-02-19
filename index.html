@@ -43,6 +43,9 @@
                 </li>
               </ul>
             </li>
+            <li ng-if="$parent.data.user.userRole != '5' && $parent.data.user.userRole != '0'">
+              <a href="javascript:;" ng-click="onModifyJuniorPassword()"><i class="fa fa-password"></i>修改下级密码</a>
+            </li>
             <li>
               <a href="javascript:;" ng-click="onModifyPassword()"><i class="fa fa-password"></i>修改密码</a>
             </li>

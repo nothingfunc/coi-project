@@ -31,11 +31,35 @@
       }
     },
     {
+      "url": "/util/GetSubUsers.action",
+      "desc": "获取下级用户列表",
+      "mock": true,
+      "res": {
+        "success": "1",
+        "data|0-50": [
+          {
+            "USERNAME": "@first()",
+            "USERCAPTION": "@last()",
+            "USERDEPTNAME": "@region()"
+          }
+        ]
+      }
+    },
+    {
       "url": "/util/ChangePwd.action",
       "desc": "修改密码",
       "mock": true,
       "res": {
         "success": "0",
+        "ErrMsg": "XX"
+      }
+    },
+    {
+      "url": "/util/ChangePwdByUser.action",
+      "desc": "修改密码（下级用户）",
+      "mock": true,
+      "res": {
+        "success": "1",
         "ErrMsg": "XX"
       }
     },

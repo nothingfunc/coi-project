@@ -115,7 +115,10 @@ module.exports = myApp =>
       services.getGrassBType = makeService({method: 'POST', url: '/util/GetGrassBType.action'});
       services.getGrassSType = makeService({method: 'POST', url: '/util/GetGrassSType.action'});
 
+      //获取下级用户列表
+      services.getSubUserList = makeService({method: 'POST', url: '/util/GetSubUsers.action'});
       services.changePwd = makeService({method: 'POST', url: '/util/ChangePwd.action'});
+      services.changePwdByUser = makeService({method: 'POST', url: '/util/ChangePwdByUser.action'});
 
 
       return services;

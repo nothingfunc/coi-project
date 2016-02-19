@@ -163,6 +163,57 @@ module.exports = myApp =>
       });
     };
 
+    //修改下级用户密码
+    $scope.onModifyJuniorPassword = () => {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'sub-user-list.html',
+        size: 'lg',
+        controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
+          $scope.data = {
+            userList: []
+          };
+          var getSubUsers = () => {
+            apiService.getSubUserList().success(res => {
+              if(res.success == 1) {
+                $scope.data.userList = res.data;
+              }
+            });
+          };
+
+          getSubUsers();
+          $scope.changePassword = function(subUser) {
+            var modalInstance = $uibModal.open({
+              templateUrl: 'modify-sub-user-password.html',
+              controller: ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
+                $scope.data = {
+                  user: subUser
+                }
+                $scope.paramData = { USER_NAME: subUser.USERNAME };
+                $scope.isValid = () => {
+                  return $scope.paramData.NEW_PWD === $scope.paramData.NEW_PWD2;
+                }
+                $scope.onChangePassword = function() {
+                  apiService.changePwdByUser($scope.paramData).success(res => {
+                    if(res.success == 1) {
+                      $rootScope.showMes('修改密码成功');
+                      $scope.cancel();
+                    }
+                  });
+                };
+                $scope.cancel = function () {
+                  $uibModalInstance.dismiss('cancel');
+                };
+              }]
+            });
+          }
+
+          $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+          };
+        }]
+      });
+    }
+
     //路由改变时修改activeNav
     $scope.$on("$stateChangeStart", function(event, toState, toStateParam, fromState) {
       $scope.state.activeNav = toState.name;

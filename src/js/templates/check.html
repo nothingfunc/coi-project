@@ -3,7 +3,7 @@
     <h1> 数据审核
       <small class="margin-r-10">查询到 <a class="text-danger" href="javascript:;" ng-click="onShowTaskClick()"><strong>{{data.missions.length}}</strong></a> 条数据包</small>
       <small>
-        <i class="fa fa-filter"></i> 筛选数据包：
+        筛选数据包：
         <div class="btn-group btn-group-xs" role="group">
           <button type="button" class="btn {{tmp.filter.MISSION_TYPE == undefined ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType()">所有类型</button>
           <button type="button" class="btn {{tmp.filter.MISSION_TYPE == '101' ? 'btn-success' : 'btn-default'}}" ng-click="filterTaskByType('101')">{{CONST.MISSION_TYPE['101'] | shortTaskType}}</button>
@@ -174,7 +174,7 @@
               <button class="btn btn-box-tool text-green"
                       ng-hide="state.workState === STATES.VIEW_DATA_LIST"
                       ng-click="onShowTaskClick()">
-                <i class="fa fa-reply"></i> 数据包列表
+                <i class="fa fa-reply"></i> 返回列表
               </button>
             </div>
           </div>
