@@ -475,6 +475,19 @@ module.exports = myApp => {
             return true;
           }
         }
+        var checkRangeInt = (keyName, min, max, errorMsg) => {
+          var value = parseInt($scope.data.dataParam[keyName]);
+          if(isNaN(value) || value < min || value > max) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: errorMsg
+            });
+            return false;
+          } else {
+            $scope.data.dataParam[keyName] = value;
+            return true;
+          }
+        }
         switch(parseInt(type)) {
           case 2:
             return checkSurveyTime() &&
@@ -511,6 +524,15 @@ module.exports = myApp => {
             return checkProject() && checkSurveyTime();
           case 4:
           case 5:
+            return checkRange('ELEVATION', 0, 8000, '海拔范围应为0-8000') &&
+                checkRange('QUADRAT_AREA', 0, Infinity, '样地面积应大于0') &&
+                checkRange('COV_VEGETATION', 0, 100, '植被盖度范围应为0-100') &&
+                checkRange('AVG_GRASSHEIGHT', 0, Infinity, '草群平均高度应大于0') &&
+                checkRange('NUM_TYPE_PLANT', 0, 50, '植物种数范围应为0-50') &&
+                checkRange('FWEIGHT_TOTALGRASS', 0, Infinity, '产草量应大于0') &&
+                checkRange('DWEIGHT_TOTALGRASS', 0, Infinity, '产草量应大于0') &&
+                checkRange('FWEIGHT_EATGRASS', 0, Infinity, '产草量应大于0') &&
+                checkRange('DWEIGHT_EATGRASS', 0, Infinity, '产草量应大于0')
           case 6:
           case 7:
             return checkSurveyTime();

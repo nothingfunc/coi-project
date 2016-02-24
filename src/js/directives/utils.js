@@ -119,6 +119,7 @@ module.exports = myApp => {
       require: 'ngModel',
       link: function (scope, elem, attrs, ngModel) {
         ngModel.$parsers.push(function (value) {
+          attrs['toNumber'] == 'int' && (value = parseInt(value));
           var number = parseFloat(value || '') || '';
           setTimeout(function() { elem.val(number) }, 50);
           return number;
