@@ -400,6 +400,7 @@ module.exports = myApp => {
         $scope.showCurrentData();
       };
 
+      //校验
       $scope.validateData = (type = $scope.state.currentDataType) => {
         var checkSurveyTime = (keyName = 'SURVEY_TIME') => {
           if(!$scope.data.dataParam[keyName]) {
@@ -461,8 +462,46 @@ module.exports = myApp => {
           }
           return true;
         }
+        var checkRange = (keyName, min, max, errorMsg) => {
+          var value = parseFloat($scope.data.dataParam[keyName]);
+          if(isNaN(value) || value < min || value > max) {
+            $rootScope.showTips({
+              type: 'error',
+              msg: errorMsg
+            });
+            return false;
+          } else {
+            $scope.data.dataParam[keyName] = value;
+            return true;
+          }
+        }
         switch(parseInt(type)) {
           case 2:
+            return checkSurveyTime() &&
+                checkRequire('SURVEY_PERSON', '调查人不能为空') &&
+                checkRequire('SAMPLE_PLOT_NAME', '样地编号不能为空') &&
+                checkRegion() &&
+                checkRequire('TOWN_NAME', '乡镇不能为空') &&
+                checkRequire('HAS_BUSH', '具有灌木和高大草木不能为空') &&
+                checkRequire('GRASS_BG_TYPE', '草地类不能为空') &&
+                checkRequire('GRASS_SM_TYPE', '草地型不能为空') &&
+                checkRequire('GEOMORPHOLOGY', '地形地貌不能为空') &&
+                checkRequire('SOIL_TEXTURE', '土壤质地不能为空') &&
+                checkRequire('EXPOSURE', '坡向不能为空') &&
+                checkRequire('SLOPE', '坡位不能为空') &&
+                checkRequire('HAS_LITTER', '枯落物情况不能为空') &&
+                checkRequire('HAS_SAND', '覆沙情况不能为空') &&
+                checkRequire('HAS_EROSION', '地表侵蚀不能为空') &&
+                checkRequire('CAUSES_EROSION', '侵蚀原因不能为空') &&
+                checkRequire('HAS_SALTALKALI', '盐碱斑不能为空') &&
+                checkRequire('RATIO_BARELAND_AREA', '裸地面积比例不能为空') &&
+                checkRange('RATIO_BARELAND_AREA', 0, 100, '裸地面积比例范围在0~100') &&
+                checkRequire('HAS_SEASONALWATER', '地表有无季节性积水不能为空') &&
+                checkRequire('AVE_ANNUALRAINFALL', '年平均降水量不能为空') &&
+                checkRange('AVE_ANNUALRAINFALL', 0, Infinity, '年平均降水量应大于0') &&
+                checkRequire('USE_PATTERN', '利用方式不能为空') &&
+                checkRequire('USE_SITUATION', '利用状况不能为空') &&
+                checkRequire('ASSESSMENT', '综合评价不能为空');
           case 9:
           case 11:
           case 12:

@@ -3,7 +3,7 @@
     text-align: left;
   }
   .data-2 .data-2-dbtz .control-label{
-    width: 85px;
+    width: 100px;
   }
 </style>
 <div class="box box-success data-2" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
@@ -23,6 +23,7 @@
   <div class="box-body no-padding">
     <form class="form-horizontal" novalidate>
       <div class="box-body scroll-content">
+        <h3 class="form-title">样地基本特征调查信息</h3>
         <h4 class="with-border"><span>基本信息</span></h4>
         <div class="form-group-sm clearfix">
           <div class="clearfix pull-left margin-r-20">
@@ -91,7 +92,7 @@
               </div>
 
             </div>
-            <div class="form-group-sm clearfix margin-t-10">
+            <div class="form-group-sm clearfix margin-t-10 hidden">
               <label class="pull-left control-label">退牧还草工程建成时间：</label>
               <div class="pull-left">
                 <div class="input-group w-130">
@@ -317,12 +318,13 @@
           </div>
           <div class="clearfix pull-left">
             <label class="pull-left control-label">裸地面积比例：</label>
-            <div class="pull-left w-130">
+            <div class="pull-left w-130 margin-r-5">
               <input ng-disabled="state.workState === STATES.VIEW_DATA"
                      type="text" class="form-control"
                      ng-model="data.dataParam.RATIO_BARELAND_AREA"
               />
             </div>
+            <span class="pull-left control-label">%</span>
           </div>
 
         </div>
@@ -330,7 +332,7 @@
         <h4 class="with-border"><span>水分条件</span> </h4>
         <div class="form-group-sm clearfix margin-t-10">
           <div class="clearfix pull-left">
-            <label class="pull-left control-label">体表有无季节性缺水：</label>
+            <label class="pull-left control-label">地表有无季节性积水：</label>
             <div class="pull-left margin-r-20 radio">
               <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
                 <input

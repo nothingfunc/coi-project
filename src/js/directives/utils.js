@@ -127,6 +127,33 @@ module.exports = myApp => {
     };
   });
 
+  //数字范围限制（float）
+  //myApp.directive('toRangeFloat', function () {
+  //  return {
+  //    require: 'ngModel',
+  //    link: function (scope, elem, attrs, ngModel) {
+  //      console.log(attrs);
+  //      var range = attrs['toRangeFloat'].split(',');
+  //
+  //      ngModel.$parsers.push(function (value) {
+  //        console.log(value);
+  //        var number = parseFloat(value || '') || '';
+  //        if(range[0] !== undefined) {
+  //          var start = parseFloat(range[0]);
+  //          number = number < start ? start : number;
+  //        }
+  //        if(range[1] !== undefined) {
+  //          var end = parseFloat(range[1]);
+  //          number = number > end ? end : number;
+  //        }
+  //        setTimeout(function() { elem.val(number) }, 50);
+  //
+  //        return number;
+  //      });
+  //    }
+  //  };
+  //});
+
   ////生成radio组
   //myApp.directive('radioGroup', ['$timeout', ($timeout) => {
   //  return {
