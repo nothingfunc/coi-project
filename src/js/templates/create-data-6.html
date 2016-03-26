@@ -1,9 +1,9 @@
 <div class="box box-success" box-auto-scroll box-auto-child=".scroll-content" box-auto-offset="-56">
   <div class="box-header with-border">
     <h3 class="box-title">
-      {{state.workState === STATES.EDIT_DATA ? '编辑工程灌木样方' : ''}}
-      {{state.workState === STATES.CREATE_DATA ? '添加工程灌木样方' : ''}}
-      {{state.workState === STATES.VIEW_DATA ? '查看工程灌木样方' : ''}}
+      {{state.workState === STATES.EDIT_DATA ? '编辑工程草本样方' : ''}}
+      {{state.workState === STATES.CREATE_DATA ? '添加工程草本样方' : ''}}
+      {{state.workState === STATES.VIEW_DATA ? '查看工程草本样方' : ''}}
       <small ng-if="state.workState === STATES.EDIT_DATA || state.workState === STATES.VIEW_DATA">
         数据编号：{{state.currentData}}
       </small>
@@ -62,13 +62,13 @@
           <tbody>
             <tr>
               <td>
-                <label class="control-label">景观照片：</label>
+                <label class="control-label">俯视照：</label>
               </td>
               <td>
                 <div class="image-wrapper">
                   <span class="image-tooltip text-gray">
                     <i class="fa fa-file-image-o"></i><br/>
-                    <small>请选择工程区内景观照片文件</small>
+                    <small>请选择工程区内俯视照文件</small>
                     </span>
                         <a ng-click="$parent.showLightBox(tmp.file1.$ngfBlobUrl || tmp.file1.$ngfDataUrl || tmp._img1)" href="javascript:;">
                           <img uib-tooltip="点击查看原图"
@@ -81,7 +81,7 @@
                           accept="image/*" ngf-max-size="20MB"
                           ng-hide="state.workState === STATES.VIEW_DATA"
                     >
-                      选择工程区内景观照片文件
+                      选择工程区内俯视照文件
                   </span>
                 </div>
               </td>
@@ -89,7 +89,7 @@
                 <div class="image-wrapper">
                   <span class="image-tooltip text-gray">
                     <i class="fa fa-file-image-o"></i><br/>
-                    <small>请选择工程区外景观照片文件</small>
+                    <small>请选择工程区俯视照文件</small>
                   </span>
                       <a ng-click="$parent.showLightBox(tmp.file2.$ngfBlobUrl || tmp.file2.$ngfDataUrl || tmp._img2)" href="javascript:;">
                         <img uib-tooltip="点击查看原图"
@@ -102,7 +102,7 @@
                         accept="image/*" ngf-max-size="20MB"
                         ng-hide="state.workState === STATES.VIEW_DATA"
                   >
-                    选择工程区外景观照片文件
+                    选择工程区外俯视照文件
                   </span>
                 </div>
               </td>
@@ -143,7 +143,7 @@
             </tr>
             <tr>
               <td>
-                <label class="control-label">海拔：</label>
+                <label class="control-label">海拔(米)：</label>
               </td>
               <td>
                 <input ng-disabled="state.workState === STATES.VIEW_DATA"
@@ -193,7 +193,7 @@
 
             <tr>
               <td>
-                <label class="control-label">总覆盖面积：</label>
+                <label class="control-label">总覆盖面积(m<sup>2</sup>)：</label>
               </td>
               <td>
                 <input ng-disabled="state.workState === STATES.VIEW_DATA"
@@ -214,18 +214,30 @@
                 <label class="control-label">枯落物情况：</label>
               </td>
               <td>
-                <input to-number
-                       ng-disabled="state.workState === STATES.VIEW_DATA"
-                       type="text"
-                       class="form-control w-145"
-                       ng-model="data.dataParam.I_WEIGHT_LITTER"/>
+                <div class="radio">
+                  <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                    <input
+                        icheck type="radio" name="i-klwqk"
+                        ng-disabled="state.workState === STATES.VIEW_DATA"
+                        ng-model="data.dataParam.I_WEIGHT_LITTER"
+                        value="{{opt.value}}"
+                        />
+                    <span>{{opt.name}}</span>
+                  </label>
+                </div>
               </td>
               <td>
-                <input to-number
-                       ng-disabled="state.workState === STATES.VIEW_DATA"
-                       type="text"
-                       class="form-control w-145"
-                       ng-model="data.dataParam.O_WEIGHT_LITTER"/>
+                <div class="radio">
+                  <label ng-repeat="opt in CONST.OPT_HAS" class="margin-r-5">
+                    <input
+                        icheck type="radio" name="o-klwqk"
+                        ng-disabled="state.workState === STATES.VIEW_DATA"
+                        ng-model="data.dataParam.O_WEIGHT_LITTER"
+                        value="{{opt.value}}"
+                        />
+                    <span>{{opt.name}}</span>
+                  </label>
+                </div>
               </td>
             </tr>
 

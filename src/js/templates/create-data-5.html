@@ -20,7 +20,7 @@
   <div class="box-body no-padding">
     <form class="form-horizontal" novalidate>
       <div class="box-body scroll-content">
-        <h3 class="form-title">灌木及高大草本植物草原样方信息-样方编号</h3>
+        <h3 class="form-title">灌木及高大草本植物草原样方信息{{data.dataParam.QUADRAT_NAME ? '-' + data.dataParam.QUADRAT_NAME : ''}}</h3>
         <h4 class="with-border"><span>基本信息</span></h4>
         <div class="form-group-sm clearfix">
           <div class="clearfix pull-left margin-r-20">
@@ -88,7 +88,7 @@
 
             <div class="form-group-sm clearfix margin-t-10">
               <div class="clearfix pull-left margin-r-20">
-                <label class="pull-left control-label">海拔：</label>
+                <label class="pull-left control-label">海拔(米)：</label>
                 <div class="pull-left w-130">
                   <input ng-disabled="state.workState === STATES.VIEW_DATA"
                          type="text" class="form-control"
@@ -108,7 +108,7 @@
             <div class="image-wrapper">
               <span class="image-tooltip text-gray">
                 <i class="fa fa-file-image-o"></i><br/>
-                <small>请选择景观照片文件</small>
+                <small>请选择俯视照文件</small>
               </span>
               <a ng-click="$parent.showLightBox(tmp.file.$ngfBlobUrl || tmp.file.$ngfDataUrl || tmp._img)" href="javascript:;">
                 <img uib-tooltip="点击查看原图"
@@ -121,7 +121,7 @@
                     accept="image/*" ngf-max-size="20MB"
                     ng-hide="state.workState === STATES.VIEW_DATA"
               >
-                选择文件
+                选择俯视照文件
               </span>
               </i>
             </div>
@@ -154,7 +154,7 @@
           </div>
 
           <div class="clearfix pull-left margin-r-20">
-            <label class="pull-left control-label">总覆盖面积：</label>
+            <label class="pull-left control-label">总覆盖面积(m<sup>2</sup>)：</label>
             <div class="pull-left w-130">
               <input ng-disabled="state.workState === STATES.VIEW_DATA" type="text" class="form-control" ng-model="data.dataParam.SUM_BUSHAREA"/>
             </div>
